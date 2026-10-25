@@ -9,7 +9,7 @@
 //     exact URL the user visited (handles `/`, `/agripro/`, deep links, etc.).
 //   - Bump CACHE_VERSION whenever any shipped file changes.
 
-const CACHE_VERSION = 'agripro-v8';
+const CACHE_VERSION = 'agripro-v9';
 const CACHE_NAME    = `${CACHE_VERSION}-shell`;
 
 // Everything the app needs to start. All same-origin, relative paths.
@@ -23,6 +23,8 @@ const APP_SHELL = [
   './vendor/react-dom.production.min.js',
   './vendor/lucide-bridge.js',
   './vendor/lucide-react.min.js',
+  './vendor/qrcode-generator.js',
+  './og-image.jpg',
   './icon-192.png',
   './icon-512.png',
   './icon-512-maskable.png',

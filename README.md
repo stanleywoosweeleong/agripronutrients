@@ -12,6 +12,19 @@ Strings live in `TRANSLATIONS.{zh,en,ms}` (looked up with `t(key)`) and in inlin
 `{ zh, en, ms }` values (looked up with `tv(obj)`). A missing Malay string falls
 back to English, then Chinese.
 
+## Sharing
+
+The **Share** button in the top bar opens a share sheet with a QR code of the
+app's address, a **Share via WhatsApp** button (opens `wa.me` with a prefilled
+message), a message preview and **Copy link**. The link is taken from wherever
+the app is served, so it is always correct for the deployed host. The QR code is
+drawn offline by `vendor/qrcode-generator.js` (qrcode-generator 1.4.4, MIT).
+
+WhatsApp's link preview card comes from the Open Graph tags in `index.html` and
+`og-image.jpg` (1200×630). WhatsApp only shows the image if `og:image` is an
+absolute URL, so set it to the full deployed address (e.g.
+`https://example.com/agripro/og-image.jpg`).
+
 Your React source packaged as a true Progressive Web App. Installable, runs in standalone mode, **fully offline** after first visit, and zero dependency on any third-party CDN.
 
 ## What changed in v2 (bug fixes)
@@ -49,6 +62,8 @@ vendor/
   react-dom.production.min.js   ReactDOM 18.3.1
   lucide-bridge.js              react/React casing shim
   lucide-react.min.js           lucide-react 0.383.0
+  qrcode-generator.js           qrcode-generator 1.4.4 (share QR code)
+og-image.jpg                    WhatsApp / social link preview image
 ```
 
 **Source (keep for editing):**

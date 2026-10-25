@@ -49,7 +49,9 @@ const {
   FlaskConical,
   BarChart3,
   Languages,
-  Check
+  Check,
+  Share2,
+  Copy
 } = LucideReact;
 // === End prelude ===
 
@@ -108,6 +110,16 @@ class ErrorBoundary extends React.Component {
 
 const TRANSLATIONS = {
   zh: {
+    share: "分享",
+    share_title: "分享 AgriPro",
+    share_subtitle: "扫描二维码或发送链接，与农友分享本应用。",
+    share_scan: "用手机相机扫描即可打开",
+    share_whatsapp: "通过 WhatsApp 分享",
+    share_copy: "复制链接",
+    share_copied: "已复制！",
+    share_copy_failed: "无法复制，请长按链接手动复制。",
+    share_preview: "消息预览",
+    share_message: "🌱 AgriPro 农学笔记 — 作物营养诊断、土壤 pH、混配规则与智能施肥顾问。支持中文 / English / Bahasa Melayu，可离线使用。",
     app_title: "AgriPro 农学笔记",
     knowledge: "知识库",
     advisor: "智能顾问",
@@ -572,6 +584,16 @@ const TRANSLATIONS = {
     ph_breakdown_title: "吸收率详细分析"
   },
   en: {
+    share: "Share",
+    share_title: "Share AgriPro",
+    share_subtitle: "Scan the QR code or send the link to share this app with fellow growers.",
+    share_scan: "Scan with a phone camera to open",
+    share_whatsapp: "Share via WhatsApp",
+    share_copy: "Copy link",
+    share_copied: "Copied!",
+    share_copy_failed: "Could not copy. Long-press the link to copy it manually.",
+    share_preview: "Message preview",
+    share_message: "🌱 AgriPro Agronomy Notebook — nutrient diagnosis, soil pH, tank-mix rules and a smart fertilizer advisor. In 中文 / English / Bahasa Melayu, works offline.",
     app_title: "AgriPro Notebook",
     knowledge: "Knowledge",
     advisor: "Advisor",
@@ -1037,6 +1059,16 @@ const TRANSLATIONS = {
     ph_breakdown_title: "Detailed Availability Breakdown"
   },
   ms: {
+    share: "Kongsi",
+    share_title: "Kongsi AgriPro",
+    share_subtitle: "Imbas kod QR atau hantar pautan untuk berkongsi aplikasi ini dengan rakan petani.",
+    share_scan: "Imbas dengan kamera telefon untuk membuka",
+    share_whatsapp: "Kongsi melalui WhatsApp",
+    share_copy: "Salin pautan",
+    share_copied: "Disalin!",
+    share_copy_failed: "Tidak dapat menyalin. Tekan lama pada pautan untuk menyalin secara manual.",
+    share_preview: "Pratonton mesej",
+    share_message: "🌱 AgriPro Nota Agronomi — diagnosis nutrien, pH tanah, peraturan campuran tangki dan penasihat baja pintar. Dalam 中文 / English / Bahasa Melayu, boleh digunakan luar talian.",
     app_title: "AgriPro Nota Agronomi",
     knowledge: "Pengetahuan",
     advisor: "Penasihat",
@@ -4852,6 +4884,201 @@ const LanguagePicker = ({
     size: 18
   }))));
 };
+// ==========================================
+// SHARE SHEET (QR code + WhatsApp + copy link)
+// ==========================================
+// The shared link is wherever the app is currently served from (directory
+// URL, no query/hash), so the QR code stays correct on any host.
+function getShareUrl() {
+  try {
+    return new URL('./', window.location.href).href;
+  } catch (e) {
+    return window.location.href;
+  }
+}
+
+// QR code as an SVG path, drawn with the self-hosted qrcode-generator (offline).
+const QRCodeSvg = ({
+  value,
+  size
+}) => {
+  const qr = useMemo(() => {
+    if (typeof qrcode === 'undefined') return null;
+    try {
+      const q = qrcode(0, 'M');
+      q.addData(value);
+      q.make();
+      return q;
+    } catch (e) {
+      return null;
+    }
+  }, [value]);
+  if (!qr) return null;
+  const n = qr.getModuleCount();
+  const quiet = 2;
+  let d = '';
+  for (let r = 0; r < n; r++) {
+    for (let c = 0; c < n; c++) {
+      if (qr.isDark(r, c)) d += `M${c + quiet} ${r + quiet}h1v1h-1z`;
+    }
+  }
+  return /*#__PURE__*/React.createElement("svg", {
+    role: "img",
+    "aria-label": value,
+    width: size,
+    height: size,
+    viewBox: `0 0 ${n + quiet * 2} ${n + quiet * 2}`,
+    shapeRendering: "crispEdges",
+    style: {
+      display: 'block'
+    }
+  }, /*#__PURE__*/React.createElement("rect", {
+    width: "100%",
+    height: "100%",
+    fill: "#ffffff"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: d,
+    fill: "#1c1917"
+  }));
+};
+
+async function copyText(text) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (e) {}
+  // Fallback for older WebViews / non-secure contexts.
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+const WhatsAppIcon = ({
+  size
+}) => /*#__PURE__*/React.createElement("svg", {
+  width: size,
+  height: size,
+  viewBox: "0 0 24 24",
+  fill: "currentColor",
+  "aria-hidden": "true"
+}, /*#__PURE__*/React.createElement("path", {
+  d: "M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.19 4.23-9.41 9.42-9.41 2.51 0 4.88.98 6.65 2.76a9.35 9.35 0 0 1 2.75 6.66c0 5.19-4.23 9.41-9.41 9.41m8.01-17.42A11.26 11.26 0 0 0 12.04.75C5.8.75.72 5.83.72 12.08c0 2 .52 3.95 1.52 5.66L.62 23.62l6.01-1.58a11.3 11.3 0 0 0 5.41 1.38h.01c6.24 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.01"
+}));
+
+const ShareSheet = ({
+  onClose
+}) => {
+  const url = useMemo(getShareUrl, []);
+  const message = `${t('share_message')}\n${url}`;
+  const [copyState, setCopyState] = useState(null); // null | 'ok' | 'fail'
+  useEffect(() => {
+    const onKey = e => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+  useEffect(() => {
+    if (!copyState) return;
+    const id = setTimeout(() => setCopyState(null), 2200);
+    return () => clearTimeout(id);
+  }, [copyState]);
+  const handleCopy = async () => {
+    setCopyState((await copyText(url)) ? 'ok' : 'fail');
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    role: "dialog",
+    "aria-modal": "true",
+    "aria-labelledby": "share-title",
+    className: "fixed inset-0 flex items-center justify-center p-6",
+    style: {
+      zIndex: 100,
+      overflowY: 'auto',
+      background: 'rgba(28, 25, 23, 0.6)'
+    },
+    onClick: e => {
+      if (e.target === e.currentTarget) onClose();
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "bg-white w-full rounded-2xl shadow-2xl p-6",
+    style: {
+      maxWidth: '28rem'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-3 mb-2"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "bg-stone-900 p-2 rounded-xl text-white shadow-lg shrink-0"
+  }, /*#__PURE__*/React.createElement(Share2, {
+    size: 20
+  })), /*#__PURE__*/React.createElement("h2", {
+    id: "share-title",
+    className: "flex-1 text-xl font-black text-stone-900 leading-snug"
+  }, t('share_title')), /*#__PURE__*/React.createElement("button", {
+    onClick: onClose,
+    "aria-label": ONBOARDING_COPY[CURRENT_LANG].close,
+    className: "shrink-0 p-2 rounded-xl text-stone-400 hover:bg-stone-50 transition-all"
+  }, /*#__PURE__*/React.createElement(XCircle, {
+    size: 20
+  }))), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm text-stone-500 mb-6"
+  }, t('share_subtitle')), /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col items-center mb-6"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "p-2 rounded-xl border border-stone-200 bg-white shadow-sm"
+  }, /*#__PURE__*/React.createElement(QRCodeSvg, {
+    value: url,
+    size: 200
+  })), /*#__PURE__*/React.createElement("p", {
+    className: "text-xs font-bold text-stone-400 uppercase tracking-wider mt-2 text-center"
+  }, t('share_scan'))), /*#__PURE__*/React.createElement("div", {
+    className: "text-xs font-bold text-stone-400 uppercase tracking-wider mb-1"
+  }, t('share_preview')), /*#__PURE__*/React.createElement("div", {
+    className: "p-4 rounded-xl bg-stone-50 border border-stone-200 text-sm text-stone-700 mb-6",
+    style: {
+      whiteSpace: 'pre-line',
+      overflowWrap: 'anywhere'
+    }
+  }, message), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-3"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: `https://wa.me/?text=${encodeURIComponent(message)}`,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    className: "w-full flex items-center justify-center gap-2 text-white font-bold text-lg py-3 rounded-xl shadow-lg transition-all active:scale-95",
+    style: {
+      background: '#25D366'
+    }
+  }, /*#__PURE__*/React.createElement(WhatsAppIcon, {
+    size: 20
+  }), t('share_whatsapp')), /*#__PURE__*/React.createElement("button", {
+    onClick: handleCopy,
+    className: `w-full flex items-center justify-center gap-2 font-bold text-lg py-3 rounded-xl border-2 transition-all active:scale-95 ${copyState === 'ok' ? 'border-emerald-600 bg-emerald-50 text-emerald-700' : 'border-stone-200 bg-white text-stone-800 hover:bg-stone-50'}`
+  }, /*#__PURE__*/React.createElement(copyState === 'ok' ? Check : Copy, {
+    size: 18
+  }), copyState === 'ok' ? t('share_copied') : t('share_copy')), /*#__PURE__*/React.createElement("p", {
+    className: "text-xs text-stone-500 text-center font-mono",
+    style: {
+      overflowWrap: 'anywhere',
+      userSelect: 'all'
+    }
+  }, url), copyState === 'fail' && /*#__PURE__*/React.createElement("p", {
+    role: "alert",
+    className: "text-sm text-red-600 text-center"
+  }, t('share_copy_failed')))));
+};
 const App = () => {
   // Active UI language. CURRENT_LANG (module-level) is the source of truth for
   // t()/tv(); this state mirror triggers a re-render of the whole tree on change.
@@ -4871,6 +5098,7 @@ const App = () => {
     markOnboarded();
     setLangPicker(null);
   };
+  const [shareOpen, setShareOpen] = useState(false);
   const [mode, setMode] = useState(() => {
     try {
       const saved = localStorage.getItem('agripro_mode_pref');
@@ -4953,29 +5181,50 @@ const App = () => {
     isOnboarding: langPicker === 'onboarding',
     onConfirm: confirmLang,
     onClose: langPicker === 'modal' ? () => setLangPicker(null) : null
+  }), shareOpen && /*#__PURE__*/React.createElement(ShareSheet, {
+    onClose: () => setShareOpen(false)
   }), /*#__PURE__*/React.createElement("nav", {
     className: "bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-stone-200 shadow-sm nav-safe-pad"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex flex-col md:flex-row justify-between items-center gap-3"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-between items-center w-full md:w-auto"
+    className: "nav-brand flex justify-between items-center gap-3 w-full md:w-auto"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-3 shrink-0"
+    className: "flex items-center gap-3",
+    style: {
+      minWidth: 0
+    }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-stone-900 p-2 rounded-xl text-white shadow-lg"
+    className: "bg-stone-900 p-2 rounded-xl text-white shadow-lg shrink-0"
   }, /*#__PURE__*/React.createElement(Leaf, {
     size: 20
   })), /*#__PURE__*/React.createElement("h1", {
-    className: "text-lg font-bold text-stone-900"
-  }, t('app_title'))), /*#__PURE__*/React.createElement("button", {
+    className: "text-lg font-bold text-stone-900",
+    style: {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
+    }
+  }, t('app_title'))), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2 shrink-0"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setShareOpen(true),
+    "aria-label": t('share_title'),
+    title: t('share_title'),
+    className: "shrink-0 px-3 py-1.5 rounded-lg border border-stone-300 bg-stone-50 hover:bg-stone-100 active:scale-95 transition-all text-sm font-bold text-stone-700 flex items-center gap-1.5"
+  }, /*#__PURE__*/React.createElement(Share2, {
+    size: 14
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "share-label"
+  }, t('share'))), /*#__PURE__*/React.createElement("button", {
     onClick: () => setLangPicker('modal'),
     "aria-label": ONBOARDING_COPY[lang].title,
     title: ONBOARDING_COPY[lang].title,
     className: "shrink-0 px-3 py-1.5 rounded-lg border border-stone-300 bg-stone-50 hover:bg-stone-100 active:scale-95 transition-all text-sm font-bold text-stone-700 flex items-center gap-1.5"
   }, /*#__PURE__*/React.createElement(Languages, {
     size: 14
-  }), /*#__PURE__*/React.createElement("span", null, LANG_OPTIONS.find(o => o.id === lang).label))), /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar w-full md:w-auto justify-start md:justify-center px-4 -mx-4 py-1.5"
+  }), /*#__PURE__*/React.createElement("span", null, LANG_OPTIONS.find(o => o.id === lang).label)))), /*#__PURE__*/React.createElement("div", {
+    className: "nav-tabs flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar w-full md:w-auto justify-start md:justify-center px-4 -mx-4 py-1.5"
   }, /*#__PURE__*/React.createElement("button", {
     onClick: () => setMode('wheel'),
     className: `text-lg font-bold transition-all whitespace-nowrap shrink-0 ${mode === 'wheel' ? 'text-stone-900' : 'text-stone-400 hover:text-stone-600'}`
