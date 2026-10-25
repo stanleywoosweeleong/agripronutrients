@@ -1541,11 +1541,11 @@ const TRANSLATIONS = {
 // language picker pre-selects from the device language when it can.
 const SUPPORTED_LANGS = ['zh', 'en', 'ms'];
 
-// Native names, shown in the language picker regardless of active language.
+// Names shown in the language picker (native) and on the top-bar button (label).
 const LANG_OPTIONS = [
-  { id: 'zh', native: '中文', sub: '简体中文', short: '中', label: '中文' },
-  { id: 'en', native: 'English', sub: 'English', short: 'EN', label: 'English' },
-  { id: 'ms', native: 'Malay', sub: 'Bahasa Melayu', short: 'BM', label: 'BM' }
+  { id: 'zh', native: '中文', label: '中文' },
+  { id: 'en', native: 'English', label: 'English' },
+  { id: 'ms', native: 'Malay', label: 'BM' }
 ];
 
 // Missing strings fall back along this chain (Malay readers get English first).
@@ -4785,12 +4785,11 @@ const SoilControlPanel = ({
 // LANGUAGE ONBOARDING / PICKER
 // ==========================================
 // Full-screen on first launch (onboarding), modal sheet when opened from the
-// header. Copy is shown in all three languages until one is picked, so every
-// user can read the prompt.
+// header. The title and button follow the highlighted language.
 const ONBOARDING_COPY = {
-  zh: { title: '选择您的语言', subtitle: '您可以随时在右上角更改语言。', cta: '继续', close: '关闭' },
-  en: { title: 'Choose your language', subtitle: 'You can change this anytime from the top bar.', cta: 'Continue', close: 'Close' },
-  ms: { title: 'Pilih bahasa anda', subtitle: 'Anda boleh menukarnya bila-bila masa di bar atas.', cta: 'Teruskan', close: 'Tutup' }
+  zh: { title: '选择语言', cta: '继续', close: '关闭' },
+  en: { title: 'Choose language', cta: 'Continue', close: 'Close' },
+  ms: { title: 'Pilih bahasa', cta: 'Teruskan', close: 'Tutup' }
 };
 const LanguagePicker = ({
   initial,
@@ -4816,40 +4815,22 @@ const LanguagePicker = ({
     style: {
       zIndex: 100,
       overflowY: 'auto',
-      background: isOnboarding ? 'linear-gradient(180deg, #1c4c2f 0%, #0f301e 100%)' : 'rgba(28, 25, 23, 0.6)'
+      background: isOnboarding ? '#FDFCFB' : 'rgba(28, 25, 23, 0.6)'
     },
     onClick: e => {
       if (onClose && e.target === e.currentTarget) onClose();
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-white w-full rounded-2xl shadow-2xl p-6",
+    className: `bg-white w-full rounded-2xl p-6 ${isOnboarding ? '' : 'shadow-2xl'}`,
     style: {
-      maxWidth: '28rem'
+      maxWidth: '22rem'
     }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-3 mb-6"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-stone-900 p-2 rounded-xl text-white shadow-lg shrink-0"
-  }, /*#__PURE__*/React.createElement(isOnboarding ? Leaf : Languages, {
-    size: 20
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "flex-1"
   }, /*#__PURE__*/React.createElement("h2", {
     id: "lang-picker-title",
-    className: "text-xl font-black text-stone-900 leading-snug"
-  }, isOnboarding ? 'AgriPro' : copy.title), isOnboarding && /*#__PURE__*/React.createElement("p", {
-    className: "text-xs font-bold text-stone-400 uppercase tracking-widest"
-  }, "选择语言 · Language · Bahasa")), onClose && /*#__PURE__*/React.createElement("button", {
-    onClick: onClose,
-    "aria-label": copy.close,
-    className: "shrink-0 p-2 rounded-xl text-stone-400 hover:bg-stone-50 transition-all"
-  }, /*#__PURE__*/React.createElement(XCircle, {
-    size: 20
-  }))), isOnboarding && /*#__PURE__*/React.createElement("p", {
-    className: "text-lg font-bold text-stone-800 mb-2"
+    className: "text-2xl font-black text-stone-900 text-center mb-6"
   }, copy.title), /*#__PURE__*/React.createElement("div", {
     role: "radiogroup",
-    "aria-label": copy.title,
+    "aria-labelledby": "lang-picker-title",
     className: "space-y-3"
   }, LANG_OPTIONS.map(opt => {
     const active = choice === opt.id;
@@ -4859,31 +4840,17 @@ const LanguagePicker = ({
       "aria-checked": active,
       lang: HTML_LANG[opt.id],
       onClick: () => setChoice(opt.id),
-      className: `w-full flex items-center justify-between gap-4 p-4 rounded-xl border-2 text-left transition-all active:scale-95 ${active ? 'border-emerald-600 bg-emerald-50' : 'border-stone-200 bg-white hover:bg-stone-50'}`
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "flex items-center gap-4"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: `shrink-0 flex items-center justify-center h-10 rounded-full text-sm font-black ${active ? 'bg-emerald-600 text-white' : 'bg-stone-50 text-stone-600'}`,
-      style: {
-        width: '2.5rem'
-      }
-    }, opt.short), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
-      className: `block text-lg font-bold ${active ? 'text-emerald-900' : 'text-stone-900'}`
-    }, opt.native), /*#__PURE__*/React.createElement("span", {
-      className: "block text-sm text-stone-500"
-    }, opt.sub))), active && /*#__PURE__*/React.createElement(Check, {
+      className: `w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 text-lg font-bold transition-all ${active ? 'border-stone-900 text-stone-900' : 'border-stone-200 text-stone-500 hover:bg-stone-50'}`
+    }, opt.native, active && /*#__PURE__*/React.createElement(Check, {
       size: 20,
-      className: "text-emerald-600 shrink-0"
+      className: "shrink-0"
     }));
-  })), /*#__PURE__*/React.createElement("p", {
-    className: "text-sm text-stone-500 mt-6 mb-2"
-  }, copy.subtitle), /*#__PURE__*/React.createElement("button", {
+  })), /*#__PURE__*/React.createElement("button", {
     onClick: () => onConfirm(choice),
-    className: "w-full flex items-center justify-center gap-2 bg-stone-900 text-white font-bold text-lg py-3 rounded-xl shadow-lg transition-all active:scale-95"
-  }, copy.cta, /*#__PURE__*/React.createElement(ArrowRight, {
-    size: 18
-  }))));
+    className: "w-full mt-6 bg-stone-900 text-white font-bold text-lg py-4 rounded-xl transition-all active:scale-95"
+  }, copy.cta)));
 };
+
 // ==========================================
 // SHARE SHEET (QR code + WhatsApp + copy link)
 // ==========================================
