@@ -4076,7 +4076,7 @@ const PHChart = ({ lang }) => {
 };
 const MixRulesPanel = ({ lang }) => {
   return /*#__PURE__*/React.createElement("div", {
-    className: "bg-white p-6 md:p-10 rounded-[2.5rem] border-2 border-stone-300 shadow-sm animate-slide-up space-y-12"
+    className: "mix-panel bg-white p-6 md:p-10 rounded-[2.5rem] border-2 border-stone-300 shadow-sm animate-slide-up space-y-12"
   }, /*#__PURE__*/React.createElement("div", {
     className: "space-y-6"
   }, /*#__PURE__*/React.createElement("div", {
@@ -4088,14 +4088,14 @@ const MixRulesPanel = ({ lang }) => {
   })), /*#__PURE__*/React.createElement("h3", {
     className: "text-2xl font-black text-stone-900 uppercase tracking-widest"
   }, t('mix_rules'))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-red-50 rounded-[2rem] border-2 border-red-100 overflow-hidden relative"
+    className: "mix-section bg-red-50 rounded-[2rem] border-2 border-red-100 overflow-hidden relative"
   }, /*#__PURE__*/React.createElement("div", {
     className: "absolute top-0 right-0 p-8 opacity-5 pointer-events-none"
   }, /*#__PURE__*/React.createElement(Beaker, {
     size: 200,
     className: "text-red-900"
   })), /*#__PURE__*/React.createElement("div", {
-    className: "p-8 relative z-10"
+    className: "mix-section-body p-8 relative z-10"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex items-center gap-3 mb-4"
   }, /*#__PURE__*/React.createElement(AlertTriangle, {
@@ -4108,9 +4108,9 @@ const MixRulesPanel = ({ lang }) => {
   }, t('mix_protocol_gold_desc')), /*#__PURE__*/React.createElement("div", {
     className: "flex flex-col gap-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-white p-5 md:p-6 rounded-2xl border-2 border-red-100 shadow-sm flex flex-col md:flex-row md:items-center gap-3 md:gap-5 text-left transition-transform hover:scale-[1.01]"
+    className: "mix-card mix-row bg-white p-5 md:p-6 rounded-2xl border-2 border-red-100 shadow-sm flex flex-col md:flex-row md:items-center gap-3 md:gap-5 text-left transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "p-4 bg-sky-100 text-sky-600 rounded-xl shrink-0 self-start"
+    className: "mix-icon p-4 bg-sky-100 text-sky-600 rounded-xl shrink-0 self-start"
   }, /*#__PURE__*/React.createElement(Wind, {
     size: 28
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h5", {
@@ -4118,9 +4118,9 @@ const MixRulesPanel = ({ lang }) => {
   }, t('mix_protocol_step1')), /*#__PURE__*/React.createElement("p", {
     className: "text-base md:text-lg font-bold text-stone-500 mt-1 leading-relaxed"
   }, t('mix_protocol_step1_desc')))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-white p-5 md:p-6 rounded-2xl border-2 border-red-100 shadow-sm flex flex-col md:flex-row md:items-center gap-3 md:gap-5 text-left transition-transform hover:scale-[1.01]"
+    className: "mix-card mix-row bg-white p-5 md:p-6 rounded-2xl border-2 border-red-100 shadow-sm flex flex-col md:flex-row md:items-center gap-3 md:gap-5 text-left transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "p-4 bg-amber-100 text-amber-600 rounded-xl shrink-0 self-start"
+    className: "mix-icon p-4 bg-amber-100 text-amber-600 rounded-xl shrink-0 self-start"
   }, /*#__PURE__*/React.createElement(Beaker, {
     size: 28
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h5", {
@@ -4128,9 +4128,9 @@ const MixRulesPanel = ({ lang }) => {
   }, t('mix_protocol_step2')), /*#__PURE__*/React.createElement("p", {
     className: "text-base md:text-lg font-bold text-stone-500 mt-1 leading-relaxed"
   }, t('mix_protocol_step2_desc')))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-white p-5 md:p-6 rounded-2xl border-2 border-red-100 shadow-sm flex flex-col md:flex-row md:items-center gap-3 md:gap-5 text-left transition-transform hover:scale-[1.01]"
+    className: "mix-card mix-row bg-white p-5 md:p-6 rounded-2xl border-2 border-red-100 shadow-sm flex flex-col md:flex-row md:items-center gap-3 md:gap-5 text-left transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "p-4 bg-emerald-100 text-emerald-600 rounded-xl shrink-0 self-start"
+    className: "mix-icon p-4 bg-emerald-100 text-emerald-600 rounded-xl shrink-0 self-start"
   }, /*#__PURE__*/React.createElement(CheckCircle, {
     size: 28
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h5", {
@@ -4139,9 +4139,9 @@ const MixRulesPanel = ({ lang }) => {
     className: "text-base md:text-lg font-bold text-stone-500 mt-1 leading-relaxed"
   }, t('mix_protocol_step3_desc'))))))), MIX_RULES.map((rule, idx) => /*#__PURE__*/React.createElement("div", {
     key: idx,
-    className: "p-6 md:p-8 bg-stone-50 rounded-[2rem] border-2 border-stone-200 flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center transition-all hover:scale-[1.01] hover:shadow-lg"
+    className: "mix-section mix-row p-6 md:p-8 bg-stone-50 rounded-[2rem] border-2 border-stone-200 flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center transition-all hover:scale-[1.01] hover:shadow-lg"
   }, /*#__PURE__*/React.createElement("div", {
-    className: `p-4 rounded-2xl ${rule.status === 'status_incompatible' ? 'bg-red-100 text-red-600' : 'bg-amber-100 text-amber-600'}`
+    className: `mix-icon p-4 rounded-2xl ${rule.status === 'status_incompatible' ? 'bg-red-100 text-red-600' : 'bg-amber-100 text-amber-600'}`
   }, /*#__PURE__*/React.createElement(AlertTriangle, {
     size: 32
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
@@ -4149,14 +4149,14 @@ const MixRulesPanel = ({ lang }) => {
   }, t(rule.a), " + ", t(rule.b)), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-stone-500 text-xl"
   }, t(rule.reason)))))), /*#__PURE__*/React.createElement("div", {
-    className: "relative overflow-hidden rounded-[2.5rem] border-2 border-violet-100 bg-violet-50/50 p-6 md:p-10"
+    className: "mix-section relative overflow-hidden rounded-[2.5rem] border-2 border-violet-100 bg-violet-50/50 p-6 md:p-10"
   }, /*#__PURE__*/React.createElement("div", {
     className: "absolute top-0 right-0 p-12 opacity-5 pointer-events-none"
   }, /*#__PURE__*/React.createElement(Scale, {
     size: 200,
     className: "text-violet-900"
   })), /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col md:flex-row items-start md:items-center gap-3 mb-8 relative z-10"
+    className: "mix-head flex flex-col md:flex-row items-start md:items-center gap-3 mb-8 relative z-10"
   }, /*#__PURE__*/React.createElement("div", {
     className: "p-3 bg-violet-600 text-white rounded-xl shadow-lg"
   }, /*#__PURE__*/React.createElement(Scale, {
@@ -4166,7 +4166,7 @@ const MixRulesPanel = ({ lang }) => {
   }, t('unit_title')), /*#__PURE__*/React.createElement("p", {
     className: "text-violet-600 font-bold opacity-80"
   }, t('unit_desc')))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-white rounded-[2rem] border-2 border-violet-100 shadow-sm overflow-hidden relative z-10"
+    className: "mix-card-frame bg-white rounded-[2rem] border-2 border-violet-100 shadow-sm overflow-hidden relative z-10"
   }, /*#__PURE__*/React.createElement("div", {
     className: "divide-y divide-violet-100"
   }, [{
@@ -4183,7 +4183,7 @@ const MixRulesPanel = ({ lang }) => {
     reason: 'unit_ppm_reason'
   }].map((item, idx) => /*#__PURE__*/React.createElement("div", {
     key: idx,
-    className: "p-6 md:p-8 flex flex-col gap-6 hover:bg-violet-50/30 transition-colors"
+    className: "mix-card-row p-6 md:p-8 flex flex-col gap-6 hover:bg-violet-50/30 transition-colors"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex items-center gap-3"
   }, /*#__PURE__*/React.createElement("div", {
@@ -4199,14 +4199,14 @@ const MixRulesPanel = ({ lang }) => {
   }, t('unit_col_reason')), /*#__PURE__*/React.createElement("p", {
     className: "text-lg font-bold text-stone-500 leading-relaxed"
   }, t(item.reason))))))))), /*#__PURE__*/React.createElement("div", {
-    className: "relative overflow-hidden rounded-[2.5rem] border-2 border-indigo-100 bg-indigo-50/50 p-6 md:p-10"
+    className: "mix-section relative overflow-hidden rounded-[2.5rem] border-2 border-indigo-100 bg-indigo-50/50 p-6 md:p-10"
   }, /*#__PURE__*/React.createElement("div", {
     className: "absolute top-0 right-0 p-12 opacity-5 pointer-events-none"
   }, /*#__PURE__*/React.createElement(Atom, {
     size: 200,
     className: "text-indigo-900"
   })), /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col md:flex-row items-start md:items-center gap-3 mb-8 relative z-10"
+    className: "mix-head flex flex-col md:flex-row items-start md:items-center gap-3 mb-8 relative z-10"
   }, /*#__PURE__*/React.createElement("div", {
     className: "p-3 bg-indigo-600 text-white rounded-xl shadow-lg"
   }, /*#__PURE__*/React.createElement(Atom, {
@@ -4222,7 +4222,7 @@ const MixRulesPanel = ({ lang }) => {
   }, /*#__PURE__*/React.createElement("span", {
     className: "text-base font-black uppercase tracking-[0.2em] text-indigo-400 block ml-2 mb-2"
   }, t('chel_lbl_synthetic')), /*#__PURE__*/React.createElement("div", {
-    className: "bg-white p-6 md:p-8 rounded-[2rem] border-2 border-indigo-100 shadow-sm transition-transform hover:scale-[1.01]"
+    className: "mix-card bg-white p-6 md:p-8 rounded-[2rem] border-2 border-indigo-100 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
@@ -4232,7 +4232,7 @@ const MixRulesPanel = ({ lang }) => {
   }, t('chel_badge_ph_low'))), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-xl text-stone-500 leading-relaxed"
   }, t('chel_edta_desc'))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-white p-6 md:p-8 rounded-[2rem] border-2 border-indigo-100 shadow-md transition-transform hover:scale-[1.01]"
+    className: "mix-card bg-white p-6 md:p-8 rounded-[2rem] border-2 border-indigo-100 shadow-md transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
@@ -4242,7 +4242,7 @@ const MixRulesPanel = ({ lang }) => {
   }, t('chel_badge_ph_med'))), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_deta_desc'))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-white p-6 md:p-8 rounded-[2rem] border-2 border-amber-100 shadow-md transition-transform hover:scale-[1.01]"
+    className: "mix-card bg-white p-6 md:p-8 rounded-[2rem] border-2 border-amber-100 shadow-md transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
@@ -4252,7 +4252,7 @@ const MixRulesPanel = ({ lang }) => {
   }, t('chel_badge_ph_med'))), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_dtpa_desc'))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-white p-6 md:p-8 rounded-[2rem] border-2 border-indigo-200 shadow-md transition-transform hover:scale-[1.01]"
+    className: "mix-card bg-white p-6 md:p-8 rounded-[2rem] border-2 border-indigo-200 shadow-md transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
@@ -4266,7 +4266,7 @@ const MixRulesPanel = ({ lang }) => {
   }, /*#__PURE__*/React.createElement("span", {
     className: "text-base font-black uppercase tracking-[0.2em] text-emerald-600 block ml-2 mb-2"
   }, t('chel_lbl_organic')), /*#__PURE__*/React.createElement("div", {
-    className: "bg-emerald-50 p-6 md:p-8 rounded-[2rem] border-2 border-emerald-100 shadow-sm transition-transform hover:scale-[1.01]"
+    className: "mix-card bg-emerald-50 p-6 md:p-8 rounded-[2rem] border-2 border-emerald-100 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
@@ -4276,7 +4276,7 @@ const MixRulesPanel = ({ lang }) => {
   }, t('chel_badge_fast'))), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_amino_desc'))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-sky-50 p-6 md:p-8 rounded-[2rem] border-2 border-sky-100 shadow-sm transition-transform hover:scale-[1.01]"
+    className: "mix-card bg-sky-50 p-6 md:p-8 rounded-[2rem] border-2 border-sky-100 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-center mb-4"
   }, /*#__PURE__*/React.createElement("h4", {
@@ -4286,7 +4286,7 @@ const MixRulesPanel = ({ lang }) => {
   }, t('chel_badge_fast'))), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_polyol_desc'))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-amber-50 p-6 md:p-8 rounded-[2rem] border-2 border-amber-100 shadow-sm transition-transform hover:scale-[1.01]"
+    className: "mix-card bg-amber-50 p-6 md:p-8 rounded-[2rem] border-2 border-amber-100 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
@@ -4296,7 +4296,7 @@ const MixRulesPanel = ({ lang }) => {
   }, t('chel_badge_univ'))), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_fulvic_desc'))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-stone-50 p-6 md:p-8 rounded-[2rem] border-2 border-stone-200 shadow-sm transition-transform hover:scale-[1.01]"
+    className: "mix-card bg-stone-50 p-6 md:p-8 rounded-[2rem] border-2 border-stone-200 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
@@ -4306,20 +4306,20 @@ const MixRulesPanel = ({ lang }) => {
   }, t('chel_badge_univ'))), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_ligno_desc'))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-stone-100/50 p-6 md:p-8 rounded-[2rem] border-2 border-stone-200 shadow-sm transition-transform hover:scale-[1.01]"
+    className: "mix-card bg-stone-100/50 p-6 md:p-8 rounded-[2rem] border-2 border-stone-200 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("h4", {
     className: "font-black text-2xl text-stone-700 mb-3"
   }, t('chel_wood_vinegar')), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-xl text-stone-500"
   }, t('chel_wood_vinegar_desc')))))), /*#__PURE__*/React.createElement("div", {
-    className: "relative overflow-hidden rounded-[2.5rem] border-2 border-sky-100 bg-sky-50/50 p-6 md:p-10"
+    className: "mix-section relative overflow-hidden rounded-[2.5rem] border-2 border-sky-100 bg-sky-50/50 p-6 md:p-10"
   }, /*#__PURE__*/React.createElement("div", {
     className: "absolute top-0 right-0 p-12 opacity-5 pointer-events-none"
   }, /*#__PURE__*/React.createElement(Droplets, {
     size: 200,
     className: "text-sky-900"
   })), /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col md:flex-row items-start md:items-center gap-3 mb-8 relative z-10"
+    className: "mix-head flex flex-col md:flex-row items-start md:items-center gap-3 mb-8 relative z-10"
   }, /*#__PURE__*/React.createElement("div", {
     className: "p-3 bg-sky-500 text-white rounded-xl shadow-lg"
   }, /*#__PURE__*/React.createElement(Droplets, {
@@ -4331,7 +4331,7 @@ const MixRulesPanel = ({ lang }) => {
   }, t('adj_subtitle')))), /*#__PURE__*/React.createElement("div", {
     className: "flex flex-col gap-6 relative z-10"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-white p-6 md:p-8 rounded-[2rem] border-2 border-sky-100 shadow-sm transition-transform hover:scale-[1.01] flex flex-col justify-between"
+    className: "mix-card bg-white p-6 md:p-8 rounded-[2rem] border-2 border-sky-100 shadow-sm transition-transform hover:scale-[1.01] flex flex-col justify-between"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "flex gap-2 items-center mb-3"
   }, /*#__PURE__*/React.createElement(ShieldCheck, {
@@ -4342,7 +4342,7 @@ const MixRulesPanel = ({ lang }) => {
   }, t('adj_nis_title'))), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-xl text-stone-500 leading-relaxed"
   }, t('adj_nis_desc')))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-sky-50 p-6 md:p-8 rounded-[2rem] border-2 border-sky-200 shadow-sm transition-transform hover:scale-[1.01] flex flex-col justify-between"
+    className: "mix-card bg-sky-50 p-6 md:p-8 rounded-[2rem] border-2 border-sky-200 shadow-sm transition-transform hover:scale-[1.01] flex flex-col justify-between"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "flex gap-2 items-center mb-3"
   }, /*#__PURE__*/React.createElement(Zap, {
@@ -4353,7 +4353,7 @@ const MixRulesPanel = ({ lang }) => {
   }, t('adj_si_title'))), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-xl text-stone-600 leading-relaxed"
   }, t('adj_si_desc'))))), /*#__PURE__*/React.createElement("div", {
-    className: "mt-6 bg-orange-50 p-6 md:p-8 rounded-[2rem] border-2 border-orange-200 shadow-sm transition-transform hover:scale-[1.01] relative z-10"
+    className: "mix-card mt-6 bg-orange-50 p-6 md:p-8 rounded-[2rem] border-2 border-orange-200 shadow-sm transition-transform hover:scale-[1.01] relative z-10"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "flex gap-2 items-center mb-3"
   }, /*#__PURE__*/React.createElement(Flower2, {
@@ -4377,7 +4377,7 @@ const MixRulesPanel = ({ lang }) => {
   }, t('adj_bee_title'))), /*#__PURE__*/React.createElement("p", {
     className: "font-bold text-xl text-yellow-800 leading-relaxed whitespace-pre-line"
   }, t('adj_bee_desc'))))), /*#__PURE__*/React.createElement("div", {
-    className: "mt-6 bg-stone-900/5 p-6 md:p-8 rounded-[2rem] border-2 border-stone-200 shadow-sm transition-transform hover:scale-[1.01] relative z-10"
+    className: "mix-card mt-6 bg-stone-900/5 p-6 md:p-8 rounded-[2rem] border-2 border-stone-200 shadow-sm transition-transform hover:scale-[1.01] relative z-10"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "flex gap-3 items-center mb-3"
   }, /*#__PURE__*/React.createElement("div", {
