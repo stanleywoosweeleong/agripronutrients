@@ -1544,7 +1544,7 @@ const SUPPORTED_LANGS = ['zh', 'en', 'ms'];
 // Names shown in the language picker (native) and on the top-bar button (label).
 const LANG_OPTIONS = [
   { id: 'zh', native: '中文', label: '中文' },
-  { id: 'en', native: 'English', label: 'English' },
+  { id: 'en', native: 'English', label: 'EN' },
   { id: 'ms', native: 'Malay', label: 'BM' }
 ];
 
