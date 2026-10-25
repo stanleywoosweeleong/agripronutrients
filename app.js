@@ -3683,7 +3683,8 @@ const NutrientWheel = ({
   })), (viewBox.w !== 800 || viewBox.x !== 0 || viewBox.y !== 0) && /*#__PURE__*/React.createElement("button", {
     onClick: resetView,
     className: "absolute bottom-4 right-4 bg-white/90 backdrop-blur shadow-lg border border-stone-200 p-2 rounded-full text-stone-600 hover:text-stone-900 transition-all animate-in zoom-in",
-    title: "Reset Zoom"
+    title: tv({ zh: "重置缩放", en: "Reset Zoom", ms: "Set Semula Zum" }),
+    "aria-label": tv({ zh: "重置缩放", en: "Reset Zoom", ms: "Set Semula Zum" })
   }, /*#__PURE__*/React.createElement(RotateCcw, {
     size: 20
   })));
