@@ -21,9 +21,9 @@ the app is served, so it is always correct for the deployed host. The QR code is
 drawn offline by `vendor/qrcode-generator.js` (qrcode-generator 1.4.4, MIT).
 
 WhatsApp's link preview card comes from the Open Graph tags in `index.html` and
-`og-image.jpg` (1200×630). WhatsApp only shows the image if `og:image` is an
-absolute URL, so set it to the full deployed address (e.g.
-`https://example.com/agripro/og-image.jpg`).
+`og-image.jpg` (1200×630). They point at the GitHub Pages address
+(https://stanleywoosweeleong.github.io/agripronutrients/); WhatsApp needs absolute URLs here, so update
+`og:url`, `og:image` and the canonical link if the app moves.
 
 Your React source packaged as a true Progressive Web App. Installable, runs in standalone mode, **fully offline** after first visit, and zero dependency on any third-party CDN.
 
