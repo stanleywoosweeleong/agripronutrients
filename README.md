@@ -1,5 +1,17 @@
 # AgriPro 农学笔记 — PWA build (v2)
 
+## Languages & onboarding
+
+The app supports **中文 / English / Bahasa Melayu**. On first launch a full-screen
+language picker is shown (pre-selected from the device language). The choice is
+stored in `localStorage` (`agripro_lang`); the picker can be reopened any time from
+the language button in the top bar. Bump `ONBOARDING_VERSION` in `app.js` to show
+the picker again to existing users.
+
+Strings live in `TRANSLATIONS.{zh,en,ms}` (looked up with `t(key)`) and in inline
+`{ zh, en, ms }` values (looked up with `tv(obj)`). A missing Malay string falls
+back to English, then Chinese.
+
 Your React source packaged as a true Progressive Web App. Installable, runs in standalone mode, **fully offline** after first visit, and zero dependency on any third-party CDN.
 
 ## What changed in v2 (bug fixes)
