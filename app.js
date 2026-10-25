@@ -112,13 +112,10 @@ const TRANSLATIONS = {
   zh: {
     share: "分享",
     share_title: "分享 AgriPro",
-    share_subtitle: "扫描二维码或发送链接，与农友分享本应用。",
-    share_scan: "用手机相机扫描即可打开",
     share_whatsapp: "通过 WhatsApp 分享",
     share_copy: "复制链接",
     share_copied: "已复制！",
     share_copy_failed: "无法复制，请长按链接手动复制。",
-    share_preview: "消息预览",
     share_message: "🌱 AgriPro 农学笔记 — 作物营养诊断、土壤 pH、混配规则与智能施肥顾问。支持中文 / English / Bahasa Melayu，可离线使用。",
     app_title: "AgriPro 农学笔记",
     knowledge: "知识库",
@@ -586,13 +583,10 @@ const TRANSLATIONS = {
   en: {
     share: "Share",
     share_title: "Share AgriPro",
-    share_subtitle: "Scan the QR code or send the link to share this app with fellow growers.",
-    share_scan: "Scan with a phone camera to open",
     share_whatsapp: "Share via WhatsApp",
     share_copy: "Copy link",
     share_copied: "Copied!",
     share_copy_failed: "Could not copy. Long-press the link to copy it manually.",
-    share_preview: "Message preview",
     share_message: "🌱 AgriPro Agronomy Notebook — nutrient diagnosis, soil pH, tank-mix rules and a smart fertilizer advisor. In 中文 / English / Bahasa Melayu, works offline.",
     app_title: "AgriPro Notebook",
     knowledge: "Knowledge",
@@ -1061,13 +1055,10 @@ const TRANSLATIONS = {
   ms: {
     share: "Kongsi",
     share_title: "Kongsi AgriPro",
-    share_subtitle: "Imbas kod QR atau hantar pautan untuk berkongsi aplikasi ini dengan rakan petani.",
-    share_scan: "Imbas dengan kamera telefon untuk membuka",
     share_whatsapp: "Kongsi melalui WhatsApp",
     share_copy: "Salin pautan",
     share_copied: "Disalin!",
     share_copy_failed: "Tidak dapat menyalin. Tekan lama pada pautan untuk menyalin secara manual.",
-    share_preview: "Pratonton mesej",
     share_message: "🌱 AgriPro Nota Agronomi — diagnosis nutrien, pH tanah, peraturan campuran tangki dan penasihat baja pintar. Dalam 中文 / English / Bahasa Melayu, boleh digunakan luar talian.",
     app_title: "AgriPro Nota Agronomi",
     knowledge: "Pengetahuan",
@@ -4811,17 +4802,15 @@ const LanguagePicker = ({
     role: "dialog",
     "aria-modal": "true",
     "aria-labelledby": "lang-picker-title",
-    className: "fixed inset-0 flex items-center justify-center p-6",
+    className: "sheet-overlay",
     style: {
-      zIndex: 100,
-      overflowY: 'auto',
       background: isOnboarding ? '#FDFCFB' : 'rgba(28, 25, 23, 0.6)'
     },
     onClick: e => {
       if (onClose && e.target === e.currentTarget) onClose();
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: `bg-white w-full rounded-2xl p-6 ${isOnboarding ? '' : 'shadow-2xl'}`,
+    className: `sheet-card bg-white w-full rounded-2xl p-6 ${isOnboarding ? '' : 'shadow-2xl'}`,
     style: {
       maxWidth: '22rem'
     }
@@ -4970,61 +4959,52 @@ const ShareSheet = ({
     role: "dialog",
     "aria-modal": "true",
     "aria-labelledby": "share-title",
-    className: "fixed inset-0 flex items-center justify-center p-6",
+    className: "sheet-overlay",
     style: {
-      zIndex: 100,
-      overflowY: 'auto',
       background: 'rgba(28, 25, 23, 0.6)'
     },
     onClick: e => {
       if (e.target === e.currentTarget) onClose();
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-white w-full rounded-2xl shadow-2xl p-6",
+    className: "sheet-card bg-white w-full rounded-2xl shadow-2xl p-5",
     style: {
-      maxWidth: '28rem'
+      maxWidth: '22rem'
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-3 mb-2"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-stone-900 p-2 rounded-xl text-white shadow-lg shrink-0"
-  }, /*#__PURE__*/React.createElement(Share2, {
-    size: 20
-  })), /*#__PURE__*/React.createElement("h2", {
+    className: "flex items-center justify-between gap-3 mb-4"
+  }, /*#__PURE__*/React.createElement("h2", {
     id: "share-title",
-    className: "flex-1 text-xl font-black text-stone-900 leading-snug"
+    className: "text-xl font-black text-stone-900"
   }, t('share_title')), /*#__PURE__*/React.createElement("button", {
     onClick: onClose,
     "aria-label": ONBOARDING_COPY[CURRENT_LANG].close,
-    className: "shrink-0 p-2 rounded-xl text-stone-400 hover:bg-stone-50 transition-all"
+    className: "shrink-0 p-2 rounded-xl text-stone-500 hover:bg-stone-50 active:scale-95 transition-all",
+    style: {
+      marginRight: '-0.5rem'
+    }
   }, /*#__PURE__*/React.createElement(XCircle, {
-    size: 20
-  }))), /*#__PURE__*/React.createElement("p", {
-    className: "text-sm text-stone-500 mb-6"
-  }, t('share_subtitle')), /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col items-center mb-6"
+    size: 28
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col items-center mb-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "p-2 rounded-xl border border-stone-200 bg-white shadow-sm"
+    className: "p-2 rounded-xl border border-stone-200 bg-white"
   }, /*#__PURE__*/React.createElement(QRCodeSvg, {
     value: url,
-    size: 200
+    size: 168
   })), /*#__PURE__*/React.createElement("p", {
-    className: "text-xs font-bold text-stone-400 uppercase tracking-wider mt-2 text-center"
-  }, t('share_scan'))), /*#__PURE__*/React.createElement("div", {
-    className: "text-xs font-bold text-stone-400 uppercase tracking-wider mb-1"
-  }, t('share_preview')), /*#__PURE__*/React.createElement("div", {
-    className: "p-4 rounded-xl bg-stone-50 border border-stone-200 text-sm text-stone-700 mb-6",
+    className: "text-xs text-stone-500 text-center font-mono mt-2",
     style: {
-      whiteSpace: 'pre-line',
-      overflowWrap: 'anywhere'
+      overflowWrap: 'anywhere',
+      userSelect: 'all'
     }
-  }, message), /*#__PURE__*/React.createElement("div", {
+  }, url)), /*#__PURE__*/React.createElement("div", {
     className: "space-y-3"
   }, /*#__PURE__*/React.createElement("a", {
     href: `https://wa.me/?text=${encodeURIComponent(message)}`,
     target: "_blank",
     rel: "noopener noreferrer",
-    className: "w-full flex items-center justify-center gap-2 text-white font-bold text-lg py-3 rounded-xl shadow-lg transition-all active:scale-95",
+    className: "w-full flex items-center justify-center gap-2 text-white font-bold text-base py-3 rounded-xl transition-all active:scale-95",
     style: {
       background: '#25D366'
     }
@@ -5032,16 +5012,10 @@ const ShareSheet = ({
     size: 20
   }), t('share_whatsapp')), /*#__PURE__*/React.createElement("button", {
     onClick: handleCopy,
-    className: `w-full flex items-center justify-center gap-2 font-bold text-lg py-3 rounded-xl border-2 transition-all active:scale-95 ${copyState === 'ok' ? 'border-emerald-600 bg-emerald-50 text-emerald-700' : 'border-stone-200 bg-white text-stone-800 hover:bg-stone-50'}`
+    className: `w-full flex items-center justify-center gap-2 font-bold text-base py-3 rounded-xl border-2 transition-all active:scale-95 ${copyState === 'ok' ? 'border-emerald-600 bg-emerald-50 text-emerald-700' : 'border-stone-200 bg-white text-stone-800 hover:bg-stone-50'}`
   }, /*#__PURE__*/React.createElement(copyState === 'ok' ? Check : Copy, {
     size: 18
-  }), copyState === 'ok' ? t('share_copied') : t('share_copy')), /*#__PURE__*/React.createElement("p", {
-    className: "text-xs text-stone-500 text-center font-mono",
-    style: {
-      overflowWrap: 'anywhere',
-      userSelect: 'all'
-    }
-  }, url), copyState === 'fail' && /*#__PURE__*/React.createElement("p", {
+  }), copyState === 'ok' ? t('share_copied') : t('share_copy')), copyState === 'fail' && /*#__PURE__*/React.createElement("p", {
     role: "alert",
     className: "text-sm text-red-600 text-center"
   }, t('share_copy_failed')))));
@@ -5155,7 +5129,7 @@ const App = () => {
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex flex-col md:flex-row justify-between items-center gap-3"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "nav-brand flex justify-between items-center gap-3 w-full md:w-auto"
+    className: "nav-brand flex justify-between items-center gap-2 w-full md:w-auto"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex items-center gap-3",
     style: {
@@ -5178,19 +5152,21 @@ const App = () => {
     onClick: () => setShareOpen(true),
     "aria-label": t('share_title'),
     title: t('share_title'),
-    className: "shrink-0 px-3 py-1.5 rounded-lg border border-stone-300 bg-stone-50 hover:bg-stone-100 active:scale-95 transition-all text-sm font-bold text-stone-700 flex items-center gap-1.5"
+    className: "shrink-0 px-2 py-1.5 rounded-lg border border-stone-300 bg-stone-50 hover:bg-stone-100 active:scale-95 transition-all text-sm font-bold text-stone-700 flex items-center gap-1.5"
   }, /*#__PURE__*/React.createElement(Share2, {
-    size: 14
+    size: 16
   }), /*#__PURE__*/React.createElement("span", {
     className: "share-label"
   }, t('share'))), /*#__PURE__*/React.createElement("button", {
     onClick: () => setLangPicker('modal'),
     "aria-label": ONBOARDING_COPY[lang].title,
     title: ONBOARDING_COPY[lang].title,
-    className: "shrink-0 px-3 py-1.5 rounded-lg border border-stone-300 bg-stone-50 hover:bg-stone-100 active:scale-95 transition-all text-sm font-bold text-stone-700 flex items-center gap-1.5"
+    className: "shrink-0 px-2 py-1.5 rounded-lg border border-stone-300 bg-stone-50 hover:bg-stone-100 active:scale-95 transition-all text-sm font-bold text-stone-700 flex items-center gap-1.5"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "lang-icon flex"
   }, /*#__PURE__*/React.createElement(Languages, {
     size: 14
-  }), /*#__PURE__*/React.createElement("span", null, LANG_OPTIONS.find(o => o.id === lang).label)))), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("span", null, LANG_OPTIONS.find(o => o.id === lang).label)))), /*#__PURE__*/React.createElement("div", {
     className: "nav-tabs flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar w-full md:w-auto justify-start md:justify-center px-4 -mx-4 py-1.5"
   }, /*#__PURE__*/React.createElement("button", {
     onClick: () => setMode('wheel'),
