@@ -3693,8 +3693,9 @@ const PHChart = ({ lang }) => {
   const [selectedEl, setSelectedEl] = useState(null);
   const containerRef = useRef(null);
   const [isDraggingLine, setIsDraggingLine] = useState(false);
-  const rowHeight = 45;
-  const topPadding = 50;
+  // Each row = a label line above its band; bands span y ± 16 around rowY.
+  const rowHeight = 60;
+  const topPadding = 72;
   const bottomPadding = 30;
   const chartHeight = topPadding + PH_AVAILABILITY_DATA.length * rowHeight + bottomPadding;
   const updatePH = clientX => {
@@ -3862,9 +3863,9 @@ const PHChart = ({ lang }) => {
       }
     }, /*#__PURE__*/React.createElement("rect", {
       x: "0",
-      y: rowY - 20,
+      y: rowY - 38,
       width: "1000",
-      height: "40",
+      height: "56",
       fill: "transparent"
     }), /*#__PURE__*/React.createElement("path", {
       d: d,
@@ -3882,7 +3883,7 @@ const PHChart = ({ lang }) => {
     "aria-hidden": "true"
   }, [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9].map((val, i, all) => /*#__PURE__*/React.createElement("span", {
     key: val,
-    className: "absolute text-xs font-bold text-stone-400",
+    className: `absolute text-xs font-bold text-stone-400 ${val % 1 ? 'ph-half-tick' : ''}`,
     style: {
       left: `${(val - 4) / 5 * 100}%`,
       top: '20px',
@@ -3895,10 +3896,12 @@ const PHChart = ({ lang }) => {
       key: el.id,
       className: "absolute font-black whitespace-nowrap",
       style: {
-        left: '10px',
-        top: `${topPadding + idx * rowHeight}px`,
-        transform: 'translateY(-50%)',
-        fontSize: isSelected ? '20px' : '13px',
+        // Sits on its own line above the band so it never hides the data.
+        left: '8px',
+        top: `${topPadding + idx * rowHeight - 19}px`,
+        transform: 'translateY(-100%)',
+        lineHeight: 1.2,
+        fontSize: isSelected ? '15px' : '12px',
         color: '#0c0a09',
         opacity: isDimmed ? 0.3 : 1,
         textShadow: '0 0 2px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #fff',
