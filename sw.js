@@ -9,7 +9,7 @@
 //     exact URL the user visited (handles `/`, `/agripro/`, deep links, etc.).
 //   - Bump CACHE_VERSION whenever any shipped file changes.
 
-const CACHE_VERSION = 'agripro-v14';
+const CACHE_VERSION = 'agripro-v15';
 const CACHE_NAME    = `${CACHE_VERSION}-shell`;
 
 // Everything the app needs to start. All same-origin, relative paths.
