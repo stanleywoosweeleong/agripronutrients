@@ -60,9 +60,19 @@
     #pwa-splash.hidden { opacity: 0; pointer-events: none; }
     #pwa-splash > svg { width: 96px; height: 96px; animation: pwa-pulse 1.6s ease-in-out infinite; }
     #pwa-splash .label { font-weight: 700; letter-spacing: .15em; opacity: .9; }
-    /* Top bar: the share button is icon-only where space is tight, and the
-       tab row drops its phone edge-bleed once it sits beside the buttons. */
+    /* Top bar: the share button is icon-only (and the language button drops
+       its icon on phones) where space is tight, so the app title stays readable. */
     @media (max-width: 479px), (min-width: 768px) and (max-width: 1023px) { .share-label { display: none; } }
+    @media (max-width: 479px) { .lang-icon { display: none !important; } }
+    /* Modal sheets: stay clear of the notch / home bar, and centre with auto
+       margins so a sheet taller than the screen scrolls instead of being cut off. */
+    .sheet-overlay {
+      position: fixed; inset: 0; z-index: 100; display: flex;
+      overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+      padding: calc(16px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right))
+               calc(16px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
+    }
+    .sheet-overlay > .sheet-card { margin: auto; }
     @media (min-width: 768px) {
       .nav-brand { flex-shrink: 0; }
       /* Centre the tabs with auto margins (not justify-content) so an
