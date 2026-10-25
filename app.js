@@ -3833,17 +3833,7 @@ const PHChart = ({ lang }) => {
     viewBox: `0 0 1000 ${chartHeight}`,
     className: "w-full h-full absolute inset-0 z-10",
     preserveAspectRatio: "none"
-  }, /*#__PURE__*/React.createElement("g", {
-    className: "text-xs font-bold fill-stone-400"
-  }, [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9].map((val, i) => {
-    const x = (val - 4) / 5 * 1000;
-    return /*#__PURE__*/React.createElement("text", {
-      key: val,
-      x: x,
-      y: "20",
-      textAnchor: "middle"
-    }, val);
-  })), PH_AVAILABILITY_DATA.map((el, idx) => {
+  }, PH_AVAILABILITY_DATA.map((el, idx) => {
     const isSelected = selectedEl === el.id;
     const isDimmed = selectedEl && !isSelected;
     const rowY = topPadding + idx * rowHeight;
@@ -3880,19 +3870,41 @@ const PHChart = ({ lang }) => {
       d: d,
       fill: el.color,
       className: `transition-opacity duration-300 ${isSelected ? 'opacity-100 drop-shadow-md' : 'opacity-80 hover:opacity-100'}`
-    }), /*#__PURE__*/React.createElement("text", {
-      x: "15",
-      y: rowY + 5,
-      className: "text-xs font-black uppercase pointer-events-none select-none",
+    }));
+  })), /*#__PURE__*/React.createElement("div", {
+    // Axis ticks and element labels live outside the SVG: the SVG is stretched
+    // to the container width (preserveAspectRatio "none"), which would squash
+    // any text drawn inside it on narrow screens.
+    className: "absolute inset-0 pointer-events-none select-none",
+    style: {
+      zIndex: 15
+    },
+    "aria-hidden": "true"
+  }, [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9].map((val, i, all) => /*#__PURE__*/React.createElement("span", {
+    key: val,
+    className: "absolute text-xs font-bold text-stone-400",
+    style: {
+      left: `${(val - 4) / 5 * 100}%`,
+      top: '20px',
+      transform: `translate(${i === 0 ? '4px' : i === all.length - 1 ? 'calc(-100% - 4px)' : '-50%'}, -50%)`
+    }
+  }, val)), PH_AVAILABILITY_DATA.map((el, idx) => {
+    const isSelected = selectedEl === el.id;
+    const isDimmed = selectedEl && !isSelected;
+    return /*#__PURE__*/React.createElement("span", {
+      key: el.id,
+      className: "absolute font-black whitespace-nowrap",
       style: {
-        fontSize: isSelected ? '22px' : '13px',
-        fill: '#0c0a09',
-        stroke: 'rgba(255,255,255,0.85)',
-        strokeWidth: '4px',
-        paintOrder: 'stroke',
-        transition: 'font-size 0.2s ease-out'
+        left: '10px',
+        top: `${topPadding + idx * rowHeight}px`,
+        transform: 'translateY(-50%)',
+        fontSize: isSelected ? '20px' : '13px',
+        color: '#0c0a09',
+        opacity: isDimmed ? 0.3 : 1,
+        textShadow: '0 0 2px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #fff',
+        transition: 'font-size 0.2s ease-out, opacity 0.3s'
       }
-    }, t('elem_' + el.name)));
+    }, t('elem_' + el.name));
   })), /*#__PURE__*/React.createElement("div", {
     className: "absolute top-0 bottom-0 w-16 -ml-8 z-20 cursor-ew-resize group touch-none flex flex-col items-center",
     style: {
