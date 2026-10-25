@@ -3072,7 +3072,7 @@ const getSmartRecommendation = inputs => {
   let rationale = [];
   let rate = tv({ zh: "请参阅产品标签", en: "Refer to product label", ms: "Rujuk label produk" });
   let timing = tv({ zh: "清晨或傍晚", en: "Early morning or late evening", ms: "Awal pagi atau lewat petang" });
-  let compatibility = tv({ zh: "通过 (无明显冲突)", en: "Pass", ms: "Lulus" });
+  let compatibility = tv({ zh: "通过 (无明显冲突)", en: "Pass (No obvious conflicts)", ms: "Lulus (Tiada konflik ketara)" });
   let warnings = [];
   if (stage === 'seedling') {
     mix.add("P");
