@@ -1545,7 +1545,7 @@ const SUPPORTED_LANGS = ['zh', 'en', 'ms'];
 const LANG_OPTIONS = [
   { id: 'zh', native: '中文', sub: '简体中文', short: '中', label: '中文' },
   { id: 'en', native: 'English', sub: 'English', short: 'EN', label: 'English' },
-  { id: 'ms', native: 'Bahasa Melayu', sub: 'Malay', short: 'BM', label: 'Melayu' }
+  { id: 'ms', native: 'Malay', sub: 'Bahasa Melayu', short: 'BM', label: 'BM' }
 ];
 
 // Missing strings fall back along this chain (Malay readers get English first).
