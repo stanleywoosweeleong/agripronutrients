@@ -47,7 +47,11 @@ const {
   ShieldCheck,
   Skull,
   FlaskConical,
-  BarChart3
+  BarChart3,
+  Languages,
+  Check,
+  Share2,
+  Copy
 } = LucideReact;
 // === End prelude ===
 
@@ -84,9 +88,9 @@ class ErrorBoundary extends React.Component {
         size: 32
       }), /*#__PURE__*/React.createElement("h2", {
         className: "text-xl font-bold"
-      }, (CURRENT_LANG === 'zh' ? "\u5E94\u7528\u7A0B\u5E8F\u9519\u8BEF" : "Application Error"))), /*#__PURE__*/React.createElement("p", {
+      }, tv({ zh: "\u5E94\u7528\u7A0B\u5E8F\u9519\u8BEF", en: "Application Error", ms: "Ralat Aplikasi" }))), /*#__PURE__*/React.createElement("p", {
         className: "text-stone-600 mb-4"
-      }, (CURRENT_LANG === 'zh' ? "\u53D1\u751F\u4E25\u91CD\u7684\u521D\u59CB\u5316\u9519\u8BEF\u3002\u8BF7\u91CD\u7F6E\u5E94\u7528\u7A0B\u5E8F\u4EE5\u6E05\u9664\u5148\u524D\u7248\u672C\u7684\u7F13\u5B58\u3002" : "A critical initialization error occurred. Please reset the application to clear previous version cache.")), /*#__PURE__*/React.createElement("div", {
+      }, tv({ zh: "\u53D1\u751F\u4E25\u91CD\u7684\u521D\u59CB\u5316\u9519\u8BEF\u3002\u8BF7\u91CD\u7F6E\u5E94\u7528\u7A0B\u5E8F\u4EE5\u6E05\u9664\u5148\u524D\u7248\u672C\u7684\u7F13\u5B58\u3002", en: "A critical initialization error occurred. Please reset the application to clear previous version cache.", ms: "Ralat permulaan yang kritikal telah berlaku. Sila set semula aplikasi untuk mengosongkan cache versi terdahulu." })), /*#__PURE__*/React.createElement("div", {
         className: "bg-stone-900 text-red-400 p-4 rounded-lg font-mono text-xs overflow-auto max-h-48 mb-6"
       }, this.state.error?.toString()), /*#__PURE__*/React.createElement("button", {
         onClick: () => {
@@ -94,7 +98,7 @@ class ErrorBoundary extends React.Component {
           window.location.reload();
         },
         className: "w-full py-3 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors shadow-lg"
-      }, (CURRENT_LANG === 'zh' ? "\u6E05\u9664\u7F13\u5B58\u5E76\u91CD\u7F6E\u5E94\u7528" : "Clear Cache & Reset App"))));
+      }, tv({ zh: "\u6E05\u9664\u7F13\u5B58\u5E76\u91CD\u7F6E\u5E94\u7528", en: "Clear Cache & Reset App", ms: "Kosongkan Cache & Set Semula" }))));
     }
     return this.props.children;
   }
@@ -106,6 +110,16 @@ class ErrorBoundary extends React.Component {
 
 const TRANSLATIONS = {
   zh: {
+    share: "分享",
+    share_title: "分享 AgriPro",
+    share_subtitle: "扫描二维码或发送链接，与农友分享本应用。",
+    share_scan: "用手机相机扫描即可打开",
+    share_whatsapp: "通过 WhatsApp 分享",
+    share_copy: "复制链接",
+    share_copied: "已复制！",
+    share_copy_failed: "无法复制，请长按链接手动复制。",
+    share_preview: "消息预览",
+    share_message: "🌱 AgriPro 农学笔记 — 作物营养诊断、土壤 pH、混配规则与智能施肥顾问。支持中文 / English / Bahasa Melayu，可离线使用。",
     app_title: "AgriPro 农学笔记",
     knowledge: "知识库",
     advisor: "智能顾问",
@@ -570,6 +584,16 @@ const TRANSLATIONS = {
     ph_breakdown_title: "吸收率详细分析"
   },
   en: {
+    share: "Share",
+    share_title: "Share AgriPro",
+    share_subtitle: "Scan the QR code or send the link to share this app with fellow growers.",
+    share_scan: "Scan with a phone camera to open",
+    share_whatsapp: "Share via WhatsApp",
+    share_copy: "Copy link",
+    share_copied: "Copied!",
+    share_copy_failed: "Could not copy. Long-press the link to copy it manually.",
+    share_preview: "Message preview",
+    share_message: "🌱 AgriPro Agronomy Notebook — nutrient diagnosis, soil pH, tank-mix rules and a smart fertilizer advisor. In 中文 / English / Bahasa Melayu, works offline.",
     app_title: "AgriPro Notebook",
     knowledge: "Knowledge",
     advisor: "Advisor",
@@ -956,7 +980,7 @@ const TRANSLATIONS = {
     info_B_antag: "1. The Calcium Lockup (pH): High Calcium levels in the soil (from over-liming) will aggressively trap Boron, rendering it unavailable.\n2. The Dilution Effect (N/K): Fast, explosive vegetative growth driven by high Nitrogen or Potassium physically dilutes the available Boron across too much tissue, inducing a sudden deficiency at the growing tips.",
     info_B_inhib: "1. Extreme Phytotoxicity: Boron toxicity is very common. Over-application causes severe necrosis (burning) starting at the leaf tips/margins, rapidly progressing inward until the leaf drops.",
     info_Mn_func: "The Water Splitter & Defense Activator. Manganese is the critical engine of the Oxygen-Evolving Complex (OEC) in Photosystem II. It literally splits water molecules during photosynthesis to generate the electrons that power the entire plant. Without Mn, photosynthesis stops at step one. It also drives the TCA cycle (cellular respiration) and is heavily involved in synthesizing Lignin, which hardens plant cell walls and roots against pathogen attacks.",
-    info_Mn_comm: "Market Forms:\n• Manganese Sulfate (MnSO4): The global standard. Highly soluble, cost-effective, and extremely fast-acting for foliar sprays to rescue deficient trees.\n• Mn-EDTA: A synthetic chelate stable up to pH 7.0. Best used in fertigation systems on delete soils to prevent the Mn from locking up with soil particles.\n• Manganese Oxide (MnO): Highly insoluble rock dust. Completely useless as a quick fix; it only functions as a multi-year slow-release amendment in highly acidic soils.",
+    info_Mn_comm: "Market Forms:\n• Manganese Sulfate (MnSO4): The global standard. Highly soluble, cost-effective, and extremely fast-acting for foliar sprays to rescue deficient trees.\n• Mn-EDTA: A synthetic chelate stable up to pH 7.0. Best used in fertigation systems on depleted soils to prevent the Mn from locking up with soil particles.\n• Manganese Oxide (MnO): Highly insoluble rock dust. Completely useless as a quick fix; it only functions as a multi-year slow-release amendment in highly acidic soils.",
     info_Mn_app: "Application Strategy (The pH Seesaw): Manganese is incredibly sensitive to soil pH.\n\n• High pH (> 7.0) Lockout: In alkaline or calcareous soils, Mn rapidly oxidizes into unavailable solid forms. You MUST bypass the soil and use foliar Manganese Sulfate.\n• Low pH (< 5.0) Toxicity Trap: In highly acidic soils, Mn becomes wildly soluble, flooding the roots and causing severe Manganese Toxicity (leaf spotting, crinkling, dropping—often misdiagnosed as a fungal disease). The cure is NOT to add nutrients, but to apply Dolomite Lime to raise the pH and lock the excess Mn safely back into the soil.",
     info_Mn_def: "Immobile Element Alert: Shows up on NEW leaves first. Causes 'Mottled' or 'Checkered' interveinal chlorosis. Unlike Iron deficiency (which has razor-sharp green veins against white tissue), Mn deficiency looks diffuse and blurry, with pale green/yellow spots spreading between the veins.",
     info_Mn_bio: "Fulvic Synergy: Applying Manganese with Fulvic Acid prevents the Mn ions from prematurely oxidizing on the leaf surface, ensuring rapid stomatal entry and utilization.",
@@ -1033,6 +1057,479 @@ const TRANSLATIONS = {
     ph_others: "etc.",
     ph_macros: "Macronutrients",
     ph_breakdown_title: "Detailed Availability Breakdown"
+  },
+  ms: {
+    share: "Kongsi",
+    share_title: "Kongsi AgriPro",
+    share_subtitle: "Imbas kod QR atau hantar pautan untuk berkongsi aplikasi ini dengan rakan petani.",
+    share_scan: "Imbas dengan kamera telefon untuk membuka",
+    share_whatsapp: "Kongsi melalui WhatsApp",
+    share_copy: "Salin pautan",
+    share_copied: "Disalin!",
+    share_copy_failed: "Tidak dapat menyalin. Tekan lama pada pautan untuk menyalin secara manual.",
+    share_preview: "Pratonton mesej",
+    share_message: "🌱 AgriPro Nota Agronomi — diagnosis nutrien, pH tanah, peraturan campuran tangki dan penasihat baja pintar. Dalam 中文 / English / Bahasa Melayu, boleh digunakan luar talian.",
+    app_title: "AgriPro Nota Agronomi",
+    knowledge: "Pengetahuan",
+    advisor: "Penasihat",
+    mix_rules: "Campuran",
+    ph_availability: "Ketersediaan pH",
+    tap_element: "Ketik unsur untuk melihat maklumat agronomi terperinci",
+    antagonism: "Antagonisme (Tanah/Campuran)",
+    inhibition: "Perencatan/Sekatan",
+    synergy: "Sinergi",
+    lbl_soil_conditions: "Keadaan Tanah & Cuaca",
+    lbl_adjust_soil: "Laraskan untuk melihat kesan terhadap ketersediaan nutrien",
+    lbl_ph: "pH Tanah",
+    lbl_texture: "Tekstur Tanah / CEC",
+    lbl_om: "Bahan Organik (OM)",
+    lbl_cation: "Kation Dominan",
+    lbl_weather: "Cuaca / Tekanan (VPD)",
+    lbl_ec: "EC Tanah (Kemasinan)",
+    lbl_crop_profile: "Profil Tanaman",
+    lbl_crop_type: "Jenis Tanaman",
+    lbl_variety: "Varieti/Klon",
+    lbl_tree_age: "Umur Pokok (Tahun)",
+    lbl_crop_stage: "Peringkat Pertumbuhan",
+    lbl_leaf_analysis: "Analisis Daun / Simptom",
+    lbl_recommendation: "Resipi Tepat",
+    lbl_rationale: "Rasional Agronomi",
+    lbl_rate_timing: "Kadar & Masa",
+    lbl_compat_warn: "Semakan Keselamatan",
+    lbl_reset: "Set Semula Input",
+    lbl_calculate: "Jana Resipi",
+    opt_crop_durian: "Durian",
+    opt_crop_general: "Umum / Tanaman Lain",
+    opt_var_mk: "Musang King (D197)",
+    opt_var_bt: "Black Thorn (D200)",
+    opt_var_d24: "D24 (Sultan)",
+    opt_var_ioi: "IOI / Hajah Hasmah (D168)",
+    opt_var_gp: "Golden Phoenix (D198)",
+    opt_var_rp: "Red Prawn (D175)",
+    opt_var_tekka: "Tekka (D160)",
+    opt_var_mt: "Monthong (D159)",
+    opt_var_tk: "Tupai King (D214)",
+    opt_var_d101: "D101 (Mas)",
+    opt_var_generic: "Generik / Kampung",
+    opt_stage_seedling: "Anak Benih / Tanam Semula",
+    opt_stage_veg: "Vegetatif (Pucuk Baru)",
+    opt_stage_pre_flower: "Pra-Berbunga & Aruhan",
+    opt_stage_flower_bud: "Kemunculan Putik (Mata Ketam) ",
+    opt_stage_matchstick: "Pemanjangan Batang Mancis",
+    opt_stage_bloom: "Bunga Kembang Penuh (Antesis)",
+    opt_stage_fruit_set: "Awal Pembentukan Buah (0–10 DAA)",
+    opt_stage_fruit_drop_1: "Gelombang 1: Pengguguran Embrio (10–25 DAA)",
+    opt_stage_ping_pong: "Gelombang 2: Persaingan Pucuk (35–50 DAA)",
+    opt_stage_rapid_expansion: "Pembesaran Pesat (50–90 DAA)",
+    opt_stage_maturation: "Pematangan & Rekahan Semula Jadi",
+    opt_stage_post_harvest: "Pemulihan Lepas Tuai",
+    opt_sym_none: "Sihat / Seimbang",
+    opt_sym_yellow_old: "Daun Tua Menguning (Kekurangan Nitrogen/Magnesium/Kalium)",
+    opt_sym_yellow_new: "Daun Muda Menguning (Kekurangan Besi/Mangan/Sulfur)",
+    opt_sym_burn: "Hujung Daun Terbakar (Kemasinan/Kekurangan Kalium)",
+    opt_sym_stunted: "Akar / Pertumbuhan Terbantut",
+    opt_sym_fruit_crack: "Buah Merekah / Cacat",
+    opt_sym_wet_core: "Teras Basah / Isi Berair",
+    opt_sand: "Berpasir (Daya Tahan Rendah)",
+    opt_loam: "Lom (Seimbang)",
+    opt_clay: "Liat (Daya Tahan Tinggi)",
+    opt_low: "Rendah (<2%)",
+    opt_med: "Sederhana (2-5%)",
+    opt_high: "Tinggi (>5%)",
+    opt_bal: "Seimbang",
+    opt_hi_ca: "Berkapur (Ca Tinggi)",
+    opt_hi_mg: "Serpentin (Mg Tinggi)",
+    opt_hi_k: "Kalium Tinggi",
+    opt_hi_na: "Masin (Na Tinggi)",
+    opt_dry: "Panas & Kering (VPD > 1.6 kPa)",
+    opt_norm: "Optimum (0.8-1.2 kPa)",
+    opt_wet: "Hujan Lebat / Mendung (< 0.5 kPa)",
+    opt_ec_low: "Rendah (< 1.0)",
+    opt_ec_opt: "Optimum (1.0-2.0)",
+    opt_ec_high: "Tinggi (> 2.0)",
+    lbl_acid: "Berasid",
+    lbl_neutral: "Neutral",
+    lbl_alkaline: "Beralkali",
+    lbl_visual: "Pemeriksaan Visual",
+    lbl_h2o2: "Ujian H2O2 (Hidrogen Peroksida)",
+    desc_visual_low: "Warna cerah/putih, berpasir atau padat, tiada bau.",
+    desc_visual_med: "Tanah perang biasa.",
+    desc_visual_high: "Hitam pekat, struktur rapuh/gembur, berbau tanah.",
+    desc_h2o2_low: "Tiada tindak balas.",
+    desc_h2o2_med: "Berbuih sedikit.",
+    desc_h2o2_high: "Berbuih kuat/panas.",
+    lbl_soil_impact: "Analisis Kesan Persekitaran",
+    msg_soil_ok: "Keadaan tanah semasa secara amnya sesuai untuk nutrien ini.",
+    lbl_high_conc_inhib: "Perencatan / Ketidakserasian Campuran Tangki",
+    lbl_inhibits: "Merencat/Menyekat",
+    lbl_when: "Bila",
+    lbl_none: "Tiada",
+    lbl_market_insight: "Maklumat Komersial",
+    lbl_app_strategy: "Strategi Aplikasi",
+    lbl_def_signal: "Tanda Kekurangan",
+    lbl_common_sources: "Sumber Biasa",
+    lbl_metabolism: "Fungsi Fisiologi",
+    lbl_enzymes: "Enzim Utama",
+    lbl_optimal_levels: "Rujukan Diagnostik",
+    lbl_soil_test: "Sasaran Tanah",
+    lbl_leaf_tissue: "Sasaran Tisu Daun",
+    lbl_ionic_form: "Bentuk Ion",
+    lbl_leach_risk: "Risiko Larut Lesap",
+    lbl_soil_grip: "Penjerapan Tanah",
+    lbl_compete: "Persaingan",
+    lbl_stage_veg: "Vegetatif",
+    lbl_stage_fruit: "Berbuah",
+    lbl_bio_synergy: "Sinergi Biostimulan (Pilihan)",
+    lbl_recipe_center: "RESIPI",
+    info_AA_zwitterion_title: "Teknik Agronomi: Kesan Zwitterion",
+    info_AA_zwitterion_desc: "Mengapa Asid Amino digelar 'Pita Dua Muka'?\n• Cas Pintar: Ia membawa cas positif (+) dan negatif (-). Ini membolehkannya melekat pada zarah tanah (mengurangkan larian air) sambil membalut nutrien logam (pengkelatan semula jadi).\n• Bunglon pH: Tidak seperti garam yang memendak, ia melaraskan casnya mengikut pH tanah, memastikan nutrien kekal aktif untuk diserap akar.",
+    lbl_immobile_insight: "Strategi Nutrien Tidak Bergerak",
+    msg_immobile_advice: "Kawalan Trafik: Unsur ini TIDAK bergerak di dalam pokok. Daun tua tidak dapat menyalurkannya kepada pucuk baru.\n\nStrategi:\n1. Sasaran Terus: Penghantaran melalui akar selalunya terlalu perlahan untuk pertumbuhan pesat. Anda MESTI sembur terus pada daun/buah baru.\n2. Penumpang: Penyerapan bergantung sepenuhnya pada transpirasi (aliran air). Tiada aliran air = Tiada penyerapan. Pastikan pengairan konsisten.",
+    cat_Macro: "Nutrien Makro",
+    cat_Secondary: "Nutrien Sekunder",
+    cat_Micro: "Nutrien Mikro",
+    cat_Beneficial: "Unsur Berfaedah",
+    cat_Biostimulant: "Biostimulan",
+    mob_Mobile: "Bergerak dalam Pokok",
+    mob_Immobile: "Tidak Bergerak dalam Pokok",
+    elem_Nitrogen: "Nitrogen (N)",
+    elem_Phosphorus: "Fosforus (P)",
+    elem_Potassium: "Kalium (K)",
+    elem_Sulfur: "Sulfur (S)",
+    elem_Calcium: "Kalsium (Ca)",
+    elem_Magnesium: "Magnesium (Mg)",
+    elem_Iron: "Besi (Fe)",
+    elem_Manganese: "Mangan (Mn)",
+    elem_Boron: "Boron (B)",
+    elem_Copper: "Kuprum (Cu)",
+    elem_Zinc: "Zink (Zn)",
+    elem_Molybdenum: "Molibdenum (Mo)",
+    elem_Silicon: "Silikon (Si)",
+    elem_Chlorine: "Klorin (Cl)",
+    elem_Nickel: "Nikel (Ni)",
+    elem_Sodium: "Natrium (Na)",
+    elem_Cobalt: "Kobalt (Co)",
+    elem_AminoAcids: "Asid Amino (AA)",
+    elem_Peptides: "Peptida (Pep)",
+    rec_Humic: "Asid Humik",
+    src_urea: "Urea (46%)",
+    src_amsul: "Ammonium Sulfat (21%)",
+    src_calnit: "Kalsium Nitrat",
+    src_kno3: "Kalium Nitrat",
+    src_dap: "DAP (18-46-0)",
+    src_map: "MAP (11-52-0)",
+    src_rock_phos: "Batuan Fosfat (ERP)",
+    src_polyphos: "Polifosfat",
+    src_mop: "Muriat Kalium (MOP/KCl)",
+    src_sop: "Kalium Sulfat (SOP)",
+    src_kmg_sulf: "Sul-Po-Mag",
+    src_dolomite: "Dolomit (GML)",
+    src_gypsum: "Gipsum (CaSO4)",
+    src_lime: "Kapur (CaCO3)",
+    src_kieserite: "Kieserit (MgSO4)",
+    src_mg_oxide: "Magnesium Oksida",
+    src_mg_nitrate: "Magnesium Nitrat",
+    src_elem_sulfur: "Sulfur Unsur",
+    src_fe_sulf: "Ferus Sulfat",
+    src_fe_edta: "Fe-EDTA",
+    src_fe_eddha: "Fe-EDDHA (Besi Merah)",
+    src_fe_amsul: "Ferus Ammonium Sulfat",
+    src_zn_sulf: "Zink Sulfat",
+    src_zn_edta: "Zn-EDTA",
+    src_zn_oxide: "Zink Oksida",
+    src_mn_sulf: "Mangan Sulfat",
+    src_mn_edta: "Mn-EDTA",
+    src_mn_oxide: "Mangan Oksida",
+    src_cu_sulf: "Kuprum Sulfat",
+    src_cu_hydrox: "Kuprum Hidroksida",
+    src_cu_edta: "Cu-EDTA",
+    src_borax: "Boraks",
+    src_boric: "Asid Borik",
+    src_solubor: "Solubor",
+    src_ca_borate: "Kalsium Borat",
+    src_na_moly: "Natrium Molibdat",
+    src_amm_moly: "Ammonium Molibdat",
+    src_k_silicate: "Kalium Silikat",
+    src_ca_silicate: "Kalsium Silikat",
+    src_rice_ash: "Abu Sekam Padi",
+    src_ca_chlor: "Kalsium Klorida",
+    src_amm_chlor: "Ammonium Klorida",
+    src_ni_sulf: "Nikel Sulfat",
+    src_ni_nitr: "Nikel Nitrat",
+    src_sea_salt: "Garam Laut",
+    src_na_nitr: "Natrium Nitrat",
+    src_co_sulf: "Kobalt Sulfat",
+    src_co_carb: "Kobalt Karbonat",
+    src_plant_aa: "Amino Tumbuhan (Soya/Jagung)",
+    src_animal_aa: "Amino Haiwan",
+    src_fish_aa: "Amino Ikan (FAA)",
+    src_fish_pep: "Peptida Ikan",
+    src_soy_pep: "Peptida Soya",
+    val_ratio_7_1: "Nisbah > 7:1",
+    val_high_ph_ca_b: "pH > 7.0 (Garam Tidak Larut)",
+    val_ratio_1_5: "Nisbah < 1.5",
+    val_ratio_2_5: "Nisbah > 2.5",
+    val_tank_mix: "Campuran Tidak Serasi",
+    mix_calnit: "Kalsium Nitrat",
+    mix_phos: "Fosfat",
+    mix_sulf: "Sulfat",
+    mix_mag: "Magnesium",
+    mix_iron: "Besi",
+    mix_urea: "Urea",
+    mix_amm_nit: "Ammonium Nit.",
+    mix_ca_mg: "Ca + Mg",
+    mix_boron: "Boron",
+    mix_zinc: "Baja Zink",
+    mix_ammonium: "N Ammonium",
+    mix_humic: "Asid Humik",
+    mix_amino: "Asid Amino",
+    mix_pep: "Peptida",
+    mix_copper: "Racun Kulat Kuprum",
+    mix_silicate: "Silikat",
+    mix_acids: "Asid",
+    mix_seaweed: "Rumpai Laut (Alkali)",
+    mix_pesticides: "Racun Perosak Sensitif",
+    mix_reason_ppt_white: "Mendakan (Pepejal Putih). ",
+    mix_reason_ppt_gyp: "Mendakan (Gipsum). ",
+    mix_reason_ppt_high: "Memendak pada kepekatan/pH tinggi. ",
+    mix_reason_lockup: "Terkunci (kecuali dikelat). ",
+    mix_reason_wet: "Campuran menjadi lembap/pes. ",
+    mix_reason_ratio_complex: "Fizikal: Bahan pekat terus menjadi gel. Kimia: Kekalkan Ca:Mg 3:1 hingga 5:1. ⚠️ Amaran: Boron mesti < 0.2% (Ca:B ≈ 100:1). Berlebihan akan membakar daun.",
+    mix_reason_humate_sludge: "Tindak balas: Membentuk enapcemar Kalsium Humat tidak larut yang menyumbat muncung. Gunakan Asid Fulvik sebagai ganti.",
+    mix_reason_copper_burn: "Fitotoksik: Amino membawa Kuprum ke dalam tisu terlalu cepat, menyebabkan daun terbakar teruk.",
+    mix_reason_pep_copper: "Fitotoksik: Peptida meningkatkan kebolehtelapan sel, menyebabkan keracunan Kuprum (terbakar).",
+    mix_reason_silica_gel: "Bencana: Silikat berpolimer menjadi kaca/gel apabila bertemu asid. Merosakkan peralatan.",
+    mix_reason_silica_ca: "Pemendakan: Membentuk Kalsium Silikat tidak larut.",
+    mix_reason_ph_hydrolysis: "Konflik pH: Rumpai laut beralkali (pH >9) menyebabkan hidrolisis (penguraian) racun perosak. Tambah penimbal.",
+    mix_reason_zn_phos: "Pemendakan: Zink + Fosfat = Zink Fosfat (batu tidak larut). Menyebabkan nutrien terkunci.",
+    mix_reason_cu_acid: "Risiko Terbakar: Persekitaran berasid membebaskan ion Kuprum terlalu banyak secara serta-merta.",
+    mix_reason_nh4_alkali: "Pemeruapan: Ammonium bertukar menjadi gas Ammonia dalam keadaan beralkali (Rumpai Laut/Kapur).",
+    status_incompatible: "Tidak Serasi",
+    status_caution: "Berhati-hati",
+    mix_protocol_title: "Protokol Campuran Tangki",
+    mix_protocol_gold: "Peraturan Emas (WALES): Jangan Campur Terus",
+    mix_protocol_gold_desc: "Mencampurkan dua bahan pekat secara terus (cth. Kalsium + Boron) menyebabkan 'kejutan' kimia. Kerana kekurangan air, ion menjadi lampau tepu serta-merta, menukar cecair menjadi gel atau pes pekat ('Kesan Puding') yang menyumbat muncung secara kekal.",
+    mix_protocol_step1: "1. Air Dahulu (70%)",
+    mix_protocol_step2: "2. Pracairkan",
+    mix_protocol_step3: "3. Masukkan mengikut urutan",
+    mix_protocol_step1_desc: "Air ialah penimbal terbaik.",
+    mix_protocol_step2_desc: "Larutkan setiap baja dalam baldi berasingan terlebih dahulu.",
+    mix_protocol_step3_desc: "Masukkan Larutan A -> Kacau -> Masukkan Larutan B.",
+    adj_title: "Strategi Bahan Pembantu",
+    adj_subtitle: "Memilih 'Kurier' yang betul",
+    adj_nis_title: "Surfaktan Bukan Ionik (NIS)",
+    adj_nis_desc: "Pilihan Serba Boleh yang Selamat. Menurunkan tegangan permukaan untuk membasahkan daun tetapi kebanyakannya kekal di permukaan. Terbaik untuk nutrisi am, risiko terbakar rendah.",
+    adj_si_title: "Organosilikon (Super Spreader)",
+    adj_si_desc: "Pakar Penembusan. Tegangan permukaan sangat rendah (20 dynes/cm). Cecair memasuki stomata secara terus. Bagus untuk penyerapan sistemik tetapi berisiko ketika panas.",
+    adj_orange_title: "Minyak Oren / D-Limonene",
+    adj_orange_desc: "Pelbagai Guna Organik. Melarutkan kutikel berlilin untuk bertindak sebagai penembus. Bonus: Membunuh perosak bertubuh lembut (hama/thrips) secara fizikal melalui penyahhidratan.",
+    adj_orange_warn: "Amaran: Minyak 'Panas'. Menanggalkan lilin -> Sensitif cahaya matahari. Peraturan: 1. Jangan guna jika >30°C. 2. Jangan campur dengan penembus lain.",
+    adj_bee_title: "Keselamatan Pendebunga",
+    adj_bee_desc: "Ketoksikan Sentuhan: D-Limonene toksik kepada lebah apabila tersentuh (melarutkan eksoskeleton). Bau kuat mengganggu pencarian makanan.\n\nPematuhan:\n• JANGAN sembur ketika berbunga.\n• Sembur hanya pada lewat petang apabila lebah berada di sarang.",
+    adj_rule_burn: "Risiko Terbakar: Organosilikon menembusi terlalu cepat. Jangan sekali-kali campur dengan Kuprum atau Sulfur pada suhu melebihi 30°C.",
+    adj_rule_runoff: "Risiko Larian: Penyebaran berlebihan menyebabkan cecair bergabung dan mengalir jatuh. Kurangkan isipadu air.",
+    adj_rule_hydrolysis: "Sensitif pH: Terurai dengan cepat jika pH <4 atau >9. Gunakan segera.",
+    adj_diy_title: "Sabun Pencuci Pinggan DIY?",
+    adj_diy_desc: "<b>TIDAK:</b> Detergen isi rumah biasanya <b>Anionik</b> dan mengandungi natrium. Ia menanggalkan kutikel daun secara agresif, menyebabkan selaran matahari dan kemasukan patogen. Gunakan bahan pembantu pertanian.",
+    chel_title: "Pengkelatan & Kestabilan",
+    chel_subtitle: "Buka kunci nutrien, elak nutrien terkunci",
+    chel_edta: "EDTA (Standard)",
+    chel_edta_desc: "Standard ekonomi. Bagus untuk semburan daun. Amaran: Tidak stabil pada pH > 6.5. Membebaskan nutrien (terutamanya Fe) dalam tanah beralkali, menyebabkan pemendakan.",
+    chel_eddha: "EDDHA (Besi Merah)",
+    chel_eddha_desc: "Kelas Berat. Sangat stabil pada pH 3.0-10.0. SATU-SATUNYA pilihan untuk aplikasi Besi ke tanah beralkali. Mahal tetapi berkesan.",
+    chel_deta: "DETA",
+    chel_deta_desc: "Gred Pakar. Digunakan untuk Cu dan Zn. Cengkaman lebih kuat daripada EDTA, tetapi masih gagal dalam keadaan sangat beralkali. ⚠️ Fakta: Tidak boleh mengkelat Boron.",
+    chel_dtpa: "DTPA (Besi Kuning)",
+    chel_dtpa_desc: "Standard Hidroponik. Stabil sehingga pH 7.5. Mengisi jurang antara EDTA (lemah) dan EDDHA (mahal).",
+    chel_amino: "Asid Amino (Organik)",
+    chel_amino_desc: "Kelajuan Ferrari. Menembusi kutikel daun paling cepat. Sebagai protein 'pra-cerna', pokok tidak menggunakan tenaga untuk menyerapnya. Terbaik untuk pemulihan tekanan.",
+    chel_fulvic: "Asid Fulvik (Pembawa)",
+    chel_fulvic_desc: "Pengangkut Emas. Molekul asid organik yang kecil. Membawa Ca/Mg/unsur surih menembusi dinding sel. Larut pada semua tahap pH.",
+    chel_ligno: "Lignosulfonat",
+    chel_ligno_desc: "Organik Ekonomi. Hasil sampingan kertas. Pengkompleksan lemah (bukan kelat sebenar), tetapi sifat pelekat/perata semula jadi yang sangat baik. Untuk semburan daun sahaja.",
+    chel_polyol: "Poliol (Alkohol Gula)",
+    chel_polyol_desc: "Teksi Boron. Kompleks Manitol/Sorbitol. SATU-SATUNYA teknologi yang menjadikan Boron bergerak dalam floem (diangkut dari daun ke buah).",
+    chel_citric: "Asid Sitrik",
+    chel_citric_desc: "Pelaras. Pengkelatan lemah, tetapi sangat baik untuk menurunkan pH tangki sementara bagi mengekalkan kestabilan campuran.",
+    chel_wood_vinegar: "Cuka Kayu",
+    chel_wood_vinegar_desc: "Sinergis. Pengkelatan lemah melalui asid asetik. Menurunkan pH, menghalau perosak dan meningkatkan penembusan daun.",
+    chel_lbl_synthetic: "Kelat Sintetik",
+    chel_lbl_organic: "Pembawa Organik",
+    chel_badge_ph_low: "pH < 6.5",
+    chel_badge_ph_wide: "pH 3-10",
+    chel_badge_ph_med: "pH < 7.5",
+    chel_badge_fast: "Serapan Pantas",
+    chel_badge_univ: "Universal",
+    unit_title: "Memahami Unit",
+    unit_desc: "Mengapa guna Nisbah vs Peratus vs ppm",
+    unit_col_unit: "Unit",
+    unit_col_target: "Sasaran",
+    unit_col_reason: "Logik",
+    unit_ratio_targets: "Fe, Mn, Ca, Mg",
+    unit_ratio_reason: "Keseimbangan menentukan penyerapan (Persaingan). Nisbah relatif lebih penting daripada jumlah mutlak.",
+    unit_percent_targets: "N, K, Mg (Makro)",
+    unit_percent_reason: "Kuantiti tinggi (1-5% daripada tisu). Ketoksikan/Perencatan diukur dalam peratus.",
+    unit_ppm_targets: "Zn, Cu, B, Mo (Mikro)",
+    unit_ppm_reason: "Amaun surih. Peningkatan mutlak yang sangat kecil (mg/kg) boleh menyebabkan ketoksikan.",
+    unit_row_ratio: "Nisbah",
+    unit_row_percent: "Peratus",
+    unit_row_ppm: "ppm",
+    info_N_func: "Pembina Utama Kehidupan Tumbuhan. Nitrogen ialah blok binaan asas bagi asid amino, protein dan molekul klorofil (enjin fotosintesis). Ia mengawal secara langsung sintesis DNA/RNA, memacu pembahagian sel dan mengawal Indeks Luas Daun (LAI). Tanpa N yang mencukupi, pokok tidak dapat membina jentera enzim yang diperlukan untuk proses metabolik lain. Ia merupakan pemacu utama pengumpulan biojisim vegetatif.",
+    info_N_comm: "Bentuk di Pasaran:\n• Urea (46% N): Paling murah, kepekatan tertinggi. N-amida mesti ditukar kepada Ammonium, kemudian Nitrat melalui urease tanah dan bakteria penitritan. Kehilangan pemeruapan tinggi (sebagai gas ammonia) jika dibiarkan di permukaan tanpa kelembapan. Menaikkan pH buat sementara, kemudian sangat mengasidkan.\n• Kalsium Nitrat (15.5% N, 19% Ca): Pilihan Premium. 100% N-Nitrat. Bertindak cepat, tidak mengasidkan dan diserap terus oleh akar tanpa kos tenaga. Secara sinergi menarik Kalsium ke dalam pokok. Sesuai untuk pembesaran buah dan pemulihan.\n• Ammonium Sulfat (21% N, 24% S): Mengandungi N-Ammonium. Sangat mengasidkan. Sangat baik untuk tanah pH tinggi atau menghijaukan daun secara perlahan dan berterusan. ⚠️ Amaran: Ammonium berlebihan sangat merencat penyerapan Kalsium, Kalium dan Magnesium oleh akar.\n• Kalium Nitrat (13% N, 46% K2O): Pemulihan pantas. N-Nitrat bertindak sebagai pembawa, secara sinergi menarik Kalium ke dalam pokok. Tiada tandingan untuk pembesaran dan pemanisan buah di peringkat akhir.\n• Ammonium Nitrat (34% N): Seimbang separuh ammonium, separuh nitrat. Bagus untuk makanan segera dan berterusan, tetapi dikawal ketat/dihadkan di banyak kawasan.",
+    info_N_app: "Strategi: 'Pembajaan Berdenyut' & Pengurusan Peringkat. Beri N dengan banyak semasa pucuk vegetatif. Sebaik sahaja pembungaan bermula, segera hadkan N untuk mengelakkan 'pintasan vegetatif' (pokok menggugurkan bunga/buah untuk menumbuhkan daun baru). \n\nPembajaan berdenyut: Beri baja N utama, kemudian tunggu 3-4 hari sebelum memberi Kalsium atau unsur Mikro untuk mengelakkan kesesakan akar. Semasa berbuah, tukar daripada sumber Amida/Ammonium kepada sumber Nitrat untuk mengelakkan sekatan Kalium dan Kalsium.",
+    info_N_def: "Amaran Unsur Bergerak: Daun tua bertukar hijau pucat hingga kuning sekata di seluruh daun (termasuk urat). Pokok mengorbankan daun tua untuk memindahkan N ke pertumbuhan baru. Kes teruk menunjukkan pertumbuhan terbantut dan kurus, daun gugur awal, serta kanopi nipis dan jarang.",
+    info_N_bio: "Sinergi Organik:\n1. Asid Amino Ikan membekalkan blok peptida siap dibina; pokok menyerapnya secara terus, menjimatkan tenaga ATP yang banyak yang biasanya diperlukan untuk menukar nitrat kepada protein.\n2. Asid Humik & Fulvik bertindak seperti span (CEC tinggi), menahan ion Nitrat/Ammonium yang mudah bergerak di zon akar dan mengurangkan kehilangan larut lesap secara ketara semasa hujan lebat.",
+    info_N_antag: "1. Perang Kation (Ammonium vs K/Ca/Mg): Ammonium (NH4+) ialah ion positif yang sangat reaktif dan bersaing secara agresif dengan Kalium (K+), Kalsium (Ca++) dan Magnesium (Mg++) untuk memasuki akar.\nPenyelesaian: Gunakan Nitrat (NO3-) semasa pengisian buah untuk mengelakkan sekatan K.\n\n2. Perangkap Pencairan (N vs P/Mikro): N berlebihan memaksa ledakan pesat dedaun vegetatif. Sistem akar tidak dapat menyerap Fosforus atau Unsur Surih yang lambat bergerak dengan cukup pantas, menyebabkan kekurangan 'pencairan' yang teruk pada daun baru.",
+    info_N_syn: "1. Enjin Klorofil (Mg): N membina struktur cincin porfirin, manakala Magnesium (Mg) terletak tepat di tengah. Kedua-duanya tidak berfungsi tanpa satu sama lain.\n2. Kilang Protein (S): N digunakan untuk membina rantai, tetapi Sulfur (S) membentuk 'jambatan disulfida' yang melipat protein kepada bentuk 3D yang berfungsi.\n3. Pembawa Nitrat (K, Ca): Kalium dan Kalsium bertindak sebagai pengiring fisiologi, membantu membawa N-Nitrat naik melalui xilem.",
+    info_N_inhib: "1. Kuprum (Cu) Terkunci: Aplikasi Nitrogen yang tinggi mengikat Kuprum dalam tanah dan tisu, menghalang pembentukan lignin (menyebabkan dahan lemah dan lembut).\n2. Perencatan Boron (B): N tinggi menyekat penyerapan Boron, menyebabkan buah merekah dan bunga gugur.\n3. pH Menjunam (Mo): Penggunaan Ammonium/Urea yang banyak menurunkan pH tanah, menjadikan Molibdenum tidak tersedia secara kimia untuk penurunan Nitrogen.",
+    info_P_func: "Mata Wang Tenaga & Suis Utama Pembiakan. Fosforus ialah tulang belakang ATP (tenaga sel), DNA dan membran sel. Walaupun ia memacu pemanjangan akar pada pokok muda, peranan paling penting pada pokok matang ialah memberi isyarat peralihan daripada pertumbuhan vegetatif (pucuk) kepada pembiakan generatif (pembungaan). Lonjakan P yang besar memberitahu pokok untuk menyalurkan tenaga yang terkumpul bagi menghasilkan putik bunga dan bukannya daun baru.",
+    info_P_comm: "Bentuk di Pasaran:\n• MKP (Mono-Kalium Fosfat, 0-52-34): Raja aruhan bunga yang tiada tandingan. Mengapa petani memberinya dengan banyak sebelum berbunga? 1) Sifar Nitrogen memastikan pokok berhenti mengeluarkan pucuk baru. 2) P yang tinggi (52%) membekalkan tenaga ATP yang besar untuk mengeluarkan putik bunga. 3) K yang tinggi (34%) mematangkan dahan, mengumpul kanji dan mewujudkan sedikit tekanan osmotik yang 'memperdaya' pokok ke mod survival/pembiakan.\n• MAP (11-52-0): Mengandungi N. Bagus untuk perkembangan awal akar tetapi elakkan semasa aruhan bunga yang ketat jika N perlu sifar. Mewujudkan zon mikro berasid (pH ~4.0).\n• DAP (18-46-0): Mewujudkan zon mikro beralkali (pH ~8.0). N dan P tinggi, digunakan hanya pada peringkat awal vegetatif.\n• Polifosfat: Bentuk cecair yang jauh lebih tahan daripada terkunci dalam tanah berbanding ortofosfat berbutir.",
+    info_P_app: "Strategi Pra-Berbunga (Peralihan C:N): Untuk memaksa pembungaan, pokok memerlukan Karbohidrat (C) tinggi dan Nitrogen (N) rendah. 4-6 minggu sebelum jangkaan berbunga, hentikan semua N tanah. Sembur MKP (0-52-34) pada daun setiap 7-10 hari untuk mengeraskan dahan dan memaksa putik pecah.\n\n⚠️ Protokol P-Zn (Urutan Langkah): Jika pokok kekurangan Zink, JANGAN beri P yang banyak sehingga Zink diperbetulkan. \nLangkah 1: Sembur Zn-EDTA atau Zn-Amino pada daun untuk memintas tanah sepenuhnya.\nLangkah 2: Tunggu 5-7 hari supaya pokok menyerap dan memindahkan Zink untuk membina enzim pertumbuhan.\nLangkah 3: Kini selamat untuk memberi Fosforus yang banyak ke tanah atau melalui fertigasi. Jangan sekali-kali campur P dan Zn dalam tangki.",
+    info_P_def: "Daun tua bertukar hijau gelap, ungu atau gangsa. Akar cetek, pembungaan lewat.",
+    info_P_bio: "Sinergi Humik: Asid humik menyalut P, menghalangnya terkunci oleh Besi/Kalsium. Memanjangkan tempoh ketersediaan.",
+    info_P_antag: "1. Injap Sehala (P vs N): P tinggi tidak menghalang N, tetapi N tinggi mencairkan P.\n\n2. Penguncian P-Zn 3 Tahap: P tinggi menjatuhkan Zink secara agresif pada tiga aspek:\n• Kimia: Kedua-duanya terikat dalam tanah membentuk batu Zink Fosfat yang tidak larut.\n• Biologi: P yang tinggi memberi isyarat kepada pokok untuk menyekat kulat mikoriza (yang diperlukan untuk mencari Zn).\n• Fisiologi: P dalaman yang tinggi memerangkap Zn di akar, menghalangnya bergerak naik melalui xilem ke daun baru.",
+    info_P_syn: "1. Pembawa Tenaga (Mg): Mg mengangkut ATP. Tiada Mg = Tiada pemindahan tenaga.\n2. Pemburu Akar (N): N memacu pemanjangan akar untuk mencari P yang tidak bergerak.",
+    info_P_inhib: "1. Fosfat Terkunci (Zn/Fe/Cu): P berlebihan membentuk batu zink fosfat. Punca #1 kekurangan Zink.\n2. Sekatan Akar: Sekatan fizikal pada tapak Kuprum.",
+    info_K_func: "Komander Kualiti & Pengawal Osmotik. Kalium mengaktifkan lebih 60 enzim penting. Ia bertindak sebagai pam hidraulik pokok, mengawal pembukaan/penutupan stomata (ketahanan kemarau) dan mengekalkan kesegahan sel. Paling penting, K ialah kenderaan pengangkut yang mengepam fotosintat (gula) dari daun terus ke buah yang sedang membesar, menentukan saiz, berat, Brix (kemanisan) dan jangka hayat akhir.",
+    info_K_comm: "Bentuk di Pasaran:\n• MOP (Kalium Klorida / 0-0-60): Paling murah dan paling biasa. Amaran: Indeks klorida tinggi. Toksik kepada tanaman sensitif (Durian, Avokado, Sitrus) menyebabkan tepi daun terbakar dan struktur tanah rosak. Elakkan sama sekali semasa berbuah.\n• SOP (Kalium Sulfat / 0-0-50): Standard Kualiti Premium. Indeks garam sangat rendah. Membekalkan K serta Sulfur (18%), yang penting untuk rasa, aroma dan minyak pati. Rahsia 'Emas Hitam' untuk rasa pahit Durian.\n• Kalium Nitrat (KNO3 / 13-0-46): Pengangkut Terpantas. Nitrat bertindak sebagai pengiring molekul, menarik K ke dalam pokok dengan serta-merta. Tiada tandingan untuk pembesaran buah yang pesat dan memulihkan kekurangan teruk.\n• Kalium Silikat: Cecair semburan daun yang sangat beralkali. Membekalkan K sambil mengeraskan dinding sel secara fizikal (fitolit) terhadap serangan perosak/kulat.",
+    info_K_app: "Strategi Aplikasi: Keperluan K meningkat mendadak semasa fasa 'Pembesaran Buah'. Pokok akan mengambil K daripada daun tua secara agresif untuk menampung buah jika K tanah rendah. \n\nProtokol: Tukar kepada pembajaan K yang tinggi (nisbah N:K 1:3 atau 1:4) sejurus selepas pembentukan buah. Untuk hasil premium, sembur SOP atau KNO3 pada daun 3-4 minggu sebelum tuai untuk meningkatkan pengumpulan gula akhir dan profil rasa yang kompleks.",
+    info_K_def: "Amaran Unsur Bergerak: 'Hangus Tepi' klasik. Daun tua menguning dan kemudian terbakar (perang/rapuh) di sepanjang tepi luar. Buah bersaiz kecil, kurang manis, masak tidak sekata dan bertekstur lembik berair.",
+    info_K_bio: "Sinergi Rumpai Laut: Rumpai Laut (Kelp) perahan sejuk kaya dengan Kalium dan sitokinin bioaktif secara semula jadi. Mencampurkan Rumpai Laut dengan K semasa kemarau atau gelombang haba memberi isyarat kepada pokok untuk mengekalkan fungsi stomata, mengelakkan hasil merosot.",
+    info_K_antag: "1. Kation Pembuli (K vs Mg/Ca): Kalium ialah ion positif yang kecil, sangat mudah bergerak dan agresif. Pokok secara semula jadi melakukan 'Penggunaan Mewah' K. Jika diberi terlalu banyak, ia mengatasi Ca++ dan Mg++ yang berat di permukaan akar, menyebabkan Magnesium (menguning) dan Kalsium (buah merekah/teras basah) terkunci dengan teruk.\n2. Sekatan Ammonium: Paras Ammonium (NH4+) yang tinggi dalam tanah akan bersaing dan menyekat penyerapan Kalium secara agresif.",
+    info_K_syn: "1. Pengiring Gula (Boron): K memberikan tekanan untuk menggerakkan sap, tetapi Boron bertindak sebagai 'penjaga pintu' yang membenarkan gula merentasi membran sel ke dalam buah. Kedua-duanya mesti bekerjasama.\n2. Pembantu Pengangkutan (Besi & Mangan): K mengawal aliran air yang membawa Besi dan Mangan yang lambat bergerak naik ke kanopi.",
+    info_K_inhib: "1. Penyesaran Kation (Mg/Ca): Menyesarkan Mg dan Ca di tapak pertukaran akar.\n2. Pencairan Boron: Pengembangan sel yang sangat pantas akibat K tinggi boleh mengatasi keupayaan pokok membekalkan Boron, menyebabkan teras berongga atau merekah.",
+    info_Ca_func: "Simen Struktur & Agen Anti-Rekah. Kalsium membentuk 'Kalsium Pektat' dalam lamela tengah—secara literal gam yang mengikat sel-sel tumbuhan. Apabila buah membesar dengan pesat (didorong oleh air dan Kalium), dinding sel mesti meregang. Jika Kalsium tidak mencukupi, 'gam' sel ini gagal dan kulit buah terkoyak secara fizikal, menyebabkan Buah Merekah yang teruk. Ia juga menguatkan dinding sel terhadap serangan kulat dan bertindak sebagai 'Utusan Kedua', memberi amaran kepada pokok tentang tekanan haba dan kemarau.",
+    info_Ca_comm: "Bentuk di Pasaran:\n• Kalsium Alkohol Gula (Poliol): Pilihan terbaik untuk mencegah buah merekah. Kalsium secara semula jadi tidak bergerak, tetapi kompleks Poliol 'memperdaya' pokok supaya menggerakkan Ca melalui floem terus ke dalam buah.\n• Kombo Cecair Ca-B-Mg: Semburan daun standard industri untuk peringkat pembiakan. Boron wajib untuk membolehkan Kalsium berfungsi (menyambung silang dinding sel), manakala Magnesium mencegah Ca yang tinggi daripada menyebabkan Mg terkunci setempat dalam buah yang sedang membesar.\n• Kalsium Nitrat: Standard fertigasi yang sangat larut. Membekalkan N-Nitrat dan Ca dengan cepat kepada akar.\n• Amino-Ca: Pilihan semburan daun yang lembut dengan penembusan pantas, mengurangkan penggunaan tenaga pokok.\n• Dolomit / Kapur Pertanian (Batu 'Dwi Fungsi'): Batu hancur yang sangat tidak larut. Mempunyai dua fungsi asas yang besar: 1) Pembetulan pH (meneutralkan asid daripada baja seperti Urea/Ammonium) dan 2) Ketepuan Bes (Ca & Mg dilepaskan perlahan). ⚠️ Amaran: JANGAN SEKALI-KALI guna Dolomit untuk nutrisi buah segera bagi menghentikan buah merekah atau reput hujung bunga.",
+    info_Ca_app: "Protokol Pencegahan Buah Merekah: Kalsium HANYA bergerak ke atas bersama air (transpirasi). Buah hampir tidak bertranspirasi, jadi Kalsium yang diserap akar kebanyakannya memintas buah. Anda MESTI menyembur Kalsium daun yang mudah bergerak (cth. Ca Alkohol Gula) terus ke buah setiap 10-14 hari semasa pembesaran.\n\nProtokol Masa Dolomit: Kerana ia batu yang dilepaskan perlahan, masa aplikasi amat penting:\n1. Selepas Tuai/Pemulihan: Tabur sejurus selepas tuaian untuk memulihkan tanah yang letih dan berasid serta membina semula simpanan Ca/Mg.\n2. 2-3 Bulan Sebelum Berbunga: Tabur jauh sebelum berbunga supaya pH tanah berada pada tahap optimum untuk menyerap baja P dan K yang mahal semasa peringkat berbuah.",
+    info_Ca_def: "Buah Merekah Teruk (kulit pecah semasa pembesaran). 'Teras Basah' pada durian (isi berair dan lembik). Reput hujung bunga. Kerana Ca tidak boleh bergerak dari daun tua, daun baharu muncul bengkok, herot atau sangat berkerinting. Hujung akar menjadi perang, tumpul dan mati.",
+    info_Ca_bio: "Sinergi Pembawa: Asid Fulvik dan Peptida khusus mengikat ion Kalsium, meneutralkan cas positifnya yang kuat. Ini membolehkan molekul Ca yang berat menembusi kutikel daun berlilin dengan mudah ke dalam tisu pokok tanpa tersekat di permukaan daun.",
+    info_Ca_syn: "1. Bata & Simen (B): Ini sinergi wajib. Kalsium membina 'bata' dinding sel, tetapi Boron ialah 'simen'nya. Jika anda menyembur Kalsium tanpa Boron, pokok tidak dapat memasukkan Ca ke dalam dinding sel, menjadikan semburan itu langsung tidak berguna. Inilah sebabnya hampir semua baja daun komersial ialah Ca+B.\n2. Trio Pembesaran (B + Mg): Semasa pembesaran buah yang pesat, Ca+B membina struktur fizikal sel, manakala Magnesium (Mg) membekalkan tenaga ATP untuk mengepam gula ke dalam sel baharu tersebut.\n3. Perisai (Si): Silikon menguatkan dinding Ca pada kutikel luar.",
+    info_Ca_antag: "1. Kesesakan Kation (K/Mg): Ca tinggi (Kapur) memenuhi tapak pertukaran, menghalang K dan Mg.\n2. Kunci pH: Ca tinggi menaikkan pH, memendakkan unsur surih.",
+    info_Ca_inhib: "1. Sekatan pH (Fe/Mn/Zn/B): pH tinggi > 7.0 mengunci unsur mikro.",
+    info_Mg_func: "Teras Klorofil & Pakar Tekstur. Magnesium ialah atom pusat molekul klorofil—tanpanya, fotosintesis terhenti sepenuhnya. Selain menghijaukan daun, Mg ialah pam utama yang memuatkan sukrosa ke dalam floem untuk diangkut ke buah. Dalam penanaman durian premium, Mg ialah kunci utama untuk menghasilkan tekstur isi yang melekit, kaya dan berkrim seperti kastard.",
+    info_Mg_comm: "Bentuk di Pasaran:\n• Kieserit / Magnesium Sulfat (Epsom): Sangat larut, bertindak pantas. Sesuai untuk semburan daun bagi memintas akar yang terkunci, dan membekalkan Sulfur penting untuk perkembangan rasa/aroma yang kompleks.\n• Magnesium Nitrat: Pilihan fertigasi premium. Nitrat bertindak sebagai pembawa, menarik Mg ke dalam pokok secara sinergi. Sangat baik untuk pucuk vegetatif yang pantas.\n• Dolomit: Ketepuan bes lepasan perlahan. Meneutralkan asid tanah tetapi tidak memberi nutrisi segera kepada buah yang sedang membesar.\n• Magnesium Oksida (MgO): Kebanyakannya tidak larut. Digunakan semata-mata sebagai bahan pemulih tanah lepasan perlahan.",
+    info_Mg_app: "Strategi Aplikasi (Memintas 'Kelaparan Tersembunyi'): Semasa pembesaran buah, petani membaja Kalium (K) dalam jumlah besar untuk membesarkan buah. Kerana K ialah ion 'pembuli' yang agresif, ia mengunci Mg sepenuhnya di akar. Walaupun ujian tanah menunjukkan Mg tinggi, pokok sebenarnya kebuluran.\n\nProtokol Durian Premium: Untuk mengekalkan 'Kulit Hijau' yang sangat diingini semasa tuaian (mencegah kekuningan pramatang) dan memastikan isi berkrim, anda MESTI memintas akar. Sembur Magnesium Sulfat pada daun setiap 10-14 hari semasa fasa akhir pembesaran buah. Sasarkan nisbah K:Mg tanah kira-kira 2:1 hingga 3:1.",
+    info_Mg_def: "Amaran Unsur Bergerak: 'Klorosis Antara Urat' klasik. Daun tua menjadi kuning terang di antara urat, meninggalkan bentuk 'mata anak panah hijau' atau segi tiga yang jelas di pangkal daun. Pada buah premium seperti Durian, kekurangan Mg menyebabkan kulit pucat/kekuningan sebelum matang sepenuhnya, dan isi yang berair, tawar serta tiada tekstur melekit premium.",
+    info_Mg_syn: "1. Pam Fosforus (P): Mg membawa P/ATP.\n2. Kilang Hijau (N): Sinergi untuk klorofil.",
+    info_Mg_antag: "1. Persengketaan K/Mg: K merencat Mg dengan kuat.\n2. Rencatan Ca: Ca tinggi memadatkan tanah, menyekat Mg.",
+    info_Mg_inhib: "1. Persaingan Kation (Ca/K): Mg tinggi merencat pengambilan Ca dan K.",
+    info_S_func: "Arkitek Rasa & Aroma. Sulfur ialah komponen teras asid amino Sisteina dan Metionina, iaitu blok binaan sebatian organik meruap (VOC). Dalam durian premium, sebatian berasaskan sulfur ini menentukan bau yang kuat, aroma kompleks dan nota alkohol 'seperti gas' yang menjadi ciri varieti seperti Musang King dan Black Thorn. Ia juga membentuk jambatan disulfida yang memberi integriti struktur kepada protein tumbuhan.",
+    info_S_comm: "Bentuk di Pasaran:\n• SOP (Kalium Sulfat / 0-0-50 + 18% S): Pilihan terbaik untuk buah premium. Membekalkan K untuk saiz buah dan S untuk rasa, tanpa sebarang Nitrogen yang merosakkan tekstur isi.\n• Kieserit / Garam Epsom (Magnesium Sulfat): Sangat larut, membekalkan Mg untuk tekstur berkrim dan S untuk rasa pahit serentak.\n• Sulfur Elemen (90% S): Sangat tidak larut. Memerlukan bakteria tanah (Thiobacillus) untuk menukarkannya perlahan-lahan kepada sulfat dalam tempoh beberapa bulan. Sangat mengasidkan tanah.\n• Ammonium Sulfat (21% N, 24% S): Sangat baik untuk penghijauan vegetatif awal tetapi mesti dielakkan semasa peringkat akhir pematangan buah.\n• Gipsum (CaSO4): Pemulih tanah yang hebat yang membekalkan S-sulfat dan Kalsium tanpa mengubah pH tanah.",
+    info_S_app: "Protokol Durian Premium Terbaik (Triad K-Mg-S):\nUntuk mencapai profil 'Emas Hitam' yang sangat didambakan (isi yang sangat pahit, melekit, berkrim dengan aroma kuat), petani mesti menguasai gabungan K:Mg:S dalam 30 hari terakhir perkembangan buah.\n\n• Nisbah: Sasarkan nisbah K : Mg : S kira-kira 4 : 1 : 2 dalam aplikasi peringkat akhir.\n• Mekanisme: Kalium (K) memacu gula dan saiz buah. Magnesium (Mg) membina tekstur kastard yang tebal dan berkrim. Sulfur (S) menukar gula tersebut kepada sebatian sulfur meruap yang menghasilkan rasa 'pahit' dan aroma yang dicari.\n• Strategi: 30 hari sebelum buah gugur, hentikan semua Nitrogen. Tukar sepenuhnya kepada SOP (Sulfat Kalium) dan semburan daun Magnesium Sulfat.",
+    info_S_def: "Amaran Unsur Tidak Bergerak: Tidak seperti Nitrogen, Sulfur tidak mudah bergerak dari daun tua ke daun baharu. Kekurangan kelihatan sebagai warna hijau pucat/kekuningan pada daun PALING BAHARU dahulu. Pada buah, sulfur rendah menghasilkan isi yang tawar, hanya manis, dan langsung tiada aroma kompleks premium serta rasa pahit tersendiri.",
+    info_S_bio: "Sinergi Asid Amino: Menggunakan Sulfur bersama Asid Amino kaya Metionina bertindak sebagai penguat besar untuk penghasilan etilena, secara semula jadi mempercepatkan pematangan yang seragam dan memperhebat profil rasa akhir.",
+    info_S_syn: "1. Kembar Nitrogen: S diperlukan untuk memetabolismekan N kepada protein. Tanpa S, Nitrogen terkumpul sebagai nitrat toksik dalam daun, menarik perosak.\n2. Triad Rasa (K + Mg + S): Bersinergi untuk menukar karbohidrat ringkas kepada minyak pati kompleks dan rasa meruap.",
+    info_S_antag: "1. Pertembungan Molibdat: Kepekatan Sulfat (SO4²⁻) yang tinggi bersaing kuat dengan Molibdat (MoO4²⁻) untuk pengambilan akar.\n2. Persaingan Nitrat: Sulfat tinggi boleh menyekat pengambilan Nitrat buat sementara.",
+    info_S_inhib: "1. Mo Terkunci: Merencat terus pengambilan Mo di membran akar.\n2. Perangkap Pengasidan: Penggunaan berat Sulfur Elemen atau Ammonium Sulfat akan menjatuhkan pH tanah secara mendadak, mengunci makronutrien.",
+    info_Si_func: "Perisai Tekanan Terbaik. Walaupun dahulunya 'dilupakan' kerana tidak benar-benar penting untuk hidup asas, Silikon amat kritikal untuk kemandirian di ladang. Akar menyerapnya dan mengangkutnya ke daun, di mana ia berpolimer menjadi 'Fitolit' pepejal (struktur kaca/opal mikroskopik) betul-betul di bawah kutikel. Perisai dua lapis ini secara fizikal menghalang hifa kulat daripada menembusi dan mematahkan mandibel serangga pencucuk-penghisap (hama, thrips, afid). Ia juga memaksa daun berdiri tegak (memaksimumkan penangkapan cahaya) dan mengawal stomata dengan ketat untuk mencegah kehilangan air semasa panas melampau.",
+    info_Si_comm: "Bentuk di Pasaran:\n• Asid Ortosilisik / Monosilisik (H4SiO4): Standard Premium. Inilah SATU-SATUNYA bentuk yang boleh diserap terus oleh pokok. Sangat stabil, bertindak pantas melalui semburan daun, dan tidak menaikkan pH tangki secara mendadak.\n• Kalium Silikat (K2SiO3): Pilihan tradisional. Sangat beralkali (pH 10-11). Bagus untuk menambah K dan Si, tetapi terkenal dengan bencana campuran tangki (bertukar menjadi gel pepejal seperti kaca apabila dicampur dengan asid atau kalsium).\n• Kalsium Silikat (Sanga/Wolastonit): Bahan pemulih tanah berbutir lepasan perlahan. Sangat baik untuk meneutralkan tanah yang sangat berasid dan mengunci Aluminium toksik.\n• Abu Sekam Padi / Biochar Buluh: Sumber silika amorfus organik yang murah. Memerlukan tindakan mikrob untuk menjadi tersedia kepada pokok.",
+    info_Si_app: "Strategi Aplikasi (Mimpi Ngeri Campuran Tangki): Silikon bersifat agresif secara kimia. \n\nPeraturan Emas untuk K-Silikat: JANGAN SEKALI-KALI campur Kalium Silikat dengan Kalsium, Magnesium, atau baja/racun berasid tanpa pencairan melampau, atau tangki anda akan serta-merta menjadi jeli, merosakkan muncung sembur secara kekal. \nProtokol: Sentiasa masukkan Silikat PALING AKHIR ke dalam tangki yang sangat cair, atau lebih baik lagi, semburkannya bersendirian. Aplikasi dengan banyak menjelang musim kering/panas, atau sejurus sebelum jangkaan peningkatan tekanan perosak/kulat.",
+    info_Si_def: "Kelemahan Tersembunyi: Pokok tidak akan mati tanpanya, tetapi menjadi 'sasaran mudah'. Simptom termasuk batang lemah dan terkulai (rebah), daun layu yang sukar menangkap cahaya matahari, dan kerentanan teruk secara tiba-tiba terhadap kulapuk berserbuk, hawar dan serangan hama. Pokok akan layu jauh lebih cepat semasa panas tengah hari.",
+    info_Si_bio: "Sinergi Biostimulan: Menggabungkan Asid Ortosilisik stabil dengan ekstrak Kelp (Rumpai Laut) mewujudkan 'Perisai Kemarau & Haba' terbaik, mengekalkan stomata aktif dan mencegah lecur matahari.",
+    info_Si_syn: "1. Dinding Berganda (Ca): Silikon dan Kalsium bekerjasama. Ca ialah simen di antara sel, manakala Si ialah perisai kaca di luar.\n2. Penangkapan Cahaya (N): Si mengekalkan daun besar yang kaya Nitrogen tegak dengan kukuh, mencegah teduhan sendiri dan memaksimumkan fotosintesis.",
+    info_Si_antag: "1. Pertembungan Fosforus: Dalam tanah, anion silikat dan anion fosfat bersaing untuk tapak pengikatan yang sama. Aplikasi Si yang tinggi sebenarnya boleh membebaskan P tanah yang terkunci, tetapi Si yang melampau mungkin bersaing dengan pengambilan P.",
+    info_Si_inhib: "1. Kesan Jeli (Campuran Tangki): Silikat cecair mempunyai rencatan/ketidakserasian yang besar dengan pekatan berasid dan kation logam (Ca, Mg, Fe), serta-merta membentuk mendakan gel yang tidak larut.",
+    info_Fe_func: "Arkitek Klorofil & Pemangkin Respirasi. Walaupun Magnesium ialah pusat molekul klorofil, Besi ialah alat wajib yang diperlukan untuk membinanya. Tanpa Besi, pokok tidak dapat mensintesis klorofil, menyebabkan kegagalan tenaga sepenuhnya. Ia ialah pemacu teras Rantai Pengangkutan Elektron (respirasi sel) dan amat penting untuk asimilasi nitrogen (menukar nitrat toksik kepada asid amino yang boleh digunakan).",
+    info_Fe_comm: "Bentuk di Pasaran:\n• Fe-EDDHA (Besi Merah): Penyelamat tanah tahan lasak. Sangat stabil sehingga pH 10.0. SATU-SATUNYA pilihan berkesan untuk aplikasi tanah pada tanah ber-pH tinggi atau berkapur (batu kapur). Mahal tetapi menjamin pengambilan.\n• Fe-DTPA (Besi Kuning): Stabil sehingga pH 7.5. Standard global untuk hidroponik dan tanah neutral.\n• Fe-EDTA: Tidak stabil melebihi pH 6.5. Jika digunakan pada tanah beralkali, ia serta-merta melepaskan Besi dan mengikat Kalsium pula. Paling sesuai untuk semburan daun sahaja.\n• Ferus Sulfat: Murah, tetapi 'telanjang' secara kimia. Terkunci serta-merta dalam kebanyakan tanah. Berisiko tinggi melecurkan daun jika disembur tanpa penimbal organik.",
+    info_Fe_app: "Strategi Aplikasi (Perangkap pH & UV): Besi ialah unsur mikro yang paling sukar diurus kerana ia terkunci serta-merta dalam tanah beralkali (pH > 7.0) dan persekitaran tinggi fosforus. \n\nProtokol: Jika pH tanah tinggi, pintas akar sepenuhnya dengan semburan daun (Fe-EDTA atau Amino-Fe). ⚠️ Amaran UV: Kelat Besi sintetik mengalami fotodegradasi (cahaya UV memutuskan ikatan kelat). SENTIASA sembur Besi pada daun pada lewat petang atau awal pagi.",
+    info_Fe_def: "Amaran Unsur Tidak Bergerak: 'Klorosis Antara Urat' yang teruk pada daun PALING BAHARU. Tisu menjadi kuning pucat atau putih sepenuhnya ('luntur'), tetapi urat kekal hijau gelap yang jelas dan kontras. Ini berlaku kerana Besi tidak dapat diambil semula dari daun tua.",
+    info_Fe_bio: "Sinergi Pembawa: Asid Fulvik dan Asid Amino bertindak sebagai agen pengkelat semula jadi. Mencampurkan Ferus Sulfat dengan Asid Amino melindungi Besi daripada terkunci, mencegah daun melecur, dan memudahkan kemasukan pantas melalui stomata daun.",
+    info_Fe_syn: "1. Pengiring Pengangkutan (K): Kalium mengawal aliran air yang secara fizikal membawa Besi yang berat dan tidak bergerak ke pucuk baharu.\n2. Pengasid (S): Sulfur menurunkan pH mikro di zon akar, secara semula jadi membuka kunci Besi asli dalam tanah.",
+    info_Fe_antag: "1. Persaingan Kembar (Fe lwn Mn): Besi dan Mangan kelihatan sama secara kimia bagi akar pokok. Mn tinggi menyekat sepenuhnya pengambilan Fe, dan sebaliknya. Kekalkan nisbah tanah Fe:Mn ≈ 2:1 dengan ketat.\n2. Perangkap Kalsium: Ca tinggi (tanah batu kapur/beralkali) mengehadkan keterlarutan Besi.",
+    info_Fe_inhib: "1. Fosfat Mengunci: Aplikasi Fosforus tinggi mengikat Besi asli tanah menjadi Besi Fosfat, sejenis batu yang tidak larut.\n2. Ketepuan Logam Berat: Zink atau Kuprum berlebihan secara fizikal menduduki saluran pembawa akar, mengunci Besi.",
+    info_Zn_func: "Pengawal Atur Tumbesaran Utama & Arkitek Debunga. Zink ialah prekursor penting kepada Triptofan, blok binaan Auksin (hormon tumbesaran utama pokok). Ia menentukan pemanjangan ruas dan pengembangan daun. Bagi pembiakan, Zink ialah keperluan teras untuk sintesis DNA/RNA semasa pembahagian sel yang pesat ketika berbunga. Ia sangat menentukan daya hidup debunga, memacu pemanjangan tiub debunga, dan mencegah bunga gugur secara besar-besaran.",
+    info_Zn_comm: "Bentuk di Pasaran:\n• Zn-EDTA: Sangat stabil dalam kebanyakan tanah (sehingga pH 7.5). Sangat baik untuk fertigasi dan semburan daun awal.\n• Zink Sulfat: Murah dan berkesan, tetapi cepat memendak dalam tanah ber-pH tinggi atau tinggi Fosforus.\n• Kelat Asid Amino Zink: Penembusan daun paling pantas. Penting untuk semburan penyelamat pra-berbunga kerana asid amino terus membekalkan tenaga untuk proses berbunga yang intensif.\n• Zink Oksida: Debu batu yang tidak larut. Ketersediaan sangat perlahan, hanya berguna sebagai asas jangka panjang dalam tanah berasid.",
+    info_Zn_app: "Strategi Aplikasi (Tempoh Pra-Berbunga): Kerana Zink banyak digunakan semasa berbunga dan terus menentukan kesihatan debunga, ia MESTI dimuatkan ke dalam pokok sebelum bunga kembang. \n\nProtokol: Sembur Zn-Amino atau Zn-EDTA pada daun semasa peringkat pra-berbunga (selalunya bersama Boron). ⚠️ Perangkap Fosforus: Jika membaja P tinggi (seperti MKP) untuk merangsang bunga, anda mesti membaja Zink 7-10 hari SEBELUM Fosforus untuk mengelakkan penguncian kimia kekal (Zink Fosfat) dalam tanah dan tisu.",
+    info_Zn_def: "Amaran Unsur Tidak Bergerak: Sindrom 'Daun Kecil' klasik (daun baharu kekal kecil) dan 'Roset' (ruas gagal memanjang, menyebabkan daun berkelompok). Kegagalan Pembiakan: Bunga gugur secara besar-besaran, debunga lemah/mandul, dan buah senget atau cacat akibat pendebungaan tidak lengkap.",
+    info_Zn_bio: "Sinergi Asid Amino: Menggabungkan Zink dengan Asid Amino bertindak sebagai pemecut berganda. Asid amino melindungi Zink daripada terkunci, membawanya serta-merta menembusi kutikel daun, dan membekalkan Triptofan yang tepat diperlukan untuk memulakan penghasilan Auksin.",
+    info_Zn_syn: "1. Kembar Tumbesaran (N): Nitrogen memacu penghasilan sel, tetapi Zink (melalui Auksin) mengarahkan sel tersebut berkembang ke saiz penuh yang sihat.\n2. Pembiakan (B): Zink membina butir debunga yang sihat, manakala Boron membina tiub yang dilaluinya. Kedua-duanya wajib untuk pembentukan buah.",
+    info_Zn_antag: "1. Perangkap Fosfat (P): Antagonisme paling terkenal dalam agronomi. Fosforus tinggi serta-merta mengikat Zink dalam tanah, membentuk batu Zink Fosfat yang tidak larut. Sentiasa membaja Zink sebelum Fosforus tinggi.\n2. Persaingan Logam (Fe/Cu/Mn): Zink bersaing dengan logam berat lain untuk saluran penyerapan akar.",
+    info_Zn_inhib: "1. Sekatan Besi/Kuprum: Aplikasi Zink yang terlalu berlebihan akan menepukan sepenuhnya saluran pembawa akar, mengunci Besi dan Kuprum, lalu menyebabkan kekurangan buatan.",
+    info_B_func: "Arkitek Bunga & Penjaga Pintu Gula. Boron ialah tunjang utama pembiakan. Apabila butir debunga hinggap pada bunga, ia mesti menumbuhkan 'tiub debunga' ke dalam ovari untuk mensenyawakan biji. Boron secara fizikal membina dan mengarahkan tiub ini; tanpanya, tiub pecah, persenyawaan gagal, dan pokok menggugurkan bunga dengan banyak. Selain itu, Boron bertindak sebagai 'simen' yang menyambung silang Kalsium pektat dalam dinding sel, dan sebagai penjaga pintu yang membenarkan gula merentasi membran sel ke dalam buah.",
+    info_B_comm: "Bentuk di Pasaran:\n• Kombo Cecair Ca-B-Mg: Standard industri. Boron jarang digunakan bersendirian semasa berbuah. Ia digabungkan dengan Kalsium ('bata') dan Magnesium ('pam tenaga') untuk mencegah buah merekah.\n• Boron Poliol / Alkohol Gula: Standard Premium untuk berbunga. Boron secara semula jadi tidak bergerak, tetapi kompleks ini 'memperdaya' pokok supaya menggerakkan Boron dengan bebas melalui floem terus ke bunga.\n• Natrium Borat (Solubor - 20% B): Sangat larut, standard industri untuk semburan daun dan fertigasi. Amaran: Menaikkan pH tangki dengan ketara.\n• Asid Borik (17% B): Lebih murah, berasid, tetapi memerlukan air suam untuk larut dengan sempurna.\n• Kalsium Borat (Uleksit): Bentuk batu lepasan perlahan yang digunakan semata-mata untuk ketepuan bes tanah jangka panjang.",
+    info_B_app: "Strategi Aplikasi (Dua Tempoh Kritikal):\n1. Tempoh Pra-Berbunga: Boron bergerak dalam tanah melalui air. Jika tanah kering, pengambilan akar adalah sifar. Anda MESTI menyembur Boron pada daun 2-4 minggu SEBELUM bunga kembang supaya pokok dapat menyimpannya dalam putik.\n2. Pembesaran Buah (Pencegahan Merekah): Sembur kombo Ca+B terus ke buah setiap 10-14 hari untuk membina keanjalan kulit.\n⚠️ Amaran Ketoksikan: Boron mempunyai margin keselamatan paling sempit berbanding semua nutrien. Sukat dos dengan tepat; berlebihan akan melecurkan daun dengan teruk.",
+    info_B_def: "Amaran Unsur Tidak Bergerak: Kegagalan pembiakan yang teruk. Bunga gugur beramai-ramai tanpa menjadi buah. Buah yang bertahan selalunya senget, cacat, atau berbentuk 'C' (akibat pendebungaan biji tidak lengkap). Simptom vegetatif termasuk kematian titik tumbuh (meristem apeks), batang berongga, dan kulit buah yang tebal, bergabus dan merekah.",
+    info_B_bio: "Sinergi Alkohol Gula (Poliol): Boron secara semula jadi tidak bergerak langsung di dalam pokok. Namun, formulasi Boron dengan Alkohol Gula (Manitol/Sorbitol) bertindak sebagai 'jalan pintas' biologi, membolehkan Boron memasuki sap floem dan bergerak aktif dari daun terus ke putik bunga yang memerlukannya.",
+    info_B_syn: "1. Sinergi Wajib (Ca): Kalsium membina dinding sel, tetapi Boron ialah 'simen' yang menyambung silang Kalsium Pektat secara kimia. Tanpa Boron, Kalsium terapung sia-sia dalam tisu dan tidak dapat mencegah buah merekah. Inilah sebabnya baja daun komersial sentiasa menggabungkan Ca+B.\n2. Kombo Terbaik (Ca + B + Mg): Selalunya dijual sebagai trio. Sementara Ca+B membina struktur fizikal buah yang membesar, Magnesium (Mg) ditambah untuk membekalkan tenaga (ATP) yang diperlukan bagi mengepam gula ke dalam buah, dan mencegah Kalsium tinggi daripada mengunci Magnesium setempat.\n3. Saluran Gula (K): Kalium mewujudkan tekanan untuk menggerakkan sap, manakala Boron membuka pintu membran untuk membenarkan gula masuk ke dalam buah.",
+    info_B_antag: "1. Kalsium Mengunci (pH): Paras Kalsium tinggi dalam tanah (akibat pengapuran berlebihan) akan memerangkap Boron dengan agresif, menjadikannya tidak tersedia.\n2. Kesan Pencairan (N/K): Tumbesaran vegetatif yang pesat akibat Nitrogen atau Kalium tinggi secara fizikal mencairkan Boron yang tersedia ke atas terlalu banyak tisu, menyebabkan kekurangan mendadak di hujung tumbesaran.",
+    info_B_inhib: "1. Fitotoksisiti Melampau: Ketoksikan Boron sangat biasa. Aplikasi berlebihan menyebabkan nekrosis (lecur) teruk bermula di hujung/tepi daun, merebak dengan cepat ke dalam sehingga daun gugur.",
+    info_Mn_func: "Pemecah Air & Pengaktif Pertahanan. Mangan ialah enjin kritikal Kompleks Pembebasan Oksigen (OEC) dalam Fotosistem II. Ia memecahkan molekul air semasa fotosintesis untuk menjana elektron yang menggerakkan seluruh pokok. Tanpa Mn, fotosintesis terhenti pada langkah pertama. Ia juga memacu kitaran TCA (respirasi sel) dan banyak terlibat dalam sintesis Lignin, yang mengeraskan dinding sel dan akar pokok terhadap serangan patogen.",
+    info_Mn_comm: "Bentuk di Pasaran:\n• Mangan Sulfat (MnSO4): Standard global. Sangat larut, kos efektif, dan bertindak sangat pantas melalui semburan daun untuk menyelamatkan pokok yang kekurangan.\n• Mn-EDTA: Kelat sintetik yang stabil sehingga pH 7.0. Paling sesuai digunakan dalam sistem fertigasi pada tanah kurang subur untuk mengelakkan Mn terkunci dengan zarah tanah.\n• Mangan Oksida (MnO): Debu batu yang sangat tidak larut. Langsung tidak berguna sebagai penyelesaian segera; ia hanya berfungsi sebagai bahan pemulih lepasan perlahan berbilang tahun dalam tanah yang sangat berasid.",
+    info_Mn_app: "Strategi Aplikasi (Jongkang-Jongket pH): Mangan sangat sensitif terhadap pH tanah.\n\n• pH Tinggi (> 7.0) Terkunci: Dalam tanah beralkali atau berkapur, Mn cepat teroksida menjadi bentuk pepejal yang tidak tersedia. Anda MESTI memintas tanah dan menggunakan semburan daun Mangan Sulfat.\n• Perangkap Ketoksikan pH Rendah (< 5.0): Dalam tanah yang sangat berasid, Mn menjadi sangat larut, membanjiri akar dan menyebabkan Ketoksikan Mangan yang teruk (bintik daun, berkedut, gugur—sering disalah diagnosis sebagai penyakit kulat). Penawarnya BUKAN menambah nutrien, tetapi menabur Kapur Dolomit untuk menaikkan pH dan mengunci semula Mn berlebihan dengan selamat ke dalam tanah.",
+    info_Mn_def: "Amaran Unsur Tidak Bergerak: Muncul pada daun BAHARU dahulu. Menyebabkan klorosis antara urat yang 'Berbintik-bintik' atau 'Bercorak Petak'. Tidak seperti kekurangan Besi (yang mempunyai urat hijau yang sangat jelas berlatarkan tisu putih), kekurangan Mn kelihatan kabur dan tersebar, dengan bintik hijau pucat/kuning merebak di antara urat.",
+    info_Mn_bio: "Sinergi Fulvik: Menggunakan Mangan bersama Asid Fulvik mencegah ion Mn daripada teroksida awal di permukaan daun, memastikan kemasukan pantas melalui stomata dan penggunaannya.",
+    info_Mn_syn: "1. Pembina Perisai (Cu): Mn dan Kuprum bekerjasama secara sinergi untuk mensintesis Lignin, mengeraskan kayu dan melindungi akar daripada patogen bawaan tanah.\n2. Pengaktifan Enzim (K): Kalium dan Mn bersama-sama mengaktifkan beberapa enzim utama respirasi dan pemindahan tenaga.",
+    info_Mn_antag: "1. Persaingan Kembar (Mn lwn Fe): Besi dan Mangan ialah 'kembar' kimia. Kedua-duanya bersaing sengit untuk saluran penyerapan akar yang sama. Pemberian Mn berlebihan akan menyebabkan kebuluran Besi yang teruk, dan sebaliknya. Kekalkan nisbah tanah Fe:Mn ≈ 2:1 dengan ketat.\n2. Sekatan Kalsium: Ca yang tinggi (batu kapur) sangat menekan pengambilan Mn di zon akar.",
+    info_Mn_inhib: "1. Kebuluran Besi: Mn berlebihan menghentikan sepenuhnya pengangkutan Besi di dalam pokok.\n2. Penggantian Magnesium: Ketoksikan Mn yang melampau boleh menggantikan Magnesium dalam daun, sekali gus memusnahkan klorofil.",
+    info_Cu_func: "Pembina Lignin & Pemangkin Imun. Kuprum ialah logam berat penting yang bertindak sebagai pemangkin utama untuk mensintesis Lignin—'kayu' yang memberi dahan kekuatan fizikal dan ketegaran struktur. Tanpanya, pokok menghasilkan dahan yang lembut, lemah dan 'bergetah' yang mudah patah di bawah berat buah. Kuprum juga komponen utama Polifenol Oksidase, enzim yang bertanggungjawab untuk tindak balas imun tumbuhan (fitoaleksin) serta pemerangan/penyembuhan luka yang pantas.",
+    info_Cu_comm: "Bentuk Pasaran & Realiti Logam Berat:\n• Racun Kulat Kuprum (Hidroksida/Oksiklorida): Digunakan secara meluas untuk kawalan penyakit. Kerana ia menyalut daun, ia terurai perlahan dan membekalkan kuprum 'nutrisi' secara berterusan. Kebun yang menggunakannya jarang memerlukan baja Cu tambahan.\n• Kuprum Sulfat (Bluestone): Sangat larut, tetapi bertindak sebagai garam logam berat yang keras. Risiko melecur sangat tinggi kecuali dineutralkan dengan kapur (menghasilkan campuran Bordeaux).\n• Cu-EDTA: Bentuk paling selamat untuk fertigasi atau semburan daun bagi tujuan nutrisi semata-mata, kerana kelat melindungi logam berat daripada menyebabkan lecur tisu serta-merta.",
+    info_Cu_app: "Strategi Aplikasi (Ancaman Ketoksikan): Kerana Kuprum ialah logam berat, ia TIDAK terurai dalam tanah; ia terkumpul selama-lamanya. Kebun yang menggunakan racun kulat Kuprum selama berdekad-dekad sering mengalami ketoksikan tanah yang teruk, yang membantutkan akar dan membunuh mikrob/cacing tanah yang bermanfaat.\n\nProtokol: Bergantung pada program racun kulat biasa anda untuk keperluan Cu. Hanya gunakan Cu-EDTA secara bersasar jika ujian tanah mengesahkan kekurangan sebenar (biasanya hanya di tanah baharu atau tanah gambut/organik tinggi).",
+    info_Cu_def: "Amaran Unsur Tidak Bergerak: Kegagalan struktur yang teruk pada pertumbuhan baharu. Dahan menjadi luar biasa lembut, bergetah, dan membengkok membentuk 'S' atau terkulai teruk (kerana tiada lignin). Menyebabkan 'Mati Rosot' (Dieback) yang teruk di mana hujung pucuk baharu mati dan menjadi hitam. Kulit batang dan buah mungkin melepuh atau mengeluarkan poket gam (Exanthema).",
+    info_Cu_bio: "⚠️ Perangkap Maut Biostimulan: JANGAN SEKALI-KALI mencampurkan racun kulat Kuprum dengan Asid Amino atau Peptida. Asid amino bertindak sebagai 'Kuda Troy', menarik logam berat Kuprum terus menembusi kutikel daun dan masuk ke sitoplasma sel serta-merta, menyebabkan fitotoksisiti yang dahsyat (lecur daun teruk dan keguguran daun).",
+    info_Cu_syn: "1. Pembina Kayu (Mn): Kuprum dan Mangan ialah pasangan terbaik untuk mensintesis lignin dan mengeraskan pokok secara fizikal terhadap penembusan kulat.\n2. Pemprosesan Protein (N): Diperlukan untuk metabolisme Nitrogen dengan betul.",
+    info_Cu_antag: "1. Persengketaan Logam Berat (Zn/Fe/Mn): Kuprum tanah yang berlebihan bersaing kuat untuk tapak penyerapan akar, menyekat Zink, Besi dan Mangan secara agresif.\n2. Perangkap Bahan Organik Tinggi: Kuprum terikat lebih kuat pada bahan organik tanah (humus/gambut) berbanding mikronutrien lain, menyebabkan penguncian yang teruk.",
+    info_Cu_inhib: "1. Nekrosis Hujung Akar: Logam berat Kuprum yang berlebihan dalam tanah membantutkan, menebalkan dan membunuh hujung akar yang halus secara kekal, memusnahkan keupayaan pokok mencari nutrien.\n2. Sekatan Fosforus: P tanah yang tinggi mengurangkan keterlarutan Kuprum.",
+    info_Mo_func: "Penukar Nitrogen & Pemboleh Protein. Molibdenum ialah kofaktor logam penting bagi dua enzim utama: Nitrat Reduktase dan Nitrogenase. Apabila pokok menyerap Nitrat (NO3) dari tanah, ia tidak boleh menggunakannya secara terus. Ia MESTI menggunakan Nitrat Reduktase untuk menukar NO3 kepada Ammonium (NH4) sebelum membina asid amino. Tanpa Mo, proses ini terhenti. Nitrat terkumpul dalam daun ke tahap toksik (menarik perosak), sementara pokok pada masa yang sama kebuluran protein. Pada kekacang, Mo wajib untuk bakteria mengikat nitrogen dari udara.",
+    info_Mo_comm: "Bentuk Pasaran:\n• Natrium Molibdat (39% Mo): Standard industri global. Sangat larut. Kerana pokok memerlukan Mo dalam jumlah yang amat sedikit, ia biasanya diberi dalam dos mikro (gram sehektar).\n• Ammonium Molibdat (54% Mo): Alternatif berkepekatan lebih tinggi dan sangat larut.\n💡 Keanehan pH: Mo ialah SATU-SATUNYA mikronutrien yang menjadi LEBIH tersedia di tanah beralkali dan terkunci sepenuhnya di tanah berasid (pH < 5.5).",
+    info_Mo_app: "Strategi Aplikasi (Peraturan Dos Mikro): Pokok memerlukan Molibdenum dalam bahagian per bilion. \n\nProtokol: Di tanah sangat berasid di mana Mo terkunci, semburan daun Natrium Molibdat ialah kaedah penyelamat paling cekap. Ia juga digunakan secara meluas sebagai rawatan biji benih kekacang untuk memperkasa nodul akar bagi pengikatan Nitrogen. \n⚠️ Amaran: Pemberian berlebihan jarang toksik kepada pokok itu sendiri, tetapi menyebabkan kekurangan kuprum yang membawa maut (Molibdenosis) pada haiwan ruminan yang meragut tanaman tersebut.",
+    info_Mo_def: "Amaran Unsur Bergerak: Kerana Mo berkait sepenuhnya dengan pemprosesan Nitrogen, kekurangannya kelihatan sama seperti kekurangan N (daun tua hijau pucat/kuning). Namun, tanda uniknya termasuk 'Whiptail' (daun berpintal, memanjang dan cacat) serta lecur tepi daun (disebabkan nitrat toksik yang tidak diproses membakar tepi daun dari dalam).",
+    info_Mo_syn: "1. Kunci Nitrogen (N): Mo membuka kunci Nitrogen. Memberi baja Nitrat yang banyak tanpa Mo yang mencukupi umpama memberi pokok makanan yang tidak dapat dihadamkan.\n2. Tarikan Fosforus (P): Paras Fosforus yang tinggi dalam tanah meningkatkan keupayaan akar menyerap Molibdat.",
+    info_Mo_antag: "1. Perisai Sulfat (S): Ion Molibdat (MoO4²⁻) dan ion Sulfat (SO4²⁻) hampir sama dari segi saiz dan cas elektrik. Pemberian Sulfur yang banyak akan mengatasi Mo secara agresif untuk masuk ke akar, menyebabkan kekurangan Mo yang teruk.",
+    info_Mo_inhib: "1. Penguncian Tanah Berasid: pH tanah di bawah 5.5 menyebabkan oksida besi dan aluminium mengikat Molibdat menjadi batuan tidak larut.\n2. Persengketaan Kuprum: Paras Mo yang sangat tinggi boleh menghadkan ketersediaan Kuprum dalam tisu pokok.",
+    info_Cl_func: "Pengimbang Osmotik. Klorin (diserap sebagai Klorida, Cl⁻) ialah mikronutrien penting untuk mengawal pembukaan stomata, mengekalkan turgor sel (tekanan air) dan mengimbangi cas elektrik dalam pokok. Ia juga memainkan peranan kecil tetapi penting dalam fotosintesis (membantu proses pemecahan air dalam Fotosistem II). Walaupun kebanyakan tanaman berdaun lebar hanya memerlukannya dalam jumlah surih yang amat kecil, sesetengah tanaman tahan garam sangat bergantung kepadanya untuk pengurusan air.",
+    info_Cl_comm: "Bentuk Pasaran & Ancaman Klorida:\n• MOP (Muriate of Potash / KCl): Mengandungi ~47% Klorida. Ia sumber Kalium paling murah, tetapi muatan Klorida yang besar sangat toksik kepada tanaman sensitif.\n• SOP (Sulfate of Potash): Alternatif selamat dan rendah klorida.\n⚠️ Perangkap Durian: Durian, avokado dan sitrus adalah 'Fobia Klorida'. Kerana tiada mekanisme genetik untuk menyingkirkan Cl di akar, ia terkumpul dengan cepat dalam daun. Ini menyebabkan lecur hujung daun yang teruk (lecur tepi), keguguran daun pramatang, dan merosakkan tekstur berkrim serta rasa kompleks buah premium.",
+    info_Cl_app: "Strategi Aplikasi (Mengikut Tanaman):\n• Pembenci Klorida (Durian, Sitrus, Beri, Tembakau): ELAKKAN MOP SAMA SEKALI. Anda mesti menggunakan SOP (Sulfate of Potash) atau Kalium Nitrat untuk membekalkan K tanpa muatan Cl yang toksik.\n• Penggemar Klorida (Kelapa Sawit, Kelapa, Bit Gula, Saderi): Tanaman ini memerlukan Klorida dalam jumlah besar untuk mengawal tekanan osmotik dan memaksimumkan hasil. Bagi mereka, MOP yang murah sebenarnya lebih baik dari segi agronomi berbanding SOP.",
+    info_Cl_def: "Sangat jarang berlaku secara semula jadi, kerana hujan, air pengairan dan bayu laut pantai biasanya membekalkan lebih daripada mencukupi. Jika kekurangan, daun akan layu secara tiba-tiba di bahagian tepi (walaupun tanah basah sepenuhnya), dan akar menjadi sangat bercabang tetapi pendek dan tebal.",
+    info_Cl_syn: "1. Pasangan Osmotik (K): Klorida bekerja terus dengan Kalium untuk membuka dan menutup stomata, mengawal kehilangan air pokok semasa tekanan haba.\n2. Pemecah Air (Mn): Bekerja bersama Mangan dalam kloroplas untuk memacu fotosintesis.",
+    info_Cl_antag: "1. Perang Nitrat: Klorida (Cl⁻) dan Nitrat (NO3⁻) kedua-duanya anion kecil bercas negatif. Penggunaan baja tinggi klorida yang banyak akan bersaing secara agresif dan menekan keupayaan pokok menyerap Nitrogen yang penting.\n2. Tekanan Garam: Cl tanah yang tinggi menyumbang kepada tekanan osmotik yang teruk, menarik air keluar dari akar.",
+    info_Ni_func: "Pencerna Urea & Pemangkin Metabolik. Nikel ialah kofaktor logam wajib bagi enzim Urease. Apabila pokok menyerap Urea (sama ada dari tanah atau semburan daun), ia mesti memecahkannya kepada Ammonia dan Karbon Dioksida yang boleh digunakan. Tanpa Nikel, proses ini mustahil; Urea terkumpul ke tahap sangat toksik dan membakar pokok dari dalam. Ia juga memainkan peranan utama dalam percambahan biji benih dan ketahanan penyakit.",
+    info_Ni_comm: "Bentuk Pasaran:\n• Nikel Sulfat: Sangat larut, biasanya diberi dalam dos mikro yang amat kecil.\n• Nikel Lignosulfonat / Kelat: Digunakan untuk penembusan daun yang pantas dan selamat.\n⚠️ Realiti Komersial: Kerana pokok memerlukan Nikel dalam jumlah yang amat kecil (bahagian per bilion), ia jarang dijual sebagai baja tunggal. Kebanyakan tanah pertanian mempunyai Nikel semula jadi yang mencukupi, dan ia sering hadir sebagai bendasing surih dalam baja pukal lain.",
+    info_Ni_app: "Strategi Aplikasi (Peneman Urea Semburan Daun): Kekurangan sebenar dalam tanah amat jarang (walaupun terkenal menyebabkan penyakit 'Telinga Tikus' di kebun Pecan).\n\nProtokol: Kegunaan agronomi moden paling praktikal untuk Nikel ialah menambah sedikit ke dalam semburan daun Urea yang pekat. Ini memastikan pokok mempunyai enzim Urease yang cukup untuk mencerna kemasukan Urea yang banyak serta-merta tanpa mengalami lecur hujung daun (ketoksikan Urea).",
+    info_Ni_def: "Amaran Unsur Bergerak: Simptom fizikal utama ialah daun 'Telinga Tikus'—daun baharu tumbuh terbantut, luar biasa bulat, dengan hujung tumpul. Simptom metabolik tersembunyi ialah hujung daun nekrotik (mati/terbakar) yang teruk tidak lama selepas pemberian Urea yang banyak, disebabkan pengumpulan urea toksik.",
+    info_Ni_syn: "1. Pencerna Urea (N): Nikel menjadikan Urea selamat. Ia membolehkan pokok menukar nitrogen berasaskan urea kepada asid amino dengan pantas.\n2. Daya Hidup Biji Benih: Bekerja secara sinergi dengan unsur surih lain untuk memastikan perkembangan biji benih dan kadar percambahan yang baik.",
+    info_Ni_antag: "1. Persengketaan Logam Berat: Kepekatan tinggi kation logam pesaing—terutamanya Zink (Zn), Kuprum (Cu) dan Besi (Fe)—akan menyekat Nikel secara fizikal daripada memasuki saluran pembawa akar.\n2. Penguncian Alkali: Seperti kebanyakan mikronutrien, ketersediaan Nikel menurun dengan ketara apabila pH tanah melebihi 6.7.",
+    info_Ni_inhib: "1. Fitotoksisiti Melampau: Kerana pokok memerlukan jumlah yang amat sedikit, pemberian berlebihan secara tidak sengaja sangat toksik, membantutkan akar sepenuhnya dan menyerupai kekurangan Besi/Zink dengan menyekat laluan metabolik mereka.",
+    info_Na_func: "Pengganti Osmotik. Walaupun tidak benar-benar penting bagi kebanyakan tanaman, Natrium bertindak sebagai sandaran berfungsi untuk Kalium dalam mengekalkan turgor sel (tekanan air) dan mengawal pembukaan stomata, terutamanya dalam persekitaran rendah K. Pada tumbuhan tahan garam tertentu (halofit seperti bit gula, saderi dan bayam), ia membantu pengikatan dan pemekatan karbon.",
+    info_Na_comm: "Pemusnah Tanah (Penyebaran/Deflokulasi). Natrium sangat memusnahkan struktur tanah dari segi kimia. Kerana ion Na+ mempunyai lapisan hidrasi yang besar (ia memegang lapisan air yang tebal di sekelilingnya), Natrium berlebihan memaksa zarah tanah liat berpisah secara fizikal—proses yang dipanggil 'penyebaran'. Ini memusnahkan tanah yang gembur dan teragregat, menjadikannya kerak permukaan yang keras seperti konkrit. Apabila ini berlaku, air tidak dapat meresap, akar lemas kerana kekurangan oksigen (hipoksia), dan biologi tanah yang bermanfaat runtuh.",
+    info_Na_app: "Strategi Penyelamat (Pembilasan Gipsum): Anda tidak boleh sekadar 'meneutralkan' Natrium; anda mesti menyingkirkannya secara fizikal dari zon akar.\n\nProtokol: Beri Gipsum (Kalsium Sulfat) dalam jumlah besar. Kalsium (Ca++) yang berat dan bercas dua bertindak sebagai 'pembuli', menolak Natrium keluar dari tapak pertukaran tanah liat secara paksa. Natrium yang dibebaskan kemudian bergabung dengan Sulfat membentuk Natrium Sulfat—garam yang sangat larut yang MESTI dibilas jauh di bawah zon akar menggunakan pengairan air bersih yang banyak.",
+    info_Na_def: "Hampir tiada dalam keadaan ladang, kerana hujan dan pengairan membekalkan jumlah surih. Dalam sistem hidroponik tulen, kekurangan Natrium yang teruk pada tumbuhan C4 tertentu mungkin menyebabkan sedikit pengurangan pertumbuhan.",
+    info_Na_syn: "1. Penjimat Kalium: Di tanah dengan Kalium yang marginal, pokok boleh mengepam Natrium ke dalam vakuol sel hanya untuk mengekalkan tekanan air fizikal (turgor), sekali gus menjimatkan Kalium yang terhad untuk fungsi enzim yang kritikal.",
+    info_Na_antag: "1. Pencuri Kation (K/Ca): Natrium yang tinggi mengatasi Kalium dan Kalsium dengan kuat untuk masuk ke akar. Na yang tinggi sering menyebabkan kekurangan Kalsium yang teruk (buah merekah, lecur hujung) walaupun paras Kalsium tanah mencukupi sepenuhnya.",
+    info_Co_func: "Enjin Mikrob & Pengawal Etilena. Kobalt bukan unsur penting bagi kebanyakan tumbuhan tinggi tetapi wajib mutlak bagi bakteria pengikat Nitrogen ($Rhizobium$) yang hidup dalam nodul akar kekacang. Ia atom pusat molekul Kobalamin ($Vitamin B_{12}$), yang memacu penukaran enzimatik Nitrogen atmosfera kepada bentuk yang boleh digunakan pokok. Kajian terkini juga menunjukkan Kobalt merencat sintesis Etilena, berpotensi memanjangkan jangka hayat buah dan melambatkan keguguran akibat pemasakan.",
+    info_Co_comm: "Bentuk Pasaran:\n• Kobalt Sulfat ($CoSO_4$): Sangat larut, standard untuk aplikasi nutrisi.\n• Kobalt Nitrat: Digunakan dalam program fertigasi khusus.\n• Kobalt Karbonat: Bentuk batuan berkelarutan rendah, digunakan untuk membina asas tanah bertahun-tahun.\n⚠️ Realiti: Diperlukan dalam jumlah surih yang amat kecil (bahagian per bilion). Sering hadir sebagai bendasing surih dalam baja nikel atau kuprum.",
+    info_Co_app: "Strategi Aplikasi (Penguat Nitrogen): Beri terutamanya kepada tanaman penutup bumi kekacang (seperti Mucuna bracteata di kebun durian) untuk memaksimumkan potensi pengikatan Nitrogen, sekali gus membekalkan N 'percuma' kepada tanaman utama. \n\nProtokol: Biasanya diberi sebagai rawatan biji benih atau semburan daun surih. Pada tanaman buah, ia boleh diberi sebelum tuai untuk mengawal paras etilena dan mencegah keguguran buah pramatang di bawah tekanan haba melampau.",
+    info_Co_def: "Amaran Unsur Bergerak: Simptom pada kekacang kelihatan sama seperti kekurangan Nitrogen (kekuningan umum pada daun tua) kerana nodul akar telah gagal. Kekacang akan menunjukkan nodul pucat, putih atau hijau dan bukannya warna merah jambu kemerahan 'leghemoglobin' yang sihat menandakan pengikatan $N_2$ aktif.",
+    info_Co_syn: "1. Duo Pengikatan (N): Kobalt menyediakan 'enjin' ($B_{12}$) untuk pengikatan Nitrogen, menjadikannya rakan senyap utama Nitrogen.\n2. Molibdenum ($Mo$): Kedua-duanya kofaktor wajib bagi kompleks enzim nitrogenase.",
+    info_Co_antag: "1. Persaingan Mangan ($Mn$): Mangan tanah yang tinggi ($Mn^{2+}$) akan mengatasi Kobalt secara agresif untuk saluran penyerapan, menyebabkan kegagalan pengikatan $N$ walaupun di tanah subur.\n2. Kesesakan Logam Berat: Zink atau Nikel berlebihan akan menyekat saluran pengambilan Kobalt secara fizikal.",
+    info_AA_func: "'Ferrari' Nutrisi & Penjimat Tenaga. Asid Amino ialah blok binaan protein. Biasanya, pokok menggunakan 25% daripada jumlah tenaga metaboliknya untuk menukar Nitrogen tak organik (Nitrat/Ammonium) kepada protein. Dengan memberi Asid Amino, pokok melangkau proses yang mahal ini, membolehkannya mengalihkan tenaga yang dijimatkan kepada pengeluaran buah atau pertahanan tekanan. Asid amino utama termasuk:\n• Prolina: 'Perisai Osmotik' yang melindungi sel daripada kemarau dan haba.\n• Glisina: AA terkecil, bertindak sebagai agen pengkelat semula jadi untuk membawa logam berat ke dalam pokok.\n• Asid Glutamik: 'Hab Metabolik' yang mencetuskan keseluruhan laluan Nitrogen.",
+    info_AA_comm: "Bentuk Pasaran & Lonjakan FAA:\n• AA Berasaskan Tumbuhan (Soya/Jagung): Tinggi asid L-Amino, bersih dan sangat selamat untuk semua peringkat. Terbaik untuk pengurusan tekanan umum.\n• AA Berasaskan Haiwan: Tinggi Hidroksiprolina. Selalunya lebih murah, digunakan untuk merangsang pertumbuhan vegetatif secara pukal.\n• Asid Amino Ikan (FAA): 'Pengangkat Berat'. Sangat disyorkan kerana penapaian ikan secara proses sejuk bukan sahaja mengekalkan asid amino, tetapi juga Peptida semula jadi, Mineral Marin dan Hormon Pertumbuhan (Auksin/Sitokinin) dalam jumlah besar. \n💡 Kenapa FAA? FAA memberi 'Lonjakan Pertumbuhan' dan 'Ledakan Akar' yang unik yang tidak dapat ditandingi asid amino berasaskan tumbuhan. Ia standard emas untuk memulihkan pokok yang 'letih' selepas tuai dan merangsang mikrob tanah.",
+    info_AA_app: "Strategi Aplikasi (Petua Tekanan & Pemulihan): \n• Pemulihan: Selepas banjir, hujan lebat atau panas teruk, beri FAA segera untuk menghidupkan semula sistem akar dan membina semula simpanan tenaga.\n• Cuaca Sejuk/Mendung: Apabila cahaya matahari rendah dan fotosintesis perlahan, AA membekalkan makanan 'pra-cerna' untuk memastikan pokok terus aktif.\n• Penampan Racun Perosak: Mencampurkan AA dengan racun perosak (kecuali Kuprum/Sulfur) mengurangkan 'kejutan semburan' pada daun.",
+    info_AA_def: "Tidak penting tetapi kelihatan sebagai 'Pertumbuhan Terbantut Umum'. Pokok yang kekurangan bekalan asid amino organik sukar pulih daripada tekanan, menunjukkan pengembangan daun yang perlahan, dan pembentukan buah yang lemah berbanding pokok dalam program diperkaya asid amino.",
+    info_AA_syn: "1. Rakan Pengkelatan (Fe/Zn/Cu): Asid amino membalut nutrien logam, meneutralkan casnya dan membolehkannya 'menyelinap' menembusi kutikel daun dengan mudah.\n2. Penggalak N: Bersinergi dengan semua bentuk Nitrogen untuk mempercepatkan sintesis protein.",
+    info_AA_antag: "1. Amaran Racun Kulat: Kepekatan AA yang tinggi boleh mengurangkan keberkesanan sesetengah racun kulat sentuhan dengan menariknya terlalu dalam ke tisu pokok.\n2. Pertembungan Kuprum/Sulfur: Lihat perencatan di bawah.",
+    info_AA_inhib: "1. Lecur Kuprum: JANGAN SEKALI-KALI mencampurkan Asid Amino (terutamanya FAA) dengan racun kulat berasaskan Kuprum. AA akan membawa logam berat Kuprum terus ke dalam sel pokok, menyebabkan lecur kimia yang teruk dan keguguran daun.",
+    info_Pep_func: "'Perisian' Fisiologi & Pembawa Isyarat. Peptida ialah rantai pendek asid amino (biasanya <50) yang bertindak sebagai perisian biologi dalaman pokok. Tidak seperti Asid Amino individu yang merupakan 'bata' (makanan/bahan), Peptida memberi 'arahan' kepada enjin metabolik pokok. Ia mencetuskan tindak balas sistemik seperti permulaan akar yang pesat, perkembangan putik bunga dan penebalan membran sel. Paling penting, Peptida bertindak sebagai pengiring biologi termaju bagi nutrien berat yang tidak bergerak seperti Kalsium.",
+    info_Pep_comm: "Bentuk Pasaran:\n• Peptida Ikan (Proses Sejuk): Standard Emas. Kaya dengan molekul isyarat marin yang mencetuskan pemulihan pantas dan lonjakan pertumbuhan. \n• Peptida Soya/Sayuran: Rantai berketulenan tinggi, sangat baik untuk semburan daun semasa berbunga dan pembentukan buah.\n• Pepton: Gred pertanian standard, digunakan untuk meningkatkan aktiviti mikrob tanah dan memberi isyarat berterusan untuk pertumbuhan vegetatif.\n💡 Kenapa Peptida berbanding Asid Amino? Asid amino individu memberi makan kepada pokok; Peptida MEMPROGRAM SEMULA pokok untuk menangani tekanan dan menyerap nutrien dengan lebih baik.",
+    info_Pep_app: "Strategi Aplikasi (Petua 'Kuda Troy'):\n• Pencegahan Rekahan (Ca-Pep): Peptida meningkatkan kebolehtelapan membran sel. Mencampurkan Peptida dengan Kalsium semburan daun semasa pembentukan dan pembesaran buah membolehkan pokok menarik Kalsium terus ke floem buah—memintas aliran xilem ke atas yang perlahan.\n• Permulaan Akar: Beri melalui siraman tanah semasa mengubah anak pokok atau selepas serangan perosak yang teruk untuk memberi isyarat kepada pokok membina semula jisim akarnya serta-merta.\n• Isyarat Kemarau: Beri sejurus sebelum musim panas untuk memberi isyarat kepada pokok menguatkan dinding sel terhadap kehilangan air.",
+    info_Pep_def: "Kelihatan sebagai 'Genangan Metabolik'. Pokok tanpa sokongan peptida menunjukkan tindak balas lemah terhadap baja, kadar buah merekah yang lebih tinggi (walaupun Ca mencukupi), dan pemulihan yang lembap selepas kejutan persekitaran (panas, banjir atau kerosakan racun rumpai).",
+    info_Pep_syn: "1. Kurier Kalsium (Ca): Peptida ialah sistem penghantaran semula jadi paling cekap untuk Kalsium, memastikan ia sampai ke kulit buah di mana ia diperlukan untuk keanjalan.\n2. Sinergi Hormon: Peptida bertindak sebagai prekursor yang menguatkan kesan Auksin dan Sitokinin semula jadi semasa berbunga.",
+    info_Pep_antag: "1. Pengoksida Kuat: Elakkan mencampurkan dengan pembersih Klorin atau Hidrogen Peroksida berkepekatan tinggi, yang boleh memecahkan rantai peptida yang halus secara fizikal.\n2. Pertembungan Logam: Lihat perencatan di bawah.",
+    info_Pep_inhib: "1. Lecur Logam Berat: Jangan sekali-kali mencampurkan Peptida (terutamanya Peptida Ikan) dengan racun kulat Kuprum. Peptida akan menarik logam berat toksik Kuprum ke dalam sitoplasma sel serta-merta, menyebabkan kematian tisu yang teruk.\n2. Denaturasi pH: pH campuran tangki yang terlalu tinggi (>10.0) atau rendah (<3.0) akan menyahasli (memecahkan) rantai peptida, menjadikan mesej isyaratnya tidak berguna.",
+    ph_chart_title: "Carta Ketersediaan pH",
+    ph_chart_desc: "Carta interaktif yang menunjukkan kecekapan nutrien pada tahap pH berbeza.",
+    ph_current: "pH Semasa",
+    ph_optimal: "Ideal",
+    ph_sufficient: "Mencukupi",
+    ph_limited: "Terhad",
+    ph_tip_optimal_title: "Pengurusan pH: Zon Emas",
+    ph_tip_optimal_desc: "Sempurna! Ini 'Zon Goldilocks'. Kebanyakan nutrien tersedia secara kimia. Kekalkan Bahan Organik untuk menampannya.",
+    ph_tip_acidic_title: "Strategi Pembetulan Asid",
+    ph_tip_acidic_desc: "Pada pH {val}, {list} terkunci. Tindakan: Tabur Kapur Dolomit (GML) 2-4 minggu sebelum membaja. Elakkan Urea sehingga pH meningkat.",
+    ph_tip_alkaline_title: "Strategi Pembetulan Alkali",
+    ph_tip_alkaline_desc: "Pada pH {val}, {list} termendak. Aplikasi tanah tidak berkesan. Tindakan: Gunakan semburan daun untuk mikronutrien. Tabur Sulfur untuk menurunkan pH secara perlahan.",
+    ph_others: "dll.",
+    ph_macros: "Makronutrien",
+    ph_breakdown_title: "Pecahan Ketersediaan Terperinci"
   }
 };
 
@@ -1040,15 +1537,61 @@ const TRANSLATIONS = {
 // 1b. LANGUAGE RUNTIME  (added by merge)
 // ==========================================
 // Single source of truth for the active language. Persisted in localStorage.
-// Default = Chinese on first ever launch (per product decision).
-const SUPPORTED_LANGS = ['zh', 'en'];
+// Default = Chinese on first ever launch (per product decision); the onboarding
+// language picker pre-selects from the device language when it can.
+const SUPPORTED_LANGS = ['zh', 'en', 'ms'];
 
-function getInitialLang() {
+// Names shown in the language picker (native) and on the top-bar button (label).
+const LANG_OPTIONS = [
+  { id: 'zh', native: '中文', label: '中文' },
+  { id: 'en', native: 'English', label: 'EN' },
+  { id: 'ms', native: 'Malay', label: 'BM' }
+];
+
+// Missing strings fall back along this chain (Malay readers get English first).
+const LANG_FALLBACK = { zh: ['zh', 'en'], en: ['en', 'zh'], ms: ['ms', 'en', 'zh'] };
+
+const HTML_LANG = { zh: 'zh-CN', en: 'en', ms: 'ms-MY' };
+
+// Bump to re-show the onboarding language picker to existing users.
+const ONBOARDING_VERSION = '2';
+
+function getSavedLang() {
   try {
     const saved = localStorage.getItem('agripro_lang');
     if (SUPPORTED_LANGS.includes(saved)) return saved;
   } catch (e) {}
+  return null;
+}
+
+// Best guess from the device for pre-selecting the onboarding picker.
+function detectDeviceLang() {
+  try {
+    const list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (const l of list) {
+      const code = String(l || '').toLowerCase();
+      if (code.startsWith('zh')) return 'zh';
+      if (code.startsWith('ms') || code.startsWith('id')) return 'ms';
+      if (code.startsWith('en')) return 'en';
+    }
+  } catch (e) {}
   return 'zh';
+}
+
+function getInitialLang() {
+  return getSavedLang() || 'zh';
+}
+
+function needsOnboarding() {
+  try {
+    return localStorage.getItem('agripro_onboarding') !== ONBOARDING_VERSION;
+  } catch (e) {
+    return false;
+  }
+}
+
+function markOnboarded() {
+  try { localStorage.setItem('agripro_onboarding', ONBOARDING_VERSION); } catch (e) {}
 }
 
 // Module-level mutable language. Components read it via t()/tv() and are
@@ -1061,7 +1604,7 @@ function setCurrentLang(lang) {
   try { localStorage.setItem('agripro_lang', lang); } catch (e) {}
   // Keep the document in sync for a11y / PWA correctness.
   try {
-    document.documentElement.lang = (lang === 'zh') ? 'zh-CN' : 'en';
+    document.documentElement.lang = HTML_LANG[lang];
     const dict = TRANSLATIONS[lang];
     if (dict && dict.app_title) document.title = dict.app_title;
   } catch (e) {}
@@ -1069,20 +1612,22 @@ function setCurrentLang(lang) {
 
 // Key lookup: t('some_key') -> string in the active language, falls back to key.
 function t(key) {
-  const dict = TRANSLATIONS[CURRENT_LANG];
-  if (dict && dict[key] != null) return dict[key];
-  const zh = TRANSLATIONS.zh;
-  if (zh && zh[key] != null) return zh[key];
+  for (const l of LANG_FALLBACK[CURRENT_LANG]) {
+    const dict = TRANSLATIONS[l];
+    if (dict && dict[key] != null) return dict[key];
+  }
   return key;
 }
 
-// Value lookup: tv({ zh: '...', en: '...' }) -> string in the active language.
-// Used for bilingual values stored inline in data objects (NUTRIENTS, etc.).
+// Value lookup: tv({ zh: '...', en: '...', ms: '...' }) -> string in the active language.
+// Used for multilingual values stored inline in data objects (NUTRIENTS, etc.).
 // Plain strings pass through unchanged, so it is always safe to call.
 function tv(val) {
   if (val && typeof val === 'object' && !Array.isArray(val)) {
-    return val[CURRENT_LANG] != null ? val[CURRENT_LANG]
-         : (val.zh != null ? val.zh : '');
+    for (const l of LANG_FALLBACK[CURRENT_LANG]) {
+      if (val[l] != null) return val[l];
+    }
+    return '';
   }
   return val;
 }
@@ -1166,174 +1711,174 @@ const MIX_RULES = [{
 const ION_META = {
   N: {
     form: "NO₃⁻ / NH₄⁺",
-    leach: { zh: "高 (硝态)", en: "High (NO₃)" },
-    leach_desc: { zh: "高 (阴离子极易流失)", en: "High (Anion)" },
+    leach: { zh: "高 (硝态)", en: "High (NO₃)", ms: "Tinggi (NO₃)" },
+    leach_desc: { zh: "高 (阴离子极易流失)", en: "High (Anion)", ms: "Tinggi (Anion)" },
     leachHigh: true,
-    grip: { zh: "弱", en: "Weak" },
-    grip_desc: { zh: "弱", en: "Weak" },
-    compete: { zh: "Cl⁻, SO₄²⁻, K⁺", en: "Cl⁻, SO₄²⁻, K⁺" },
+    grip: { zh: "弱", en: "Weak", ms: "Lemah" },
+    grip_desc: { zh: "弱", en: "Weak", ms: "Lemah" },
+    compete: { zh: "Cl⁻, SO₄²⁻, K⁺", en: "Cl⁻, SO₄²⁻, K⁺", ms: "Cl⁻, SO₄²⁻, K⁺" },
   },
   P: {
     form: "H₂PO₄⁻",
-    leach: { zh: "低", en: "Low" },
-    leach_desc: { zh: "低 (容易被固定)", en: "Low (Fixation)" },
+    leach: { zh: "低", en: "Low", ms: "Rendah" },
+    leach_desc: { zh: "低 (容易被固定)", en: "Low (Fixation)", ms: "Rendah (Pengikatan)" },
     leachHigh: false,
-    grip: { zh: "强", en: "Strong" },
-    grip_desc: { zh: "强 (化学固定)", en: "Strong (Chemical)" },
-    compete: { zh: "Zn²⁺, Fe³⁺", en: "Zn²⁺, Fe³⁺" },
+    grip: { zh: "强", en: "Strong", ms: "Kuat" },
+    grip_desc: { zh: "强 (化学固定)", en: "Strong (Chemical)", ms: "Kuat (Kimia)" },
+    compete: { zh: "Zn²⁺, Fe³⁺", en: "Zn²⁺, Fe³⁺", ms: "Zn²⁺, Fe³⁺" },
   },
   K: {
     form: "K⁺",
-    leach: { zh: "中", en: "Med" },
-    leach_desc: { zh: "中 (单价离子)", en: "Med (Monovalent)" },
+    leach: { zh: "中", en: "Med", ms: "Sederhana" },
+    leach_desc: { zh: "中 (单价离子)", en: "Med (Monovalent)", ms: "Sederhana (Monovalen)" },
     leachHigh: false,
-    grip: { zh: "弱", en: "Weak" },
-    grip_desc: { zh: "弱", en: "Weak" },
-    compete: { zh: "Mg²⁺, Ca²⁺", en: "Mg²⁺, Ca²⁺" },
+    grip: { zh: "弱", en: "Weak", ms: "Lemah" },
+    grip_desc: { zh: "弱", en: "Weak", ms: "Lemah" },
+    compete: { zh: "Mg²⁺, Ca²⁺", en: "Mg²⁺, Ca²⁺", ms: "Mg²⁺, Ca²⁺" },
   },
   S: {
     form: "SO₄²⁻",
-    leach: { zh: "高", en: "High" },
-    leach_desc: { zh: "高 (阴离子)", en: "High (Anion)" },
+    leach: { zh: "高", en: "High", ms: "Tinggi" },
+    leach_desc: { zh: "高 (阴离子)", en: "High (Anion)", ms: "Tinggi (Anion)" },
     leachHigh: true,
-    grip: { zh: "无", en: "None" },
-    grip_desc: { zh: "无", en: "None" },
-    compete: { zh: "NO₃⁻, MoO₄²⁻", en: "NO₃⁻, MoO₄²⁻" },
+    grip: { zh: "无", en: "None", ms: "Tiada" },
+    grip_desc: { zh: "无", en: "None", ms: "Tiada" },
+    compete: { zh: "NO₃⁻, MoO₄²⁻", en: "NO₃⁻, MoO₄²⁻", ms: "NO₃⁻, MoO₄²⁻" },
   },
   Ca: {
     form: "Ca²⁺",
-    leach: { zh: "低", en: "Low" },
-    leach_desc: { zh: "低 (二价离子)", en: "Low (Divalent)" },
+    leach: { zh: "低", en: "Low", ms: "Rendah" },
+    leach_desc: { zh: "低 (二价离子)", en: "Low (Divalent)", ms: "Rendah (Divalen)" },
     leachHigh: false,
-    grip: { zh: "强", en: "Strong" },
-    grip_desc: { zh: "强", en: "Strong" },
-    compete: { zh: "K⁺, Mg²⁺", en: "K⁺, Mg²⁺" },
+    grip: { zh: "强", en: "Strong", ms: "Kuat" },
+    grip_desc: { zh: "强", en: "Strong", ms: "Kuat" },
+    compete: { zh: "K⁺, Mg²⁺", en: "K⁺, Mg²⁺", ms: "K⁺, Mg²⁺" },
   },
   Mg: {
     form: "Mg²⁺",
-    leach: { zh: "低", en: "Low" },
-    leach_desc: { zh: "低 (二价离子)", en: "Low (Divalent)" },
+    leach: { zh: "低", en: "Low", ms: "Rendah" },
+    leach_desc: { zh: "低 (二价离子)", en: "Low (Divalent)", ms: "Rendah (Divalen)" },
     leachHigh: false,
-    grip: { zh: "强", en: "Strong" },
-    grip_desc: { zh: "强", en: "Strong" },
-    compete: { zh: "K⁺, Ca²⁺", en: "K⁺, Ca²⁺" },
+    grip: { zh: "强", en: "Strong", ms: "Kuat" },
+    grip_desc: { zh: "强", en: "Strong", ms: "Kuat" },
+    compete: { zh: "K⁺, Ca²⁺", en: "K⁺, Ca²⁺", ms: "K⁺, Ca²⁺" },
   },
   Fe: {
     form: "Fe²⁺ / Fe³⁺",
-    leach: { zh: "极低", en: "Very Low" },
-    leach_desc: { zh: "极低", en: "Very Low" },
+    leach: { zh: "极低", en: "Very Low", ms: "Sangat Rendah" },
+    leach_desc: { zh: "极低", en: "Very Low", ms: "Sangat Rendah" },
     leachHigh: false,
-    grip: { zh: "强", en: "Strong" },
-    grip_desc: { zh: "强 (易沉淀)", en: "Strong (Precipitate)" },
-    compete: { zh: "Mn²⁺, Zn²⁺", en: "Mn²⁺, Zn²⁺" },
+    grip: { zh: "强", en: "Strong", ms: "Kuat" },
+    grip_desc: { zh: "强 (易沉淀)", en: "Strong (Precipitate)", ms: "Kuat (Mendakan)" },
+    compete: { zh: "Mn²⁺, Zn²⁺", en: "Mn²⁺, Zn²⁺", ms: "Mn²⁺, Zn²⁺" },
   },
   Mn: {
     form: "Mn²⁺",
-    leach: { zh: "低", en: "Low" },
-    leach_desc: { zh: "低", en: "Low" },
+    leach: { zh: "低", en: "Low", ms: "Rendah" },
+    leach_desc: { zh: "低", en: "Low", ms: "Rendah" },
     leachHigh: false,
-    grip: { zh: "强", en: "Strong" },
-    grip_desc: { zh: "强", en: "Strong" },
-    compete: { zh: "Fe²⁺", en: "Fe²⁺" },
+    grip: { zh: "强", en: "Strong", ms: "Kuat" },
+    grip_desc: { zh: "强", en: "Strong", ms: "Kuat" },
+    compete: { zh: "Fe²⁺", en: "Fe²⁺", ms: "Fe²⁺" },
   },
   B: {
     form: "H₃BO₃",
-    leach: { zh: "高", en: "High" },
-    leach_desc: { zh: "高 (非离子态)", en: "High (Non-ionic)" },
+    leach: { zh: "高", en: "High", ms: "Tinggi" },
+    leach_desc: { zh: "高 (非离子态)", en: "High (Non-ionic)", ms: "Tinggi (Bukan Ion)" },
     leachHigh: true,
-    grip: { zh: "弱", en: "Weak" },
-    grip_desc: { zh: "弱 (随水流)", en: "Weak (Water flow)" },
-    compete: { zh: "Ca²⁺ (生理竞争)", en: "Ca²⁺ (Physio)" },
+    grip: { zh: "弱", en: "Weak", ms: "Lemah" },
+    grip_desc: { zh: "弱 (随水流)", en: "Weak (Water flow)", ms: "Lemah (Aliran Air)" },
+    compete: { zh: "Ca²⁺ (生理竞争)", en: "Ca²⁺ (Physio)", ms: "Ca²⁺ (Fisio)" },
   },
   Cu: {
     form: "Cu²⁺",
-    leach: { zh: "极低", en: "Very Low" },
-    leach_desc: { zh: "极低", en: "Very Low" },
+    leach: { zh: "极低", en: "Very Low", ms: "Sangat Rendah" },
+    leach_desc: { zh: "极低", en: "Very Low", ms: "Sangat Rendah" },
     leachHigh: false,
-    grip: { zh: "强", en: "Strong" },
-    grip_desc: { zh: "强 (有机质强吸附)", en: "Strong (Organic)" },
-    compete: { zh: "Zn²⁺, N", en: "Zn²⁺, N" },
+    grip: { zh: "强", en: "Strong", ms: "Kuat" },
+    grip_desc: { zh: "强 (有机质强吸附)", en: "Strong (Organic)", ms: "Kuat (Organik)" },
+    compete: { zh: "Zn²⁺, N", en: "Zn²⁺, N", ms: "Zn²⁺, N" },
   },
   Zn: {
     form: "Zn²⁺",
-    leach: { zh: "低", en: "Low" },
-    leach_desc: { zh: "低", en: "Low" },
+    leach: { zh: "低", en: "Low", ms: "Rendah" },
+    leach_desc: { zh: "低", en: "Low", ms: "Rendah" },
     leachHigh: false,
-    grip: { zh: "强", en: "Strong" },
-    grip_desc: { zh: "强", en: "Strong" },
-    compete: { zh: "P, Fe²⁺", en: "P, Fe²⁺" },
+    grip: { zh: "强", en: "Strong", ms: "Kuat" },
+    grip_desc: { zh: "强", en: "Strong", ms: "Kuat" },
+    compete: { zh: "P, Fe²⁺", en: "P, Fe²⁺", ms: "P, Fe²⁺" },
   },
   Mo: {
     form: "MoO₄²⁻",
-    leach: { zh: "高", en: "High" },
-    leach_desc: { zh: "高", en: "High" },
+    leach: { zh: "高", en: "High", ms: "Tinggi" },
+    leach_desc: { zh: "高", en: "High", ms: "Tinggi" },
     leachHigh: true,
-    grip: { zh: "弱", en: "Weak" },
-    grip_desc: { zh: "弱", en: "Weak" },
-    compete: { zh: "SO₄²⁻", en: "SO₄²⁻" },
+    grip: { zh: "弱", en: "Weak", ms: "Lemah" },
+    grip_desc: { zh: "弱", en: "Weak", ms: "Lemah" },
+    compete: { zh: "SO₄²⁻", en: "SO₄²⁻", ms: "SO₄²⁻" },
   },
   Si: {
     form: "Si(OH)₄",
-    leach: { zh: "中", en: "Med" },
-    leach_desc: { zh: "中", en: "Med" },
+    leach: { zh: "中", en: "Med", ms: "Sederhana" },
+    leach_desc: { zh: "中", en: "Med", ms: "Sederhana" },
     leachHigh: false,
-    grip: { zh: "中", en: "Med" },
-    grip_desc: { zh: "中", en: "Med" },
-    compete: { zh: "无", en: "None" },
+    grip: { zh: "中", en: "Med", ms: "Sederhana" },
+    grip_desc: { zh: "中", en: "Med", ms: "Sederhana" },
+    compete: { zh: "无", en: "None", ms: "Tiada" },
   },
   Cl: {
     form: "Cl⁻",
-    leach: { zh: "高", en: "High" },
-    leach_desc: { zh: "极高", en: "Very High" },
+    leach: { zh: "高", en: "High", ms: "Tinggi" },
+    leach_desc: { zh: "极高", en: "Very High", ms: "Sangat Tinggi" },
     leachHigh: true,
-    grip: { zh: "无", en: "None" },
-    grip_desc: { zh: "无", en: "None" },
-    compete: { zh: "NO₃⁻", en: "NO₃⁻" },
+    grip: { zh: "无", en: "None", ms: "Tiada" },
+    grip_desc: { zh: "无", en: "None", ms: "Tiada" },
+    compete: { zh: "NO₃⁻", en: "NO₃⁻", ms: "NO₃⁻" },
   },
   Ni: {
     form: "Ni²⁺",
-    leach: { zh: "低", en: "Low" },
-    leach_desc: { zh: "低", en: "Low" },
+    leach: { zh: "低", en: "Low", ms: "Rendah" },
+    leach_desc: { zh: "低", en: "Low", ms: "Rendah" },
     leachHigh: false,
-    grip: { zh: "强", en: "Strong" },
-    grip_desc: { zh: "强", en: "Strong" },
-    compete: { zh: "Zn²⁺", en: "Zn²⁺" },
+    grip: { zh: "强", en: "Strong", ms: "Kuat" },
+    grip_desc: { zh: "强", en: "Strong", ms: "Kuat" },
+    compete: { zh: "Zn²⁺", en: "Zn²⁺", ms: "Zn²⁺" },
   },
   Na: {
     form: "Na⁺",
-    leach: { zh: "高", en: "High" },
-    leach_desc: { zh: "高", en: "High" },
+    leach: { zh: "高", en: "High", ms: "Tinggi" },
+    leach_desc: { zh: "高", en: "High", ms: "Tinggi" },
     leachHigh: true,
-    grip: { zh: "弱", en: "Weak" },
-    grip_desc: { zh: "弱", en: "Weak" },
-    compete: { zh: "K⁺, Ca²⁺", en: "K⁺, Ca²⁺" },
+    grip: { zh: "弱", en: "Weak", ms: "Lemah" },
+    grip_desc: { zh: "弱", en: "Weak", ms: "Lemah" },
+    compete: { zh: "K⁺, Ca²⁺", en: "K⁺, Ca²⁺", ms: "K⁺, Ca²⁺" },
   },
   Co: {
     form: "Co²⁺",
-    leach: { zh: "低", en: "Low" },
-    leach_desc: { zh: "低", en: "Low" },
+    leach: { zh: "低", en: "Low", ms: "Rendah" },
+    leach_desc: { zh: "低", en: "Low", ms: "Rendah" },
     leachHigh: false,
-    grip: { zh: "强", en: "Strong" },
-    grip_desc: { zh: "强", en: "Strong" },
-    compete: { zh: "Mn²⁺", en: "Mn²⁺" },
+    grip: { zh: "强", en: "Strong", ms: "Kuat" },
+    grip_desc: { zh: "强", en: "Strong", ms: "Kuat" },
+    compete: { zh: "Mn²⁺", en: "Mn²⁺", ms: "Mn²⁺" },
   },
   AA: {
     form: "Zwitterion",
-    leach: { zh: "低", en: "Low" },
-    leach_desc: { zh: "低 (智能电荷锁定)", en: "Low (Smart)" },
+    leach: { zh: "低", en: "Low", ms: "Rendah" },
+    leach_desc: { zh: "低 (智能电荷锁定)", en: "Low (Smart)", ms: "Rendah (Pintar)" },
     leachHigh: false,
-    grip: { zh: "中", en: "Med" },
-    grip_desc: { zh: "中 (双性结合)", en: "Med (Dual)" },
-    compete: { zh: "无", en: "None" },
+    grip: { zh: "中", en: "Med", ms: "Sederhana" },
+    grip_desc: { zh: "中 (双性结合)", en: "Med (Dual)", ms: "Sederhana (Dwi)" },
+    compete: { zh: "无", en: "None", ms: "Tiada" },
   },
   Pep: {
     form: "Polypeptide",
-    leach: { zh: "低", en: "Low" },
-    leach_desc: { zh: "低", en: "Low" },
+    leach: { zh: "低", en: "Low", ms: "Rendah" },
+    leach_desc: { zh: "低", en: "Low", ms: "Rendah" },
     leachHigh: false,
-    grip: { zh: "中", en: "Med" },
-    grip_desc: { zh: "中", en: "Med" },
-    compete: { zh: "无", en: "None" },
+    grip: { zh: "中", en: "Med", ms: "Sederhana" },
+    grip_desc: { zh: "中", en: "Med", ms: "Sederhana" },
+    compete: { zh: "无", en: "None", ms: "Tiada" },
   }
 };
 const PH_AVAILABILITY_DATA = [{
@@ -1452,22 +1997,30 @@ const NUTRIENTS = [{
     name: 'Nitrate Reductase',
     func: 'Gatekeeper of N-Assimilation (NO3 → NO2)',
     zh_name: '硝酸还原酶',
-    zh_func: '氮气同化的守门员 (NO3 → NO2)'
+    zh_func: '氮气同化的守门员 (NO3 → NO2)',
+    ms_name: "Nitrat Reduktase",
+    ms_func: "Penjaga Pintu Asimilasi N (NO3 → NO2)"
   }, {
     name: 'RuBisCO',
     func: 'Photosynthesis Engine (Fixes CO2)',
     zh_name: 'RuBisCO (核酮糖-1,5-二磷酸羧化酶)',
-    zh_func: '光合作用引擎 (固定 CO2)'
+    zh_func: '光合作用引擎 (固定 CO2)',
+    ms_name: "RuBisCO",
+    ms_func: "Enjin Fotosintesis (Mengikat CO2)"
   }, {
     name: 'PAL',
     func: 'Defense & Lignin Synthesis',
     zh_name: 'PAL (苯丙氨酸解氨酶)',
-    zh_func: '防御机制与木质素合成'
+    zh_func: '防御机制与木质素合成',
+    ms_name: "PAL",
+    ms_func: "Pertahanan & Sintesis Lignin"
   }, {
     name: 'GA Synthase',
     func: 'Stem Elongation (Gibberellins)',
     zh_name: '赤霉素合成酶',
-    zh_func: '枝干/节间伸长'
+    zh_func: '枝干/节间伸长',
+    ms_name: "GA Sintase",
+    ms_func: "Pemanjangan Batang (Giberelin)"
   }],
   optimal_levels: {
     soil: {
@@ -1508,17 +2061,23 @@ const NUTRIENTS = [{
     name: 'ATP Synthase',
     func: 'Generates ATP (Cellular Battery)',
     zh_name: 'ATP 合成酶',
-    zh_func: '生成 ATP (细胞能量电池)'
+    zh_func: '生成 ATP (细胞能量电池)',
+    ms_name: "ATP Sintase",
+    ms_func: "Menjana ATP (Bateri Sel)"
   }, {
     name: 'GAPDH',
     func: 'Calvin Cycle (Sugar Production)',
     zh_name: 'GAPDH',
-    zh_func: '卡尔文循环 (糖分生产)'
+    zh_func: '卡尔文循环 (糖分生产)',
+    ms_name: "GAPDH",
+    ms_func: "Kitaran Calvin (Penghasilan Gula)"
   }, {
     name: 'Phosphofructokinase',
     func: 'Pacemaker of Glycolysis',
     zh_name: '磷酸果糖激酶',
-    zh_func: '糖酵解的起搏器'
+    zh_func: '糖酵解的起搏器',
+    ms_name: "Fosfofruktokinase",
+    ms_func: "Perentak Glikolisis"
   }],
   optimal_levels: {
     soil: {
@@ -1559,17 +2118,23 @@ const NUTRIENTS = [{
     name: 'Pyruvate Kinase',
     func: 'Final Step of Energy Production',
     zh_name: '丙酮酸激酶',
-    zh_func: '能量生产的最后一步'
+    zh_func: '能量生产的最后一步',
+    ms_name: "Piruvat Kinase",
+    ms_func: "Langkah Akhir Penghasilan Tenaga"
   }, {
     name: 'Starch Synthase',
     func: 'Fruit Filling (Sugar to Starch)',
     zh_name: '淀粉合成酶',
-    zh_func: '果实灌浆 (糖转化为淀粉)'
+    zh_func: '果实灌浆 (糖转化为淀粉)',
+    ms_name: "Sintase Kanji",
+    ms_func: "Pengisian Buah (Gula kepada Kanji)"
   }, {
     name: 'ABA Synthase',
     func: 'Stomatal Control (Drought Defense)',
     zh_name: 'ABA 合成酶',
-    zh_func: '气孔控制 (抗旱防御)'
+    zh_func: '气孔控制 (抗旱防御)',
+    ms_name: "ABA Sintase",
+    ms_func: "Kawalan Stomata (Pertahanan Kemarau)"
   }],
   optimal_levels: {
     soil: {
@@ -1610,17 +2175,23 @@ const NUTRIENTS = [{
     name: 'Peroxidase',
     func: 'Cell Wall Cross-linking (Rigidity)',
     zh_name: '过氧化物酶',
-    zh_func: '细胞壁交联 (提供刚性)'
+    zh_func: '细胞壁交联 (提供刚性)',
+    ms_name: "Peroksidase",
+    ms_func: "Paut Silang Dinding Sel (Ketegaran)"
   }, {
     name: 'Cellulose Synthase',
     func: 'Builds Structural Skeleton',
     zh_name: '纤维素合成酶',
-    zh_func: '构建植物结构骨架'
+    zh_func: '构建植物结构骨架',
+    ms_name: "Selulosa Sintase",
+    ms_func: "Membina Rangka Struktur"
   }, {
     name: 'Alpha-Amylase',
     func: 'Seed Germination (Starch Breakdown)',
     zh_name: 'α-淀粉酶',
-    zh_func: '种子发芽 (淀粉分解)'
+    zh_func: '种子发芽 (淀粉分解)',
+    ms_name: "Alfa-Amilase",
+    ms_func: "Percambahan Biji (Penguraian Kanji)"
   }],
   optimal_levels: {
     soil: {
@@ -1658,17 +2229,23 @@ const NUTRIENTS = [{
     name: 'RuBisCO',
     func: 'Activates Carbon Fixation',
     zh_name: 'RuBisCO',
-    zh_func: '激活碳固定'
+    zh_func: '激活碳固定',
+    ms_name: "RuBisCO",
+    ms_func: "Mengaktifkan Pengikatan Karbon"
   }, {
     name: 'Hexokinase',
     func: 'Kickstarts Sugar Metabolism',
     zh_name: '己糖激酶',
-    zh_func: '启动糖代谢'
+    zh_func: '启动糖代谢',
+    ms_name: "Heksokinase",
+    ms_func: "Memulakan Metabolisme Gula"
   }, {
     name: 'Glutamine Synthetase',
     func: 'Ammonium Detoxification',
     zh_name: '谷氨酰胺合成酶',
-    zh_func: '铵毒性解毒'
+    zh_func: '铵毒性解毒',
+    ms_name: "Glutamin Sintetase",
+    ms_func: "Penyahtoksikan Ammonium"
   }],
   optimal_levels: {
     soil: {
@@ -1706,17 +2283,23 @@ const NUTRIENTS = [{
     name: 'Glutathione Reductase',
     func: 'Regenerates Antioxidants',
     zh_name: '谷胱甘肽还原酶',
-    zh_func: '再生抗氧化剂'
+    zh_func: '再生抗氧化剂',
+    ms_name: "Glutation Reduktase",
+    ms_func: "Menjana Semula Antioksidan"
   }, {
     name: 'Nitrogenase',
     func: 'Biological N-Fixation',
     zh_name: '固氮酶',
-    zh_func: '生物固氮'
+    zh_func: '生物固氮',
+    ms_name: "Nitrogenase",
+    ms_func: "Pengikatan N Biologi"
   }, {
     name: 'Coenzyme A',
     func: 'Fatty Acid & Energy Metabolism',
     zh_name: '辅酶 A',
-    zh_func: '脂肪酸与能量代谢'
+    zh_func: '脂肪酸与能量代谢',
+    ms_name: "Koenzim A",
+    ms_func: "Metabolisme Asid Lemak & Tenaga"
   }],
   optimal_levels: {
     soil: {
@@ -1754,17 +2337,23 @@ const NUTRIENTS = [{
     name: 'Catalase',
     func: 'Neutralizes Toxic Hydrogen Peroxide',
     zh_name: '过氧化氢酶',
-    zh_func: '中和有毒的过氧化氢'
+    zh_func: '中和有毒的过氧化氢',
+    ms_name: "Katalase",
+    ms_func: "Meneutralkan Hidrogen Peroksida Toksik"
   }, {
     name: 'Nitrite Reductase',
     func: 'Protein Building (NO2 → NH4)',
     zh_name: '亚硝酸还原酶',
-    zh_func: '蛋白质构建 (NO2 → NH4)'
+    zh_func: '蛋白质构建 (NO2 → NH4)',
+    ms_name: "Nitrit Reduktase",
+    ms_func: "Pembinaan Protein (NO2 → NH4)"
   }, {
     name: 'APX',
     func: 'Chloroplast Antioxidant',
     zh_name: 'APX (抗坏血酸过氧化物酶)',
-    zh_func: '叶绿体抗氧化剂'
+    zh_func: '叶绿体抗氧化剂',
+    ms_name: "APX",
+    ms_func: "Antioksidan Kloroplas"
   }],
   optimal_levels: {
     soil: {
@@ -1802,17 +2391,23 @@ const NUTRIENTS = [{
     name: 'IAA Synthase',
     func: 'Auxin Precursor (Tryptophan)',
     zh_name: 'IAA 合成酶',
-    zh_func: '生长素前体 (色氨酸)'
+    zh_func: '生长素前体 (色氨酸)',
+    ms_name: "IAA Sintase",
+    ms_func: "Prekursor Auksin (Triptofan)"
   }, {
     name: 'SOD',
     func: 'First Line Antioxidant Defense',
     zh_name: 'SOD (超氧化物歧化酶)',
-    zh_func: '第一道抗氧化防线'
+    zh_func: '第一道抗氧化防线',
+    ms_name: "SOD",
+    ms_func: "Barisan Pertama Pertahanan Antioksidan"
   }, {
     name: 'Carbonic Anhydrase',
     func: 'CO2 Supply for Photosynthesis',
     zh_name: '碳酸酐酶',
-    zh_func: '为光合作用提供 CO2'
+    zh_func: '为光合作用提供 CO2',
+    ms_name: "Karbonik Anhidrase",
+    ms_func: "Bekalan CO2 untuk Fotosintesis"
   }],
   optimal_levels: {
     soil: {
@@ -1850,17 +2445,23 @@ const NUTRIENTS = [{
     name: 'OEC (PSII)',
     func: 'Splits Water (Photosynthesis)',
     zh_name: '放氧复合体 (OEC)',
-    zh_func: '光系统II中分解水'
+    zh_func: '光系统II中分解水',
+    ms_name: "OEC (PSII)",
+    ms_func: "Memecahkan Air (Fotosintesis)"
   }, {
     name: 'SOD',
     func: 'Mitochondrial Protection',
     zh_name: 'Mn-SOD',
-    zh_func: '线粒体保护'
+    zh_func: '线粒体保护',
+    ms_name: "SOD",
+    ms_func: "Perlindungan Mitokondria"
   }, {
     name: 'Isocitrate Dehydrogenase',
     func: 'TCA Cycle Rate-Limiter',
     zh_name: '异柠檬酸脱氢酶',
-    zh_func: 'TCA 循环的限速酶'
+    zh_func: 'TCA 循环的限速酶',
+    ms_name: "Isositrat Dehidrogenase",
+    ms_func: "Penghad Kadar Kitaran TCA"
   }],
   optimal_levels: {
     soil: {
@@ -1901,17 +2502,23 @@ const NUTRIENTS = [{
     name: 'Laccase',
     func: 'Lignin Synthesis (Wood Hardening)',
     zh_name: '漆酶',
-    zh_func: '木质素合成 (木质硬化)'
+    zh_func: '木质素合成 (木质硬化)',
+    ms_name: "Lakase",
+    ms_func: "Sintesis Lignin (Pengerasan Kayu)"
   }, {
     name: 'SOD',
     func: 'Cytoplasm/Chloroplast Protection',
     zh_name: 'Cu/Zn-SOD',
-    zh_func: '细胞质/叶绿体保护'
+    zh_func: '细胞质/叶绿体保护',
+    ms_name: "SOD",
+    ms_func: "Perlindungan Sitoplasma/Kloroplas"
   }, {
     name: 'Polyphenol Oxidase',
     func: 'Wound Repair (Browning)',
     zh_name: '多酚氧化酶',
-    zh_func: '伤口修复 (褐变反应)'
+    zh_func: '伤口修复 (褐变反应)',
+    ms_name: "Polifenol Oksidase",
+    ms_func: "Pemulihan Luka (Pemerangan)"
   }],
   optimal_levels: {
     soil: {
@@ -1981,12 +2588,16 @@ const NUTRIENTS = [{
     name: 'Nitrate Reductase',
     func: 'Essential Cofactor for N-Reduction',
     zh_name: '硝酸还原酶',
-    zh_func: '氮还原的必需辅助因子'
+    zh_func: '氮还原的必需辅助因子',
+    ms_name: "Nitrat Reduktase",
+    ms_func: "Kofaktor Penting untuk Penurunan N"
   }, {
     name: 'Nitrogenase',
     func: 'Key for N-Fixation (Legumes)',
     zh_name: '固氮酶',
-    zh_func: '豆科植物固氮关键'
+    zh_func: '豆科植物固氮关键',
+    ms_name: "Nitrogenase",
+    ms_func: "Kunci untuk Pengikatan N (Kekacang)"
   }],
   optimal_levels: {
     soil: {
@@ -2027,22 +2638,30 @@ const NUTRIENTS = [{
     name: 'Proline',
     func: 'Stress Tolerance (Drought/Heat/Salt)',
     zh_name: '脯氨酸',
-    zh_func: '抗逆性 (干旱/高温/盐碱)'
+    zh_func: '抗逆性 (干旱/高温/盐碱)',
+    ms_name: "Prolina",
+    ms_func: "Toleransi Tekanan (Kemarau/Panas/Garam)"
   }, {
     name: 'Glycine',
     func: 'Chlorophyll Synthesis & Chelation',
     zh_name: '甘氨酸',
-    zh_func: '叶绿素合成与天然螯合'
+    zh_func: '叶绿素合成与天然螯合',
+    ms_name: "Glisina",
+    ms_func: "Sintesis & Pengkelatan Klorofil"
   }, {
     name: 'Glutamic Acid',
     func: 'Central Hub of N-Metabolism',
     zh_name: '谷氨酸',
-    zh_func: '氮代谢的中枢核心'
+    zh_func: '氮代谢的中枢核心',
+    ms_name: "Asid Glutamik",
+    ms_func: "Hab Utama Metabolisme N"
   }, {
     name: 'Methionine',
     func: 'Precursor to Ethylene (Ripening)',
     zh_name: '甲硫氨酸',
-    zh_func: '乙烯前体 (促进果实成熟)'
+    zh_func: '乙烯前体 (促进果实成熟)',
+    ms_name: "Metionina",
+    ms_func: "Prekursor Etilena (Pemasakan)"
   }]
 }, {
   id: 'Pep',
@@ -2295,18 +2914,18 @@ const analyzeSoilImpact = (nutrientId, soil) => {
     if (soil.weather === 'dry') {
       impacts.push({
         level: 'good',
-        msg: tv({ zh: '抗旱防御：帮助调节气孔并保留水分。在高温/干旱期间必不可少。', en: 'Drought Defense: Helps regulate stomata and retain moisture. Essential during heat/drought.' })
+        msg: tv({ zh: '抗旱防御：帮助调节气孔并保留水分。在高温/干旱期间必不可少。', en: 'Drought Defense: Helps regulate stomata and retain moisture. Essential during heat/drought.', ms: "Pertahanan Kemarau: Membantu mengawal stomata dan mengekalkan kelembapan. Penting semasa panas/kemarau." })
       });
     } else if (soil.weather === 'wet') {
       impacts.push({
         level: 'good',
-        msg: tv({ zh: '恢复：帮助重建根系并在暴雨后螯合养分，减少流失。', en: 'Recovery: Helps rebuild roots and chelate nutrients after heavy rain, reducing leaching loss.' })
+        msg: tv({ zh: '恢复：帮助重建根系并在暴雨后螯合养分，减少流失。', en: 'Recovery: Helps rebuild roots and chelate nutrients after heavy rain, reducing leaching loss.', ms: "Pemulihan: Membantu membina semula akar dan mengelat nutrien selepas hujan lebat, mengurangkan kehilangan akibat larut lesap." })
       });
     }
     if (soil.ec === 'high') {
       impacts.push({
         level: 'good',
-        msg: tv({ zh: '盐碱缓冲：减少高盐分引起的渗透胁迫。', en: 'Salinity Buffer: Reduces osmotic stress caused by high salts.' })
+        msg: tv({ zh: '盐碱缓冲：减少高盐分引起的渗透胁迫。', en: 'Salinity Buffer: Reduces osmotic stress caused by high salts.', ms: "Penampan Kemasinan: Mengurangkan tekanan osmotik akibat garam yang tinggi." })
       });
     }
     return impacts;
@@ -2315,14 +2934,14 @@ const analyzeSoilImpact = (nutrientId, soil) => {
     if (['N', 'K', 'Mg', 'S', 'B', 'Cl', 'Mo'].includes(nutrientId)) {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: `流失警告：暴雨会冲走${nutName}，请在雨后重施。`, en: `Leaching Alert: Heavy rain will wash ${nutName} away. Re-apply after rain.` })
+        msg: tv({ zh: `流失警告：暴雨会冲走${nutName}，请在雨后重施。`, en: `Leaching Alert: Heavy rain will wash ${nutName} away. Re-apply after rain.`, ms: `Amaran Larut Resap: Hujan lebat akan menghanyutkan ${nutName}. Gunakan semula selepas hujan.` })
       });
     }
   } else if (soil.weather === 'dry') {
     if (['Ca', 'B'].includes(nutrientId)) {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: `吸收受阻：${nutName}依赖蒸腾拉力。干旱停止吸收，必须进行叶面喷施。`, en: `Absorption Blocked: ${nutName} relies on transpiration pull. Drought stops uptake. Foliar spray required.` })
+        msg: tv({ zh: `吸收受阻：${nutName}依赖蒸腾拉力。干旱停止吸收，必须进行叶面喷施。`, en: `Absorption Blocked: ${nutName} relies on transpiration pull. Drought stops uptake. Foliar spray required.`, ms: `Penyerapan Tersekat: ${nutName} bergantung pada tarikan transpirasi. Kemarau menghentikan pengambilan. Semburan daun diperlukan.` })
       });
     }
   }
@@ -2330,7 +2949,7 @@ const analyzeSoilImpact = (nutrientId, soil) => {
     if (['Fe', 'Mn', 'Zn', 'Cu'].includes(nutrientId)) {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: `高盐碱 (EC)：渗透胁迫，${nutName}等微量元素潜在锁定。`, en: `High Salinity (EC): Osmotic stress and potential lockup of micronutrients like ${nutName}.` })
+        msg: tv({ zh: `高盐碱 (EC)：渗透胁迫，${nutName}等微量元素潜在锁定。`, en: `High Salinity (EC): Osmotic stress and potential lockup of micronutrients like ${nutName}.`, ms: `Kemasinan Tinggi (EC): Tekanan osmotik dan potensi penguncian mikronutrien seperti ${nutName}.` })
       });
     }
   }
@@ -2338,43 +2957,43 @@ const analyzeSoilImpact = (nutrientId, soil) => {
     if (nutrientId === 'N') {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '氮源：在酸性土壤中，避免使用铵/尿素（会进一步酸化）。使用硝态氮（如硝酸钙）。', en: 'Nitrogen Source: In acidic soil, avoid Ammonium/Urea (they acidify further). Use Nitrate (e.g., Calcium Nitrate).' })
+        msg: tv({ zh: '氮源：在酸性土壤中，避免使用铵/尿素（会进一步酸化）。使用硝态氮（如硝酸钙）。', en: 'Nitrogen Source: In acidic soil, avoid Ammonium/Urea (they acidify further). Use Nitrate (e.g., Calcium Nitrate).', ms: "Sumber Nitrogen: Dalam tanah berasid, elakkan Ammonium/Urea (ia menambah keasidan). Gunakan Nitrat (cth., Kalsium Nitrat)." })
       });
     } else if (['K', 'Ca', 'Mg', 'S', 'Mo'].includes(nutrientId)) {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '酸性锁定：pH < 5.5 时，大量元素和钼的有效性显著下降。铝毒性可能会干扰。', en: 'Acid Lock: At pH < 5.5, macros and Molybdenum availability drops significantly. Aluminum toxicity may interfere.' })
+        msg: tv({ zh: '酸性锁定：pH < 5.5 时，大量元素和钼的有效性显著下降。铝毒性可能会干扰。', en: 'Acid Lock: At pH < 5.5, macros and Molybdenum availability drops significantly. Aluminum toxicity may interfere.', ms: "Kunci Asid: Pada pH < 5.5, ketersediaan makro dan Molibdenum menurun dengan ketara. Ketoksikan Aluminium mungkin mengganggu." })
       });
     }
     if (['Fe', 'Mn', 'Zn', 'Cu', 'B'].includes(nutrientId)) {
       impacts.push({
         level: 'low',
-        msg: tv({ zh: '溶解度增加：微量元素在酸性中极易溶解。注意毒性（尤其是锰）。', en: 'Increased Solubility: Micros are highly soluble in acid. Watch for toxicity (esp. Manganese).' })
+        msg: tv({ zh: '溶解度增加：微量元素在酸性中极易溶解。注意毒性（尤其是锰）。', en: 'Increased Solubility: Micros are highly soluble in acid. Watch for toxicity (esp. Manganese).', ms: "Keterlarutan Meningkat: Mikro sangat larut dalam keadaan berasid. Awasi ketoksikan (terutamanya Mangan)." })
       });
     }
     if (nutrientId === 'P') {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '铝/铁固定：极高风险。磷与铝/铁结合成不溶性固体。', en: 'Al/Fe Fixation: Very High Risk. Phosphorus binds with Aluminum/Iron into insoluble solids.' })
+        msg: tv({ zh: '铝/铁固定：极高风险。磷与铝/铁结合成不溶性固体。', en: 'Al/Fe Fixation: Very High Risk. Phosphorus binds with Aluminum/Iron into insoluble solids.', ms: "Pengikatan Al/Fe: Risiko Sangat Tinggi. Fosforus terikat dengan Aluminium/Besi menjadi pepejal tidak larut." })
       });
     }
   } else if (soil.ph > 7.5) {
     if (['Fe', 'Mn', 'Zn', 'Cu', 'B'].includes(nutrientId)) {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '碱性固定：pH > 7.5 时，微量元素（除钼外）沉淀。必须使用螯合物或叶面喷施。', en: 'Alkaline Fixation: At pH > 7.5, micros (except Mo) precipitate. Must use Chelates or Foliar.' })
+        msg: tv({ zh: '碱性固定：pH > 7.5 时，微量元素（除钼外）沉淀。必须使用螯合物或叶面喷施。', en: 'Alkaline Fixation: At pH > 7.5, micros (except Mo) precipitate. Must use Chelates or Foliar.', ms: "Pengikatan Alkali: Pada pH > 7.5, mikro (kecuali Mo) termendak. Wajib guna Kelat atau Semburan Daun." })
       });
     }
     if (nutrientId === 'P') {
       impacts.push({
         level: 'med',
-        msg: tv({ zh: '钙固定：磷与钙结合形成不溶性的磷酸钙。', en: 'Calcium Fixation: P binds with Ca to form insoluble Calcium Phosphate.' })
+        msg: tv({ zh: '钙固定：磷与钙结合形成不溶性的磷酸钙。', en: 'Calcium Fixation: P binds with Ca to form insoluble Calcium Phosphate.', ms: "Pengikatan Kalsium: P terikat dengan Ca membentuk Kalsium Fosfat yang tidak larut." })
       });
     }
     if (nutrientId === 'Mo') {
       impacts.push({
         level: 'good',
-        msg: tv({ zh: '高有效性：钼在碱性土壤中最有效。', en: 'High Availability: Molybdenum is most available in alkaline soils.' })
+        msg: tv({ zh: '高有效性：钼在碱性土壤中最有效。', en: 'High Availability: Molybdenum is most available in alkaline soils.', ms: "Ketersediaan Tinggi: Molibdenum paling tersedia dalam tanah beralkali." })
       });
     }
   }
@@ -2382,14 +3001,14 @@ const analyzeSoilImpact = (nutrientId, soil) => {
     if (['N', 'K', 'Mg', 'S', 'B'].includes(nutrientId)) {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '流失风险：沙土保肥力 (CEC) 低。该元素容易流失。需“少食多餐”。', en: 'Leaching Risk: Sandy soil has low retention (CEC). This element washes away easily. Apply "Little and Often".' })
+        msg: tv({ zh: '流失风险：沙土保肥力 (CEC) 低。该元素容易流失。需“少食多餐”。', en: 'Leaching Risk: Sandy soil has low retention (CEC). This element washes away easily. Apply "Little and Often".', ms: "Risiko Larut Lesap: Tanah berpasir mempunyai daya pegangan rendah (CEC). Unsur ini mudah dihanyutkan. Baja \"Sedikit tetapi Kerap\"." })
       });
     }
   } else if (soil.texture === 'clay') {
     if (nutrientId === 'K' || nutrientId === 'NH4') {
       impacts.push({
         level: 'med',
-        msg: tv({ zh: '晶格固定：某些粘土会在其晶格结构中困住钾或铵离子。', en: 'Lattice Fixation: Some clays trap K or Ammonium ions in their lattice structure.' })
+        msg: tv({ zh: '晶格固定：某些粘土会在其晶格结构中困住钾或铵离子。', en: 'Lattice Fixation: Some clays trap K or Ammonium ions in their lattice structure.', ms: "Pengikatan Kekisi: Sesetengah tanah liat memerangkap ion K atau Ammonium dalam struktur kekisinya." })
       });
     }
   }
@@ -2397,20 +3016,20 @@ const analyzeSoilImpact = (nutrientId, soil) => {
     if (['N', 'S'].includes(nutrientId)) {
       impacts.push({
         level: 'med',
-        msg: tv({ zh: '储备低：土壤缺乏有机氮/硫库。高度依赖肥料。', en: 'Low Reserves: Soil lacks organic N/S banks. Dependent on fertilizers.' })
+        msg: tv({ zh: '储备低：土壤缺乏有机氮/硫库。高度依赖肥料。', en: 'Low Reserves: Soil lacks organic N/S banks. Dependent on fertilizers.', ms: "Rizab Rendah: Tanah kekurangan simpanan N/S organik. Bergantung kepada baja." })
       });
     }
     if (['Fe', 'Zn', 'Cu', 'Mn'].includes(nutrientId)) {
       impacts.push({
         level: 'med',
-        msg: tv({ zh: '无天然螯合：低有机质意味着微量元素容易被土壤矿物固定。', en: 'No Natural Chelation: Low OM means micros are easily fixed by soil mineralogy.' })
+        msg: tv({ zh: '无天然螯合：低有机质意味着微量元素容易被土壤矿物固定。', en: 'No Natural Chelation: Low OM means micros are easily fixed by soil mineralogy.', ms: "Tiada Pengkelatan Semula Jadi: Bahan organik (OM) yang rendah menyebabkan mikro mudah diikat oleh mineral tanah." })
       });
     }
   } else if (soil.om === 'high') {
     if (nutrientId === 'Cu') {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '有机物结合：铜与有机质结合非常紧密，导致缺乏。', en: 'Organic Bind: Copper binds very strongly to organic matter, causing deficiency.' })
+        msg: tv({ zh: '有机物结合：铜与有机质结合非常紧密，导致缺乏。', en: 'Organic Bind: Copper binds very strongly to organic matter, causing deficiency.', ms: "Ikatan Organik: Kuprum terikat sangat kuat pada bahan organik, menyebabkan kekurangan." })
       });
     }
   }
@@ -2418,53 +3037,53 @@ const analyzeSoilImpact = (nutrientId, soil) => {
     if (nutrientId === 'Mg') {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '比例警告 (Ca:Mg > 6:1)：过量的钙阻断镁吸收。理想比例 3-6:1。', en: 'Ratio Alert (Ca:Mg > 6:1): Excess Ca blocks Mg uptake. Ideal ratio 3-6:1.' })
+        msg: tv({ zh: '比例警告 (Ca:Mg > 6:1)：过量的钙阻断镁吸收。理想比例 3-6:1。', en: 'Ratio Alert (Ca:Mg > 6:1): Excess Ca blocks Mg uptake. Ideal ratio 3-6:1.', ms: "Amaran Nisbah (Ca:Mg > 6:1): Ca berlebihan menghalang pengambilan Mg. Nisbah ideal 3-6:1." })
       });
     } else if (nutrientId === 'K') {
       impacts.push({
         level: 'med',
-        msg: tv({ zh: '阳离子竞争：高钙占据位点，可能减缓钾吸收。', en: 'Cation Comp: High Calcium occupies sites, potentially slowing K uptake.' })
+        msg: tv({ zh: '阳离子竞争：高钙占据位点，可能减缓钾吸收。', en: 'Cation Comp: High Calcium occupies sites, potentially slowing K uptake.', ms: "Persaingan Kation: Kalsium yang tinggi menduduki tapak pertukaran, berpotensi melambatkan pengambilan K." })
       });
     } else if (['Fe', 'Mn', 'Zn'].includes(nutrientId)) {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '石灰诱发失绿：高钙通常意味着高 pH，导致微量元素沉淀。', en: 'Lime Induced Chlorosis: High Ca usually means high pH, causing micro precipitation.' })
+        msg: tv({ zh: '石灰诱发失绿：高钙通常意味着高 pH，导致微量元素沉淀。', en: 'Lime Induced Chlorosis: High Ca usually means high pH, causing micro precipitation.', ms: "Klorosis Akibat Kapur: Ca yang tinggi biasanya bermakna pH tinggi, menyebabkan mikro termendak." })
       });
     }
   } else if (soil.cation === 'hi_mg') {
     if (nutrientId === 'Ca') {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '比例警告 (Ca:Mg < 3:1)：高镁抑制钙。土壤通常紧实/发粘。', en: 'Ratio Alert (Ca:Mg < 3:1): High Mg inhibits Ca. Soil often tight/sticky.' })
+        msg: tv({ zh: '比例警告 (Ca:Mg < 3:1)：高镁抑制钙。土壤通常紧实/发粘。', en: 'Ratio Alert (Ca:Mg < 3:1): High Mg inhibits Ca. Soil often tight/sticky.', ms: "Amaran Nisbah (Ca:Mg < 3:1): Mg yang tinggi merencat Ca. Tanah selalunya padat/melekit." })
       });
     } else if (nutrientId === 'K') {
       impacts.push({
         level: 'med',
-        msg: tv({ zh: '阳离子竞争：高镁土壤难以留住钾。', en: 'Cation Comp: High Mg soils struggle to hold K.' })
+        msg: tv({ zh: '阳离子竞争：高镁土壤难以留住钾。', en: 'Cation Comp: High Mg soils struggle to hold K.', ms: "Persaingan Kation: Tanah tinggi Mg sukar memegang K." })
       });
     }
   } else if (soil.cation === 'hi_k') {
     if (nutrientId === 'Mg') {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '比例警告 (K:Mg > 2:1)：强拮抗。钾是镁的“恶霸”。需叶面补镁。', en: 'Ratio Alert (K:Mg > 2:1): Strong Antagonism. K is a bully to Mg. Foliar Mg required.' })
+        msg: tv({ zh: '比例警告 (K:Mg > 2:1)：强拮抗。钾是镁的“恶霸”。需叶面补镁。', en: 'Ratio Alert (K:Mg > 2:1): Strong Antagonism. K is a bully to Mg. Foliar Mg required.', ms: "Amaran Nisbah (K:Mg > 2:1): Antagonisme Kuat. K menindas Mg. Semburan daun Mg diperlukan." })
       });
     } else if (nutrientId === 'Ca') {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '比例警告 (Ca:K < 10:1)：过量的钾降低钙的效率。', en: 'Ratio Alert (Ca:K < 10:1): Excess K reduces Ca efficiency.' })
+        msg: tv({ zh: '比例警告 (Ca:K < 10:1)：过量的钾降低钙的效率。', en: 'Ratio Alert (Ca:K < 10:1): Excess K reduces Ca efficiency.', ms: "Amaran Nisbah (Ca:K < 10:1): K berlebihan mengurangkan kecekapan Ca." })
       });
     } else if (nutrientId === 'B') {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '钾拮抗：钾驱动快速生长，稀释硼水平。', en: 'K Antagonism: K drives fast growth, diluting Boron levels.' })
+        msg: tv({ zh: '钾拮抗：钾驱动快速生长，稀释硼水平。', en: 'K Antagonism: K drives fast growth, diluting Boron levels.', ms: "Antagonisme K: K memacu pertumbuhan pesat, mencairkan paras Boron." })
       });
     }
   } else if (soil.cation === 'hi_na') {
     if (['K', 'Ca'].includes(nutrientId)) {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: '盐分竞争：钠竞争钾/钙的载体位点。', en: 'Salt Comp: Sodium competes with Potassium/Calcium carrier sites.' })
+        msg: tv({ zh: '盐分竞争：钠竞争钾/钙的载体位点。', en: 'Salt Comp: Sodium competes with Potassium/Calcium carrier sites.', ms: "Persaingan Garam: Natrium bersaing dengan Kalium/Kalsium di tapak pembawa." })
       });
     }
   }
@@ -2483,25 +3102,25 @@ const getSmartRecommendation = inputs => {
   const ageNum = parseInt(age) || 5;
   let mix = new Set();
   let rationale = [];
-  let rate = tv({ zh: "请参阅产品标签", en: "Refer to product label" });
-  let timing = tv({ zh: "清晨或傍晚", en: "Early morning or late evening" });
-  let compatibility = tv({ zh: "通过 (无明显冲突)", en: "Pass" });
+  let rate = tv({ zh: "请参阅产品标签", en: "Refer to product label", ms: "Rujuk label produk" });
+  let timing = tv({ zh: "清晨或傍晚", en: "Early morning or late evening", ms: "Awal pagi atau lewat petang" });
+  let compatibility = tv({ zh: "通过 (无明显冲突)", en: "Pass (No obvious conflicts)", ms: "Lulus (Tiada konflik ketara)" });
   let warnings = [];
   if (stage === 'seedling') {
     mix.add("P");
     mix.add("Zn");
     mix.add("Pep");
-    rationale.push(tv({ zh: "🌱 幼苗基础：磷 (P) 和锌 (Zn) 对根系至关重要。多肽 (Pep) 刺激根系生长。", en: "🌱 Seedling Base: Phosphorus (P) and Zinc (Zn) are critical for roots. Peptides (Pep) stimulate root mass." }));
-    rate = tv({ zh: "幼树配方：高氮、高磷 | N:P:K ≈ 2:1:1", en: "Young Tree Mix: High N, High P | N:P:K ≈ 2:1:1" });
+    rationale.push(tv({ zh: "🌱 幼苗基础：磷 (P) 和锌 (Zn) 对根系至关重要。多肽 (Pep) 刺激根系生长。", en: "🌱 Seedling Base: Phosphorus (P) and Zinc (Zn) are critical for roots. Peptides (Pep) stimulate root mass.", ms: "🌱 Asas Anak Benih: Fosforus (P) dan Zink (Zn) amat penting untuk akar. Peptida (Pep) merangsang jisim akar." }));
+    rate = tv({ zh: "幼树配方：高氮、高磷 | N:P:K ≈ 2:1:1", en: "Young Tree Mix: High N, High P | N:P:K ≈ 2:1:1", ms: "Campuran Pokok Muda: N Tinggi, P Tinggi | N:P:K ≈ 2:1:1" });
   } else if (stage === 'veg') {
     mix.add("N");
     mix.add("Mg");
     mix.add("AA");
-    rationale.push(tv({ zh: "🌿 营养期：氮 (N) 推动叶面积指数，镁 (Mg) 构建叶绿素。氨基酸 (AA) 提高氮的利用率。", en: "🌿 Vegetative: Nitrogen (N) drives leaf area index, Magnesium (Mg) builds chlorophyll. Amino Acids (AA) improve N efficiency." }));
+    rationale.push(tv({ zh: "🌿 营养期：氮 (N) 推动叶面积指数，镁 (Mg) 构建叶绿素。氨基酸 (AA) 提高氮的利用率。", en: "🌿 Vegetative: Nitrogen (N) drives leaf area index, Magnesium (Mg) builds chlorophyll. Amino Acids (AA) improve N efficiency.", ms: "🌿 Vegetatif: Nitrogen (N) memacu indeks luas daun, Magnesium (Mg) membina klorofil. Asid Amino (AA) meningkatkan kecekapan N." }));
     if (ageNum < 5) {
-      rate = tv({ zh: "幼梢：高氮 (N:K ≈ 3:1) @ 1:1000", en: "Young Flush: High N (N:K ≈ 3:1) @ 1:1000" });
+      rate = tv({ zh: "幼梢：高氮 (N:K ≈ 3:1) @ 1:1000", en: "Young Flush: High N (N:K ≈ 3:1) @ 1:1000", ms: "Pucuk Muda: N Tinggi (N:K ≈ 3:1) @ 1:1000" });
     } else {
-      rate = tv({ zh: "成熟维持：平衡 (N:K ≈ 1:1) @ 1:800", en: "Mature Maintenance: Balanced (N:K ≈ 1:1) @ 1:800" });
+      rate = tv({ zh: "成熟维持：平衡 (N:K ≈ 1:1) @ 1:800", en: "Mature Maintenance: Balanced (N:K ≈ 1:1) @ 1:800", ms: "Penyelenggaraan Pokok Matang: Seimbang (N:K ≈ 1:1) @ 1:800" });
     }
   } else if (stage === 'pre_flower') {
     mix.add("P");
@@ -2510,53 +3129,53 @@ const getSmartRecommendation = inputs => {
     mix.add("B");
     mix.add("Mg");
     mix.delete("N");
-    rationale.push(tv({ zh: "🗓️ 开花前期：积累碳水化合物 (C)，抑制氮。P+K 促使枝条老熟。Zn+B 为发芽储备。", en: "🗓️ Pre-Flowering: Accumulate Carbohydrates (C), suppress N. P+K matures branches. Zn+B creates reserves for budding." }));
-    rationale.push(tv({ zh: "💡 专业提示 (1:1 vs MKP)：虽然 MKP (0-52-34) 是标准，但考虑添加 SOP 达到 1:1 (如 0-40-40)。钾是“刹车”——渗透压迫使顽固的树停止抽梢。", en: "💡 Pro Tip (1:1 vs MKP): While MKP (0-52-34) is standard, consider adding SOP to reach 1:1 (e.g., 0-40-40). Potassium is the 'brake'—osmotic stress forces stubborn trees to stop flushing." }));
-    rate = tv({ zh: "高磷钾叶面肥 (P:K ≈ 1:1) + 土施白云石", en: "High P-K Foliar (P:K ≈ 1:1) + Soil Dolomite" });
+    rationale.push(tv({ zh: "🗓️ 开花前期：积累碳水化合物 (C)，抑制氮。P+K 促使枝条老熟。Zn+B 为发芽储备。", en: "🗓️ Pre-Flowering: Accumulate Carbohydrates (C), suppress N. P+K matures branches. Zn+B creates reserves for budding.", ms: "🗓️ Pra-Pembungaan: Kumpul Karbohidrat (C), tekan N. P+K mematangkan dahan. Zn+B membina rizab untuk pertunasan bunga." }));
+    rationale.push(tv({ zh: "💡 专业提示 (1:1 vs MKP)：虽然 MKP (0-52-34) 是标准，但考虑添加 SOP 达到 1:1 (如 0-40-40)。钾是“刹车”——渗透压迫使顽固的树停止抽梢。", en: "💡 Pro Tip (1:1 vs MKP): While MKP (0-52-34) is standard, consider adding SOP to reach 1:1 (e.g., 0-40-40). Potassium is the 'brake'—osmotic stress forces stubborn trees to stop flushing.", ms: "💡 Tip Pro (1:1 vs MKP): Walaupun MKP (0-52-34) adalah standard, pertimbangkan menambah SOP untuk mencapai 1:1 (cth., 0-40-40). Kalium ialah 'brek'—tekanan osmotik memaksa pokok yang degil berhenti mengeluarkan pucuk." }));
+    rate = tv({ zh: "高磷钾叶面肥 (P:K ≈ 1:1) + 土施白云石", en: "High P-K Foliar (P:K ≈ 1:1) + Soil Dolomite", ms: "Semburan Daun P-K Tinggi (P:K ≈ 1:1) + Dolomit Tanah" });
   } else if (stage === 'flower_bud') {
     mix.add("P");
     mix.add("B");
     mix.add("AA");
-    rationale.push(tv({ zh: "👀 蟹眼期 (花芽萌发)：温和的磷 (P) 提供 ATP 能量。硼 (B) 驱动快速细胞分裂。氨基酸 (AA) 减少脆弱芽的环境胁迫。", en: "👀 Crab Eyes (Bud Emergence): Gentle Phosphorus (P) supplies ATP energy. Boron (B) drives rapid cell division. Amino Acids (AA) reduce environmental stress on tender buds." }));
-    rate = tv({ zh: "温和叶面肥：高磷 + 硼 @ 1:1000", en: "Gentle Foliar: High P + Boron @ 1:1000" });
+    rationale.push(tv({ zh: "👀 蟹眼期 (花芽萌发)：温和的磷 (P) 提供 ATP 能量。硼 (B) 驱动快速细胞分裂。氨基酸 (AA) 减少脆弱芽的环境胁迫。", en: "👀 Crab Eyes (Bud Emergence): Gentle Phosphorus (P) supplies ATP energy. Boron (B) drives rapid cell division. Amino Acids (AA) reduce environmental stress on tender buds.", ms: "👀 Mata Ketam (Kemunculan Putik): Fosforus (P) yang lembut membekalkan tenaga ATP. Boron (B) memacu pembahagian sel yang pesat. Asid Amino (AA) mengurangkan tekanan persekitaran pada putik yang lembut." }));
+    rate = tv({ zh: "温和叶面肥：高磷 + 硼 @ 1:1000", en: "Gentle Foliar: High P + Boron @ 1:1000", ms: "Semburan Daun Lembut: P Tinggi + Boron @ 1:1000" });
   } else if (stage === 'matchstick') {
     mix.add("B");
     mix.add("Ca");
     mix.add("Zn");
     mix.add("AA");
-    rationale.push(tv({ zh: "🔥 火柴枝期：快速伸长期。锌 (Zn) 驱动生长素产生以促进伸长，钙 (Ca) + 硼 (B) 构建结构完整性以防止早期脱落。", en: "🔥 Matchstick: Rapid elongation phase. Zinc (Zn) drives auxin production for length, while Calcium (Ca) + Boron (B) build structural integrity to prevent early drop." }));
-    rate = tv({ zh: "钙+硼组合 + 氨基酸锌 @ 1:800", en: "Ca+B Combo + Zinc Amino @ 1:800" });
+    rationale.push(tv({ zh: "🔥 火柴枝期：快速伸长期。锌 (Zn) 驱动生长素产生以促进伸长，钙 (Ca) + 硼 (B) 构建结构完整性以防止早期脱落。", en: "🔥 Matchstick: Rapid elongation phase. Zinc (Zn) drives auxin production for length, while Calcium (Ca) + Boron (B) build structural integrity to prevent early drop.", ms: "🔥 Batang Mancis: Fasa pemanjangan pesat. Zink (Zn) memacu penghasilan auksin untuk kepanjangan, manakala Kalsium (Ca) + Boron (B) membina kekuatan struktur untuk mencegah gugur awal." }));
+    rate = tv({ zh: "钙+硼组合 + 氨基酸锌 @ 1:800", en: "Ca+B Combo + Zinc Amino @ 1:800", ms: "Kombo Ca+B + Zink Amino @ 1:800" });
   } else if (stage === 'bloom') {
     mix.add("B");
     mix.add("AA");
     mix.delete("N");
-    rationale.push(tv({ zh: "🌸 盛花期 （含授粉期）：授粉窗口期。尽量减少大量喷洒。硼 (B) 仅用于花粉管伸长。完全避免使用氮，以防止枝梢竞争。", en: "🌸 Full Bloom: Pollination window. Minimize heavy spraying. Boron (B) strictly for pollen tube elongation. Avoid N entirely to prevent shoot competition." }));
-    rate = tv({ zh: "微剂量硼 + 氨基酸 (仅在必要时)", en: "Micro-dose Boron + Amino (Only if necessary)" });
-    compatibility = tv({ zh: "警告：避免使用可能烧伤柱头的刺激性农药或重盐。", en: "Caution: Avoid harsh pesticides or heavy salts that may burn stigma." });
+    rationale.push(tv({ zh: "🌸 盛花期 （含授粉期）：授粉窗口期。尽量减少大量喷洒。硼 (B) 仅用于花粉管伸长。完全避免使用氮，以防止枝梢竞争。", en: "🌸 Full Bloom: Pollination window. Minimize heavy spraying. Boron (B) strictly for pollen tube elongation. Avoid N entirely to prevent shoot competition.", ms: "🌸 Bunga Kembang Penuh: Tempoh pendebungaan. Kurangkan semburan berat. Boron (B) hanya untuk pemanjangan tiub debunga. Elakkan N sepenuhnya untuk mencegah persaingan pucuk." }));
+    rate = tv({ zh: "微剂量硼 + 氨基酸 (仅在必要时)", en: "Micro-dose Boron + Amino (Only if necessary)", ms: "Dos Mikro Boron + Amino (Hanya jika perlu)" });
+    compatibility = tv({ zh: "警告：避免使用可能烧伤柱头的刺激性农药或重盐。", en: "Caution: Avoid harsh pesticides or heavy salts that may burn stigma.", ms: "Awas: Elakkan racun perosak yang keras atau garam berat yang boleh membakar stigma." });
   } else if (stage === 'fruit_set') {
     mix.add("Ca");
     mix.add("B");
     mix.add("Pep");
-    rationale.push(tv({ zh: "🟢 幼果期 (0-10 DAA)：花落后的即时支持。多肽 (Pep) 与 Ca+B 协同作用以加强果柄连接。严格零氮以避免竞争。", en: "🟢 Early Fruit Set (0–10 DAA): Immediate support after the flower drops. Peptides (Pep) synergize with Ca+B to strengthen the pedicel (stem) attachment. Strict ZERO Nitrogen to avoid competition." }));
-    rate = tv({ zh: "Ca+B + 多肽 (轻量施用)", en: "Ca+B + Peptides (Light Application)" });
+    rationale.push(tv({ zh: "🟢 幼果期 (0-10 DAA)：花落后的即时支持。多肽 (Pep) 与 Ca+B 协同作用以加强果柄连接。严格零氮以避免竞争。", en: "🟢 Early Fruit Set (0–10 DAA): Immediate support after the flower drops. Peptides (Pep) synergize with Ca+B to strengthen the pedicel (stem) attachment. Strict ZERO Nitrogen to avoid competition.", ms: "🟢 Pembentukan Buah Awal (0–10 DAA): Sokongan segera selepas bunga gugur. Peptida (Pep) bersinergi dengan Ca+B untuk menguatkan lekatan tangkai (pedikel). SIFAR Nitrogen sepenuhnya untuk mengelakkan persaingan." }));
+    rate = tv({ zh: "Ca+B + 多肽 (轻量施用)", en: "Ca+B + Peptides (Light Application)", ms: "Ca+B + Peptida (Aplikasi Ringan)" });
   } else if (stage === 'fruit_drop_1') {
     mix.add("P");
     mix.add("Zn");
     mix.add("Mg");
-    rationale.push(tv({ zh: "🌊 第一波：胚胎淘汰 (10-25 DAA)：“质量检查”。树木会自然脱落胚胎发育不良的果实。高磷提供能量，而氨基酸锌保持健康的生长素水平以防止脱落。", en: "🌊 1st Wave: Embryo Culling (10–25 DAA): The 'Quality Check.' The tree naturally sheds fruits with poor embryo development. High P supplies energy while Zn-Amino maintains healthy auxin levels to prevent abscission." }));
-    rate = tv({ zh: "叶面磷 + 氨基酸锌混合 @ 1:800", en: "Foliar P + Zn-Amino Mix @ 1:800" });
+    rationale.push(tv({ zh: "🌊 第一波：胚胎淘汰 (10-25 DAA)：“质量检查”。树木会自然脱落胚胎发育不良的果实。高磷提供能量，而氨基酸锌保持健康的生长素水平以防止脱落。", en: "🌊 1st Wave: Embryo Culling (10–25 DAA): The 'Quality Check.' The tree naturally sheds fruits with poor embryo development. High P supplies energy while Zn-Amino maintains healthy auxin levels to prevent abscission.", ms: "🌊 Gelombang Pertama: Penyingkiran Embrio (10–25 DAA): 'Pemeriksaan Kualiti.' Pokok secara semula jadi menggugurkan buah yang perkembangan embrionya lemah. P Tinggi membekalkan tenaga manakala Zn-Amino mengekalkan paras auksin yang sihat untuk mencegah keguguran." }));
+    rate = tv({ zh: "叶面磷 + 氨基酸锌混合 @ 1:800", en: "Foliar P + Zn-Amino Mix @ 1:800", ms: "Campuran Semburan Daun P + Zn-Amino @ 1:800" });
   } else if (stage === 'ping_pong') {
     mix.add("K");
     mix.add("Ca");
     mix.add("Mg");
     mix.add("AA");
-    rationale.push(tv({ zh: "🏓 第二波：抽梢竞争 (35-50 DAA)：猫山王最危险的阶段。如果此时树木长出新叶，它就会落果。高钾 (K) 作为营养生长的刹车，同时将糖分加载到果实中。", en: "🏓 2nd Wave: Flush Competition (35–50 DAA): The most dangerous phase for Musang King. If the tree flushes new leaves now, it will drop fruit. High Potassium (K) acts as a brake on vegetative growth while Loading sugars into fruit." }));
+    rationale.push(tv({ zh: "🏓 第二波：抽梢竞争 (35-50 DAA)：猫山王最危险的阶段。如果此时树木长出新叶，它就会落果。高钾 (K) 作为营养生长的刹车，同时将糖分加载到果实中。", en: "🏓 2nd Wave: Flush Competition (35–50 DAA): The most dangerous phase for Musang King. If the tree flushes new leaves now, it will drop fruit. High Potassium (K) acts as a brake on vegetative growth while Loading sugars into fruit.", ms: "🏓 Gelombang Kedua: Persaingan Pucuk (35–50 DAA): Fasa paling berbahaya untuk Musang King. Jika pokok mengeluarkan pucuk baharu sekarang, ia akan menggugurkan buah. Kalium (K) yang tinggi bertindak sebagai brek pertumbuhan vegetatif sambil memuatkan gula ke dalam buah." }));
     if (ageNum < 7) {
       mix.add("N");
-      rate = tv({ zh: "平衡 N:K (1:2) + 钙/镁叶面肥", en: "Balanced N:K (1:2) + Ca/Mg Foliar" });
-      rationale.push(tv({ zh: "🍎 幼树：添加少量氮以维持树冠，不引起落果。", en: "🍎 Young Tree: Add slight N to maintain canopy without causing fruit drop." }));
+      rate = tv({ zh: "平衡 N:K (1:2) + 钙/镁叶面肥", en: "Balanced N:K (1:2) + Ca/Mg Foliar", ms: "N:K Seimbang (1:2) + Semburan Daun Ca/Mg" });
+      rationale.push(tv({ zh: "🍎 幼树：添加少量氮以维持树冠，不引起落果。", en: "🍎 Young Tree: Add slight N to maintain canopy without causing fruit drop.", ms: "🍎 Pokok Muda: Tambah sedikit N untuk mengekalkan kanopi tanpa menyebabkan buah gugur." }));
     } else {
-      rate = tv({ zh: "高钾 (N:K ≈ 1:3) + 钙/镁叶面肥", en: "High K (N:K ≈ 1:3) + Ca/Mg Foliar" });
+      rate = tv({ zh: "高钾 (N:K ≈ 1:3) + 钙/镁叶面肥", en: "High K (N:K ≈ 1:3) + Ca/Mg Foliar", ms: "K Tinggi (N:K ≈ 1:3) + Semburan Daun Ca/Mg" });
     }
   } else if (stage === 'rapid_expansion') {
     mix.add("K");
@@ -2564,138 +3183,138 @@ const getSmartRecommendation = inputs => {
     mix.add("Mg");
     mix.add("S");
     mix.add("Pep");
-    rationale.push(tv({ zh: "🎈 快速膨大期 (50-90 DAA)：最大养分消耗。钾驱动大小。钙 + 多肽建立果皮弹性以防止开裂。镁 + 硫开始风味合成。", en: "🎈 Rapid Expansion (50–90 DAA): Maximum nutrient draw. K drives size. Ca + Peptides build skin elasticity to prevent cracking. Mg + S begin flavor synthesis." }));
-    rate = tv({ zh: "高钾 (N:K ≈ 1:4) + 每10天重施 Ca+B 叶面肥", en: "High K (N:K ≈ 1:4) + Heavy Ca+B Foliar every 10 days" });
+    rationale.push(tv({ zh: "🎈 快速膨大期 (50-90 DAA)：最大养分消耗。钾驱动大小。钙 + 多肽建立果皮弹性以防止开裂。镁 + 硫开始风味合成。", en: "🎈 Rapid Expansion (50–90 DAA): Maximum nutrient draw. K drives size. Ca + Peptides build skin elasticity to prevent cracking. Mg + S begin flavor synthesis.", ms: "🎈 Pembesaran Pesat (50–90 DAA): Pengambilan nutrien maksimum. K memacu saiz. Ca + Peptida membina keanjalan kulit untuk mencegah rekahan. Mg + S memulakan sintesis rasa." }));
+    rate = tv({ zh: "高钾 (N:K ≈ 1:4) + 每10天重施 Ca+B 叶面肥", en: "High K (N:K ≈ 1:4) + Heavy Ca+B Foliar every 10 days", ms: "K Tinggi (N:K ≈ 1:4) + Semburan Daun Ca+B Berat setiap 10 hari" });
     if (variety === 'mk') {
-      rationale.push(tv({ zh: "💡 猫山王特供：提高钙/镁比例，防止湿芯和烧壳。", en: "💡 Musang King Special: Boost Ca/Mg ratio to prevent Wet Core and husk burn." }));
-      rate += tv({ zh: " (额外添加钙/镁)", en: " (Extra Ca/Mg)" });
+      rationale.push(tv({ zh: "💡 猫山王特供：提高钙/镁比例，防止湿芯和烧壳。", en: "💡 Musang King Special: Boost Ca/Mg ratio to prevent Wet Core and husk burn.", ms: "💡 Khas Musang King: Tingkatkan nisbah Ca/Mg untuk mencegah Teras Basah dan kulit terbakar." }));
+      rate += tv({ zh: " (额外添加钙/镁)", en: " (Extra Ca/Mg)", ms: " (Ca/Mg Tambahan)" });
     }
   } else if (stage === 'maturation') {
     mix.add("K");
     mix.add("S");
     mix.add("Mg");
     mix.delete("N");
-    rationale.push(tv({ zh: "🟡 成熟期与自然落果：最后 30 天。钾 (K) 驱动最终糖度 (Brix)。硫 (S) + 镁构建标志性的苦甜/奶油“黑金”风味。零氮以防止果肉水化。", en: "🟡 Maturation & Natural Split: Final 30 days. Potassium (K) drives final Brix (sugar). Sulfur (S) + Mg build the signature bitter/creamy 'Black Gold' flavor. Zero N to prevent watery flesh." }));
+    rationale.push(tv({ zh: "🟡 成熟期与自然落果：最后 30 天。钾 (K) 驱动最终糖度 (Brix)。硫 (S) + 镁构建标志性的苦甜/奶油“黑金”风味。零氮以防止果肉水化。", en: "🟡 Maturation & Natural Split: Final 30 days. Potassium (K) drives final Brix (sugar). Sulfur (S) + Mg build the signature bitter/creamy 'Black Gold' flavor. Zero N to prevent watery flesh.", ms: "🟡 Pematangan & Rekahan Semula Jadi: 30 hari terakhir. Kalium (K) memacu Brix (gula) akhir. Sulfur (S) + Mg membina rasa pahit/berlemak khas 'Black Gold'. Sifar N untuk mengelakkan isi berair." }));
     if (crop === 'durian') {
       let daaText = "";
       switch (variety) {
         case 'gp':
-          daaText = tv({ zh: "金凤 (D198) 自然落果大约在 90–100 DAA。", en: "Golden Phoenix is an early dropper, around 90–100 DAA." });
+          daaText = tv({ zh: "金凤 (D198) 自然落果大约在 90–100 DAA。", en: "Golden Phoenix is an early dropper, around 90–100 DAA.", ms: "Golden Phoenix ialah varieti gugur awal, sekitar 90–100 DAA." });
           break;
         case 'mk':
-          daaText = tv({ zh: "猫山王 (D197) 自然落果大约在 95–105 DAA。", en: "Musang King drops around 95–105 DAA." });
+          daaText = tv({ zh: "猫山王 (D197) 自然落果大约在 95–105 DAA。", en: "Musang King drops around 95–105 DAA.", ms: "Musang King gugur sekitar 95–105 DAA." });
           break;
         case 'rp':
-          daaText = tv({ zh: "红虾 (D175) 自然落果大约在 100–105 DAA。", en: "Red Prawn drops around 100–105 DAA." });
+          daaText = tv({ zh: "红虾 (D175) 自然落果大约在 100–105 DAA。", en: "Red Prawn drops around 100–105 DAA.", ms: "Udang Merah gugur sekitar 100–105 DAA." });
           break;
         case 'd101':
-          daaText = tv({ zh: "红肉 (D101) 自然落果大约在 100–105 DAA。", en: "D101 drops around 100–105 DAA." });
+          daaText = tv({ zh: "红肉 (D101) 自然落果大约在 100–105 DAA。", en: "D101 drops around 100–105 DAA.", ms: "D101 gugur sekitar 100–105 DAA." });
           break;
         case 'tekka':
-          daaText = tv({ zh: "竹脚 (D160) 自然落果大约在 100–105 DAA。", en: "Tekka drops around 100–105 DAA." });
+          daaText = tv({ zh: "竹脚 (D160) 自然落果大约在 100–105 DAA。", en: "Tekka drops around 100–105 DAA.", ms: "Tekka gugur sekitar 100–105 DAA." });
           break;
         case 'd24':
-          daaText = tv({ zh: "苏丹王 (D24) 自然落果大约在 105–115 DAA。", en: "D24 (Sultan) drops around 105–115 DAA." });
+          daaText = tv({ zh: "苏丹王 (D24) 自然落果大约在 105–115 DAA。", en: "D24 (Sultan) drops around 105–115 DAA.", ms: "D24 (Sultan) gugur sekitar 105–115 DAA." });
           break;
         case 'tk':
-          daaText = tv({ zh: "松鼠王 (D214) 自然落果大约在 105–110 DAA。", en: "Tupai King drops around 105–110 DAA." });
+          daaText = tv({ zh: "松鼠王 (D214) 自然落果大约在 105–110 DAA。", en: "Tupai King drops around 105–110 DAA.", ms: "Tupai King gugur sekitar 105–110 DAA." });
           break;
         case 'bt':
-          daaText = tv({ zh: "黑刺 (D200) 自然落果大约在 110–120 DAA。", en: "Black Thorn takes longer to mature, dropping around 110–120 DAA." });
+          daaText = tv({ zh: "黑刺 (D200) 自然落果大约在 110–120 DAA。", en: "Black Thorn takes longer to mature, dropping around 110–120 DAA.", ms: "Black Thorn mengambil masa lebih lama untuk matang, gugur sekitar 110–120 DAA." });
           break;
         case 'ioi':
-          daaText = tv({ zh: "IOI (D168) 自然落果大约在 110–115 DAA。", en: "IOI drops around 110–115 DAA." });
+          daaText = tv({ zh: "IOI (D168) 自然落果大约在 110–115 DAA。", en: "IOI drops around 110–115 DAA.", ms: "IOI gugur sekitar 110–115 DAA." });
           break;
         case 'mt':
-          daaText = tv({ zh: "金枕头 (D159) 自然落果大约在 120–130 DAA。", en: "Monthong is a late dropper, taking 120–130 DAA for natural split." });
+          daaText = tv({ zh: "金枕头 (D159) 自然落果大约在 120–130 DAA。", en: "Monthong is a late dropper, taking 120–130 DAA for natural split.", ms: "Monthong ialah varieti gugur lewat, mengambil masa 120–130 DAA untuk rekah secara semula jadi." });
           break;
         default:
-          daaText = tv({ zh: "一般甘榜克隆品种通常在 90–110 DAA 左右落果。", en: "Generic Kampung clones typically drop around 90–110 DAA." });
+          daaText = tv({ zh: "一般甘榜克隆品种通常在 90–110 DAA 左右落果。", en: "Generic Kampung clones typically drop around 90–110 DAA.", ms: "Klon Kampung biasa lazimnya gugur sekitar 90–110 DAA." });
           break;
       }
-      rationale.push(tv({ zh: `⏱️ 收获窗口期：${daaText} 在预计落果前 7-14 天停止灌溉，以最大化干物质（防止湿芯）。`, en: `⏱️ Harvest Window: ${daaText} Stop irrigation 7-14 days before expected drop to maximize dry matter (prevent wet core).` }));
+      rationale.push(tv({ zh: `⏱️ 收获窗口期：${daaText} 在预计落果前 7-14 天停止灌溉，以最大化干物质（防止湿芯）。`, en: `⏱️ Harvest Window: ${daaText} Stop irrigation 7-14 days before expected drop to maximize dry matter (prevent wet core).`, ms: `⏱️ Tempoh Tuaian: ${daaText} Hentikan pengairan 7-14 hari sebelum jangkaan gugur untuk memaksimumkan bahan kering (elak isi basah).` }));
     }
-    rate = tv({ zh: "土施 SOP (硫酸钾) + 叶面喷施 MgSO4", en: "Soil SOP (Sulfate of Potash) + Foliar MgSO4" });
+    rate = tv({ zh: "土施 SOP (硫酸钾) + 叶面喷施 MgSO4", en: "Soil SOP (Sulfate of Potash) + Foliar MgSO4", ms: "SOP Tanah (Sulfat Kalium) + MgSO4 Semburan Daun" });
   } else if (stage === 'post_harvest') {
     mix.add("N");
     mix.add("Zn");
     mix.add("Fe");
     mix.add("AA");
     mix.add("Humic");
-    rationale.push(tv({ zh: "🍂 采后恢复：氮 (N) + 微量元素 + 氨基酸 (AA) 恢复疲惫树木的活力。腐殖酸修复重度采收交通后的土壤结构。", en: "🍂 Post-Harvest Recovery: Nitrogen (N) + Micros + Amino (AA) to restore exhausted tree vigor. Humic acid repairs soil structure after heavy harvest traffic." }));
-    rate = tv({ zh: "高氮恢复 (N:K ≈ 2:1) + 灌根", en: "High N Recovery (N:K ≈ 2:1) + Soil Drench" });
+    rationale.push(tv({ zh: "🍂 采后恢复：氮 (N) + 微量元素 + 氨基酸 (AA) 恢复疲惫树木的活力。腐殖酸修复重度采收交通后的土壤结构。", en: "🍂 Post-Harvest Recovery: Nitrogen (N) + Micros + Amino (AA) to restore exhausted tree vigor. Humic acid repairs soil structure after heavy harvest traffic.", ms: "🍂 Pemulihan Lepas Tuai: Nitrogen (N) + Mikro + Amino (AA) untuk memulihkan kecergasan pokok yang keletihan. Asid humik membaiki struktur tanah selepas lalu lintas tuaian yang berat." }));
+    rate = tv({ zh: "高氮恢复 (N:K ≈ 2:1) + 灌根", en: "High N Recovery (N:K ≈ 2:1) + Soil Drench", ms: "Pemulihan N Tinggi (N:K ≈ 2:1) + Siraman Tanah" });
   }
   if (weather === 'dry') {
     mix.add("Si");
     mix.add("K");
     mix.add("AA");
     if (mix.has("Ca")) mix.add("B");
-    rationale.push(tv({ zh: "☀️ 炎热/干燥：必须添加硅 (Si) 和氨基酸 (AA) 以减少蒸腾。干旱停止钙吸收，需补充叶面钙。", en: "☀️ Hot/Dry: Must add Silicon (Si) and Amino (AA) to reduce transpiration. Drought stops Ca uptake, add foliar Ca." }));
-    rate = tv({ zh: "氨基酸: 2ml/L | 硅: 1ml/L (抗逆防护盾)", en: "Amino: 2ml/L | Si: 1ml/L (Stress Shield)" });
-    timing = tv({ zh: "晚上喷洒（减少蒸发）", en: "Evening spray (reduce evaporation)" });
+    rationale.push(tv({ zh: "☀️ 炎热/干燥：必须添加硅 (Si) 和氨基酸 (AA) 以减少蒸腾。干旱停止钙吸收，需补充叶面钙。", en: "☀️ Hot/Dry: Must add Silicon (Si) and Amino (AA) to reduce transpiration. Drought stops Ca uptake, add foliar Ca.", ms: "☀️ Panas/Kering: Wajib tambah Silikon (Si) dan Amino (AA) untuk mengurangkan transpirasi. Kemarau menghentikan pengambilan Ca, tambah Ca semburan daun." }));
+    rate = tv({ zh: "氨基酸: 2ml/L | 硅: 1ml/L (抗逆防护盾)", en: "Amino: 2ml/L | Si: 1ml/L (Stress Shield)", ms: "Amino: 2ml/L | Si: 1ml/L (Perisai Tekanan)" });
+    timing = tv({ zh: "晚上喷洒（减少蒸发）", en: "Evening spray (reduce evaporation)", ms: "Semburan petang (kurangkan penyejatan)" });
   } else if (weather === 'wet') {
     mix.add("Mg");
     mix.add("Fe");
     mix.add("AA");
     if (stage !== 'fruit' && stage !== 'pre_flower') mix.add("N");
-    rationale.push(tv({ zh: "🌧️ 阴雨：补充流失的镁/铁。氨基酸帮助根系在低氧状态下存活。", en: "🌧️ Rain/Overcast: Replace leached Mg/Fe. Amino Acids help roots survive hypoxia (low oxygen)." }));
+    rationale.push(tv({ zh: "🌧️ 阴雨：补充流失的镁/铁。氨基酸帮助根系在低氧状态下存活。", en: "🌧️ Rain/Overcast: Replace leached Mg/Fe. Amino Acids help roots survive hypoxia (low oxygen).", ms: "🌧️ Hujan/Mendung: Ganti Mg/Fe yang larut lesap. Asid Amino membantu akar bertahan dalam hipoksia (oksigen rendah)." }));
   }
   if (ec === 'high') {
     if (mix.has("K")) {
       mix.delete("K");
-      rationale.push(tv({ zh: "⚠️ 高 EC 警告：已移除盐基钾肥 (KCl/KNO3) 以防止烧根。", en: "⚠️ High EC Alert: Removed salt-based K fertilizers (KCl/KNO3) to prevent root burn." }));
+      rationale.push(tv({ zh: "⚠️ 高 EC 警告：已移除盐基钾肥 (KCl/KNO3) 以防止烧根。", en: "⚠️ High EC Alert: Removed salt-based K fertilizers (KCl/KNO3) to prevent root burn.", ms: "⚠️ Amaran EC Tinggi: Baja K berasaskan garam (KCl/KNO3) telah dikeluarkan untuk mencegah akar terbakar." }));
     }
     if (mix.has("N")) {
       mix.delete("N");
       mix.add("AA");
-      rationale.push(tv({ zh: "⚠️ 盐碱策略：停止土壤施氮。使用叶面氨基酸作为安全的氮源。", en: "⚠️ Salinity Strategy: Stop soil N. Use Foliar Amino Acids as safe N source." }));
+      rationale.push(tv({ zh: "⚠️ 盐碱策略：停止土壤施氮。使用叶面氨基酸作为安全的氮源。", en: "⚠️ Salinity Strategy: Stop soil N. Use Foliar Amino Acids as safe N source.", ms: "⚠️ Strategi Kemasinan: Hentikan N tanah. Gunakan Asid Amino semburan daun sebagai sumber N yang selamat." }));
     }
     mix.add("Humic");
     mix.add("Ca");
-    rationale.push(tv({ zh: "🛡️ 缓冲：添加腐殖酸以缓冲盐分，添加钙以置换钠。", en: "🛡️ Buffer: Add Humic to buffer salts, Calcium to displace Sodium." }));
+    rationale.push(tv({ zh: "🛡️ 缓冲：添加腐殖酸以缓冲盐分，添加钙以置换钠。", en: "🛡️ Buffer: Add Humic to buffer salts, Calcium to displace Sodium.", ms: "🛡️ Penampan: Tambah Humik untuk menampan garam, Kalsium untuk menyesarkan Natrium." }));
   }
   if (symptoms === 'yellow_new') {
     mix.add("Fe");
     mix.add("Mn");
     mix.add("AA");
-    rationale.push(tv({ zh: "🚑 缺乏症：新叶发黄表明缺铁/锰。氨基酸有助于吸收。", en: "🚑 Deficiency: New leaf yellowing indicates Iron/Manganese shortage. Amino helps uptake." }));
+    rationale.push(tv({ zh: "🚑 缺乏症：新叶发黄表明缺铁/锰。氨基酸有助于吸收。", en: "🚑 Deficiency: New leaf yellowing indicates Iron/Manganese shortage. Amino helps uptake.", ms: "🚑 Kekurangan: Daun muda menguning menunjukkan kekurangan Besi/Mangan. Amino membantu pengambilan." }));
   } else if (symptoms === 'yellow_old') {
     mix.add("Mg");
     mix.add("N");
-    rationale.push(tv({ zh: "🚑 缺乏症：老叶发黄通常是移动性元素（氮或镁）。", en: "🚑 Deficiency: Old leaf yellowing is typically Mobile elements (N or Mg)." }));
+    rationale.push(tv({ zh: "🚑 缺乏症：老叶发黄通常是移动性元素（氮或镁）。", en: "🚑 Deficiency: Old leaf yellowing is typically Mobile elements (N or Mg).", ms: "🚑 Kekurangan: Daun tua menguning lazimnya disebabkan unsur Mudah Alih (N atau Mg)." }));
   } else if (symptoms === 'fruit_crack') {
     mix.add("Ca");
     mix.add("B");
     mix.add("Pep");
-    rationale.push(tv({ zh: "🚑 裂果急救：严重缺钙。必须使用“钙+硼+多肽”组合。", en: "🚑 Cracking Rescue: Severe Calcium deficiency. Must use 'Ca+B+Peptide' trio." }));
-    rate = tv({ zh: "钙: 3ml/L | 硼: 1ml/L (每5天一次)", en: "Ca: 3ml/L | B: 1ml/L (Every 5 days)" });
+    rationale.push(tv({ zh: "🚑 裂果急救：严重缺钙。必须使用“钙+硼+多肽”组合。", en: "🚑 Cracking Rescue: Severe Calcium deficiency. Must use 'Ca+B+Peptide' trio.", ms: "🚑 Rawatan Rekahan: Kekurangan Kalsium yang teruk. Wajib guna trio 'Ca+B+Peptida'." }));
+    rate = tv({ zh: "钙: 3ml/L | 硼: 1ml/L (每5天一次)", en: "Ca: 3ml/L | B: 1ml/L (Every 5 days)", ms: "Ca: 3ml/L | B: 1ml/L (Setiap 5 hari)" });
   } else if (symptoms === 'wet_core') {
     mix.delete("N");
     mix.add("K");
     mix.add("Ca");
-    rationale.push(tv({ zh: "🚑 湿芯/水化：氮过量或钾/钙不足。立即停氮。重施钾/钙。", en: "🚑 Wet Core / Watery Flesh: Excess N or low K/Ca. Stop N immediately. Heavy K/Ca application." }));
+    rationale.push(tv({ zh: "🚑 湿芯/水化：氮过量或钾/钙不足。立即停氮。重施钾/钙。", en: "🚑 Wet Core / Watery Flesh: Excess N or low K/Ca. Stop N immediately. Heavy K/Ca application.", ms: "🚑 Teras Basah / Isi Berair: N berlebihan atau K/Ca rendah. Hentikan N serta-merta. Aplikasi K/Ca yang tinggi." }));
   } else if (symptoms === 'burn') {
     if (ec === 'high') {
-      rationale.push(tv({ zh: "🔥 叶尖烧焦：由高盐度 (EC) 引起。用水+腐殖酸冲洗。", en: "🔥 Tip Burn: Caused by High Salinity (EC). Flush with water + Humic Acid." }));
+      rationale.push(tv({ zh: "🔥 叶尖烧焦：由高盐度 (EC) 引起。用水+腐殖酸冲洗。", en: "🔥 Tip Burn: Caused by High Salinity (EC). Flush with water + Humic Acid.", ms: "🔥 Hujung Daun Terbakar: Disebabkan Kemasinan Tinggi (EC). Bilas dengan air + Asid Humik." }));
     } else {
       mix.add("K");
-      rationale.push(tv({ zh: "🔥 叶尖烧焦：潜在的缺钾。已添加钾。", en: "🔥 Tip Burn: Potential Potassium deficiency. Added K." }));
+      rationale.push(tv({ zh: "🔥 叶尖烧焦：潜在的缺钾。已添加钾。", en: "🔥 Tip Burn: Potential Potassium deficiency. Added K.", ms: "🔥 Hujung Daun Terbakar: Kemungkinan kekurangan Kalium. K telah ditambah." }));
     }
   } else if (symptoms === 'stunted') {
     mix.add("P");
     mix.add("Zn");
     mix.add("AA");
     mix.add("Humic");
-    rationale.push(tv({ zh: "🚑 生长停滞：根系停滞。磷+锌刺激根系，氨基酸提供能量，腐殖酸改善土壤。", en: "🚑 Stunted: Root stagnation. P + Zn to stimulate roots, Amino for energy, Humic to improve soil." }));
+    rationale.push(tv({ zh: "🚑 生长停滞：根系停滞。磷+锌刺激根系，氨基酸提供能量，腐殖酸改善土壤。", en: "🚑 Stunted: Root stagnation. P + Zn to stimulate roots, Amino for energy, Humic to improve soil.", ms: "🚑 Terbantut: Akar tidak aktif. P + Zn untuk merangsang akar, Amino untuk tenaga, Humik untuk memperbaiki tanah." }));
   }
   if (mix.has("Ca") && mix.has("P")) {
-    warnings.push(tv({ zh: "⚠️ 钙+磷沉淀风险：使用糖醇钙或分开喷洒。", en: "⚠️ Ca + P Precipitation Risk: Use Sugar Alcohol Ca or spray separately." }));
+    warnings.push(tv({ zh: "⚠️ 钙+磷沉淀风险：使用糖醇钙或分开喷洒。", en: "⚠️ Ca + P Precipitation Risk: Use Sugar Alcohol Ca or spray separately.", ms: "⚠️ Risiko Pemendakan Ca + P: Gunakan Ca Alkohol Gula atau sembur secara berasingan." }));
   }
   if (weather === 'wet' && (mix.has("AA") || mix.has("Pep"))) {
-    warnings.push(tv({ zh: "🚫 危险：如果在雨季使用铜制剂，【严禁】与氨基酸/多肽混合 (严重烧伤风险)。", en: "🚫 Danger: If using Copper fungicide in wet season, DO NOT mix with Amino/Peptides (Severe Burn Risk)." }));
+    warnings.push(tv({ zh: "🚫 危险：如果在雨季使用铜制剂，【严禁】与氨基酸/多肽混合 (严重烧伤风险)。", en: "🚫 Danger: If using Copper fungicide in wet season, DO NOT mix with Amino/Peptides (Severe Burn Risk).", ms: "🚫 Bahaya: Jika menggunakan racun kulat Kuprum pada musim hujan, JANGAN campur dengan Amino/Peptida (Risiko Terbakar Teruk)." }));
   }
   if (mix.has("Fe") && mix.has("Ca")) {
-    warnings.push(tv({ zh: "⚠️ 铁/钙拮抗：钙可能降低铁的有效性。使用 EDDHA-Fe。", en: "⚠️ Fe/Ca Antagonism: Ca may reduce Fe availability. Use EDDHA-Fe." }));
+    warnings.push(tv({ zh: "⚠️ 铁/钙拮抗：钙可能降低铁的有效性。使用 EDDHA-Fe。", en: "⚠️ Fe/Ca Antagonism: Ca may reduce Fe availability. Use EDDHA-Fe.", ms: "⚠️ Antagonisme Fe/Ca: Ca boleh mengurangkan ketersediaan Fe. Gunakan EDDHA-Fe." }));
   }
   return {
     mixIds: Array.from(mix),
@@ -2996,7 +3615,7 @@ const NutrientWheel = ({
         const translated = t('elem_' + nut.name);
         displayLabel = translated.includes(' (') ? translated.split(' (')[0] : translated;
       } else {
-        // English: the wheel node shows the chemical symbol only (node.id),
+        // English / Malay: the wheel node shows the chemical symbol only (node.id),
         // e.g. "N", "Mg" — never the full element name.
         displayLabel = node.id;
       }
@@ -3039,8 +3658,8 @@ const NutrientWheel = ({
       fontSizeClass = isSelected ? 'text-2xl' : 'text-sm';
       yOffset = isSelected ? 8 : 5;
     }
-    // English label tuning: the 'Pep' node label is wide in Latin script.
-    if (CURRENT_LANG === 'en' && !isSelected && node.id === 'Pep') {
+    // Latin-script label tuning: the 'Pep' node label is wide.
+    if (CURRENT_LANG !== 'zh' && !isSelected && node.id === 'Pep') {
       fontSizeClass = 'text-2xl';
     }
     return /*#__PURE__*/React.createElement("g", {
@@ -3174,7 +3793,7 @@ const PHChart = ({ lang }) => {
         iconColor: "text-orange-600"
       };
     } else {
-      const listStr = limited.length > 0 ? limited.slice(0, 3).join(', ') + ' ' + t('ph_others') : tv({ zh: '微量元素', en: 'Micronutrients' });
+      const listStr = limited.length > 0 ? limited.slice(0, 3).join(', ') + ' ' + t('ph_others') : tv({ zh: '微量元素', en: 'Micronutrients', ms: "Mikronutrien" });
       return {
         title: t('ph_tip_alkaline_title'),
         desc: t('ph_tip_alkaline_desc').replace('{val}', hoverPH).replace('{list}', listStr),
@@ -3910,7 +4529,7 @@ const SmartAdvisorPanel = ({
     className: "text-sm font-semibold text-emerald-800 leading-snug"
   }, /*#__PURE__*/React.createElement("span", {
     className: "font-black uppercase tracking-wide text-xs block mb-0.5 opacity-80"
-  }, "\u9884\u8BA1\u6536\u83B7\u7A97\u53E3\u671F"), draftState.variety === 'gp' && tv({ zh: '金凤 (D198) 自然落果大约在 90–100 DAA。', en: 'Golden Phoenix (D198) naturally drops around 90–100 DAA.' }), draftState.variety === 'mk' && tv({ zh: '猫山王 (D197) 自然落果大约在 95–105 DAA。', en: 'Musang King (D197) naturally drops around 95–105 DAA.' }), draftState.variety === 'rp' && tv({ zh: '红虾 (D175) 自然落果大约在 100–105 DAA。', en: 'Red Prawn (D175) naturally drops around 100–105 DAA.' }), draftState.variety === 'd101' && tv({ zh: '红肉 (D101) 自然落果大约在 100–105 DAA。', en: 'D101 naturally drops around 100–105 DAA.' }), draftState.variety === 'tekka' && tv({ zh: '竹脚 (D160) 自然落果大约在 100–105 DAA。', en: 'Tekka (D160) naturally drops around 100–105 DAA.' }), draftState.variety === 'd24' && tv({ zh: '苏丹王 (D24) 自然落果大约在 105–115 DAA。', en: 'D24 (Sultan) naturally drops around 105–115 DAA.' }), draftState.variety === 'tk' && tv({ zh: '松鼠王 (D214) 自然落果大约在 105–110 DAA。', en: 'Tupai King (D214) naturally drops around 105–110 DAA.' }), draftState.variety === 'bt' && tv({ zh: '黑刺 (D200) 自然落果大约在 110–120 DAA。', en: 'Black Thorn (D200) naturally drops around 110–120 DAA.' }), draftState.variety === 'ioi' && tv({ zh: 'IOI (D168) 自然落果大约在 110–115 DAA。', en: 'IOI / Hajah Hasmah (D168) naturally drops around 110–115 DAA.' }), draftState.variety === 'mt' && tv({ zh: '金枕头 (D159) 自然落果大约在 120–130 DAA。', en: 'Monthong (D159) naturally drops around 120–130 DAA.' }), draftState.variety === 'generic' && tv({ zh: '一般甘榜克隆品种通常在 90–110 DAA 左右落果。', en: 'Generic/Kampung clones typically drop around 90–110 DAA.' })))), /*#__PURE__*/React.createElement("div", {
+  }, tv({ zh: "\u9884\u8BA1\u6536\u83B7\u7A97\u53E3\u671F", en: "Expected Harvest Window", ms: "Jangkaan Tempoh Tuaian" })), draftState.variety === 'gp' && tv({ zh: '金凤 (D198) 自然落果大约在 90–100 DAA。', en: 'Golden Phoenix (D198) naturally drops around 90–100 DAA.', ms: "Golden Phoenix (D198) gugur secara semula jadi sekitar 90–100 DAA." }), draftState.variety === 'mk' && tv({ zh: '猫山王 (D197) 自然落果大约在 95–105 DAA。', en: 'Musang King (D197) naturally drops around 95–105 DAA.', ms: "Musang King (D197) gugur secara semula jadi sekitar 95–105 DAA." }), draftState.variety === 'rp' && tv({ zh: '红虾 (D175) 自然落果大约在 100–105 DAA。', en: 'Red Prawn (D175) naturally drops around 100–105 DAA.', ms: "Udang Merah (D175) gugur secara semula jadi sekitar 100–105 DAA." }), draftState.variety === 'd101' && tv({ zh: '红肉 (D101) 自然落果大约在 100–105 DAA。', en: 'D101 naturally drops around 100–105 DAA.', ms: "D101 gugur secara semula jadi sekitar 100–105 DAA." }), draftState.variety === 'tekka' && tv({ zh: '竹脚 (D160) 自然落果大约在 100–105 DAA。', en: 'Tekka (D160) naturally drops around 100–105 DAA.', ms: "Tekka (D160) gugur secara semula jadi sekitar 100–105 DAA." }), draftState.variety === 'd24' && tv({ zh: '苏丹王 (D24) 自然落果大约在 105–115 DAA。', en: 'D24 (Sultan) naturally drops around 105–115 DAA.', ms: "D24 (Sultan) gugur secara semula jadi sekitar 105–115 DAA." }), draftState.variety === 'tk' && tv({ zh: '松鼠王 (D214) 自然落果大约在 105–110 DAA。', en: 'Tupai King (D214) naturally drops around 105–110 DAA.', ms: "Tupai King (D214) gugur secara semula jadi sekitar 105–110 DAA." }), draftState.variety === 'bt' && tv({ zh: '黑刺 (D200) 自然落果大约在 110–120 DAA。', en: 'Black Thorn (D200) naturally drops around 110–120 DAA.', ms: "Black Thorn (D200) gugur secara semula jadi sekitar 110–120 DAA." }), draftState.variety === 'ioi' && tv({ zh: 'IOI (D168) 自然落果大约在 110–115 DAA。', en: 'IOI / Hajah Hasmah (D168) naturally drops around 110–115 DAA.', ms: "IOI / Hajah Hasmah (D168) gugur secara semula jadi sekitar 110–115 DAA." }), draftState.variety === 'mt' && tv({ zh: '金枕头 (D159) 自然落果大约在 120–130 DAA。', en: 'Monthong (D159) naturally drops around 120–130 DAA.', ms: "Monthong (D159) gugur secara semula jadi sekitar 120–130 DAA." }), draftState.variety === 'generic' && tv({ zh: '一般甘榜克隆品种通常在 90–110 DAA 左右落果。', en: 'Generic/Kampung clones typically drop around 90–110 DAA.', ms: "Klon Generik/Kampung lazimnya gugur sekitar 90–110 DAA." })))), /*#__PURE__*/React.createElement("div", {
     className: "space-y-1 md:col-span-2"
   }, /*#__PURE__*/React.createElement("label", {
     className: "text-xs font-bold text-stone-500 uppercase tracking-wide"
@@ -4162,6 +4781,271 @@ const SoilControlPanel = ({
     value: opt.id
   }, t(opt.label))))));
 };
+// ==========================================
+// LANGUAGE ONBOARDING / PICKER
+// ==========================================
+// Full-screen on first launch (onboarding), modal sheet when opened from the
+// header. The title and button follow the highlighted language.
+const ONBOARDING_COPY = {
+  zh: { title: '选择语言', cta: '继续', close: '关闭' },
+  en: { title: 'Choose language', cta: 'Continue', close: 'Close' },
+  ms: { title: 'Pilih bahasa', cta: 'Teruskan', close: 'Tutup' }
+};
+const LanguagePicker = ({
+  initial,
+  onConfirm,
+  onClose,
+  isOnboarding
+}) => {
+  const [choice, setChoice] = useState(initial);
+  const copy = ONBOARDING_COPY[choice];
+  useEffect(() => {
+    if (!onClose) return;
+    const onKey = e => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+  return /*#__PURE__*/React.createElement("div", {
+    role: "dialog",
+    "aria-modal": "true",
+    "aria-labelledby": "lang-picker-title",
+    className: "fixed inset-0 flex items-center justify-center p-6",
+    style: {
+      zIndex: 100,
+      overflowY: 'auto',
+      background: isOnboarding ? '#FDFCFB' : 'rgba(28, 25, 23, 0.6)'
+    },
+    onClick: e => {
+      if (onClose && e.target === e.currentTarget) onClose();
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `bg-white w-full rounded-2xl p-6 ${isOnboarding ? '' : 'shadow-2xl'}`,
+    style: {
+      maxWidth: '22rem'
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    id: "lang-picker-title",
+    className: "text-2xl font-black text-stone-900 text-center mb-6"
+  }, copy.title), /*#__PURE__*/React.createElement("div", {
+    role: "radiogroup",
+    "aria-labelledby": "lang-picker-title",
+    className: "space-y-3"
+  }, LANG_OPTIONS.map(opt => {
+    const active = choice === opt.id;
+    return /*#__PURE__*/React.createElement("button", {
+      key: opt.id,
+      role: "radio",
+      "aria-checked": active,
+      lang: HTML_LANG[opt.id],
+      onClick: () => setChoice(opt.id),
+      className: `w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 text-lg font-bold transition-all ${active ? 'border-stone-900 text-stone-900' : 'border-stone-200 text-stone-500 hover:bg-stone-50'}`
+    }, opt.native, active && /*#__PURE__*/React.createElement(Check, {
+      size: 20,
+      className: "shrink-0"
+    }));
+  })), /*#__PURE__*/React.createElement("button", {
+    onClick: () => onConfirm(choice),
+    className: "w-full mt-6 bg-stone-900 text-white font-bold text-lg py-4 rounded-xl transition-all active:scale-95"
+  }, copy.cta)));
+};
+
+// ==========================================
+// SHARE SHEET (QR code + WhatsApp + copy link)
+// ==========================================
+// The shared link is wherever the app is currently served from (directory
+// URL, no query/hash), so the QR code stays correct on any host.
+function getShareUrl() {
+  try {
+    return new URL('./', window.location.href).href;
+  } catch (e) {
+    return window.location.href;
+  }
+}
+
+// QR code as an SVG path, drawn with the self-hosted qrcode-generator (offline).
+const QRCodeSvg = ({
+  value,
+  size
+}) => {
+  const qr = useMemo(() => {
+    if (typeof qrcode === 'undefined') return null;
+    try {
+      const q = qrcode(0, 'M');
+      q.addData(value);
+      q.make();
+      return q;
+    } catch (e) {
+      return null;
+    }
+  }, [value]);
+  if (!qr) return null;
+  const n = qr.getModuleCount();
+  const quiet = 2;
+  let d = '';
+  for (let r = 0; r < n; r++) {
+    for (let c = 0; c < n; c++) {
+      if (qr.isDark(r, c)) d += `M${c + quiet} ${r + quiet}h1v1h-1z`;
+    }
+  }
+  return /*#__PURE__*/React.createElement("svg", {
+    role: "img",
+    "aria-label": value,
+    width: size,
+    height: size,
+    viewBox: `0 0 ${n + quiet * 2} ${n + quiet * 2}`,
+    shapeRendering: "crispEdges",
+    style: {
+      display: 'block'
+    }
+  }, /*#__PURE__*/React.createElement("rect", {
+    width: "100%",
+    height: "100%",
+    fill: "#ffffff"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: d,
+    fill: "#1c1917"
+  }));
+};
+
+async function copyText(text) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (e) {}
+  // Fallback for older WebViews / non-secure contexts.
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+const WhatsAppIcon = ({
+  size
+}) => /*#__PURE__*/React.createElement("svg", {
+  width: size,
+  height: size,
+  viewBox: "0 0 24 24",
+  fill: "currentColor",
+  "aria-hidden": "true"
+}, /*#__PURE__*/React.createElement("path", {
+  d: "M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.19 4.23-9.41 9.42-9.41 2.51 0 4.88.98 6.65 2.76a9.35 9.35 0 0 1 2.75 6.66c0 5.19-4.23 9.41-9.41 9.41m8.01-17.42A11.26 11.26 0 0 0 12.04.75C5.8.75.72 5.83.72 12.08c0 2 .52 3.95 1.52 5.66L.62 23.62l6.01-1.58a11.3 11.3 0 0 0 5.41 1.38h.01c6.24 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.01"
+}));
+
+const ShareSheet = ({
+  onClose
+}) => {
+  const url = useMemo(getShareUrl, []);
+  const message = `${t('share_message')}\n${url}`;
+  const [copyState, setCopyState] = useState(null); // null | 'ok' | 'fail'
+  useEffect(() => {
+    const onKey = e => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+  useEffect(() => {
+    if (!copyState) return;
+    const id = setTimeout(() => setCopyState(null), 2200);
+    return () => clearTimeout(id);
+  }, [copyState]);
+  const handleCopy = async () => {
+    setCopyState((await copyText(url)) ? 'ok' : 'fail');
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    role: "dialog",
+    "aria-modal": "true",
+    "aria-labelledby": "share-title",
+    className: "fixed inset-0 flex items-center justify-center p-6",
+    style: {
+      zIndex: 100,
+      overflowY: 'auto',
+      background: 'rgba(28, 25, 23, 0.6)'
+    },
+    onClick: e => {
+      if (e.target === e.currentTarget) onClose();
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "bg-white w-full rounded-2xl shadow-2xl p-6",
+    style: {
+      maxWidth: '28rem'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-3 mb-2"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "bg-stone-900 p-2 rounded-xl text-white shadow-lg shrink-0"
+  }, /*#__PURE__*/React.createElement(Share2, {
+    size: 20
+  })), /*#__PURE__*/React.createElement("h2", {
+    id: "share-title",
+    className: "flex-1 text-xl font-black text-stone-900 leading-snug"
+  }, t('share_title')), /*#__PURE__*/React.createElement("button", {
+    onClick: onClose,
+    "aria-label": ONBOARDING_COPY[CURRENT_LANG].close,
+    className: "shrink-0 p-2 rounded-xl text-stone-400 hover:bg-stone-50 transition-all"
+  }, /*#__PURE__*/React.createElement(XCircle, {
+    size: 20
+  }))), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm text-stone-500 mb-6"
+  }, t('share_subtitle')), /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col items-center mb-6"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "p-2 rounded-xl border border-stone-200 bg-white shadow-sm"
+  }, /*#__PURE__*/React.createElement(QRCodeSvg, {
+    value: url,
+    size: 200
+  })), /*#__PURE__*/React.createElement("p", {
+    className: "text-xs font-bold text-stone-400 uppercase tracking-wider mt-2 text-center"
+  }, t('share_scan'))), /*#__PURE__*/React.createElement("div", {
+    className: "text-xs font-bold text-stone-400 uppercase tracking-wider mb-1"
+  }, t('share_preview')), /*#__PURE__*/React.createElement("div", {
+    className: "p-4 rounded-xl bg-stone-50 border border-stone-200 text-sm text-stone-700 mb-6",
+    style: {
+      whiteSpace: 'pre-line',
+      overflowWrap: 'anywhere'
+    }
+  }, message), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-3"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: `https://wa.me/?text=${encodeURIComponent(message)}`,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    className: "w-full flex items-center justify-center gap-2 text-white font-bold text-lg py-3 rounded-xl shadow-lg transition-all active:scale-95",
+    style: {
+      background: '#25D366'
+    }
+  }, /*#__PURE__*/React.createElement(WhatsAppIcon, {
+    size: 20
+  }), t('share_whatsapp')), /*#__PURE__*/React.createElement("button", {
+    onClick: handleCopy,
+    className: `w-full flex items-center justify-center gap-2 font-bold text-lg py-3 rounded-xl border-2 transition-all active:scale-95 ${copyState === 'ok' ? 'border-emerald-600 bg-emerald-50 text-emerald-700' : 'border-stone-200 bg-white text-stone-800 hover:bg-stone-50'}`
+  }, /*#__PURE__*/React.createElement(copyState === 'ok' ? Check : Copy, {
+    size: 18
+  }), copyState === 'ok' ? t('share_copied') : t('share_copy')), /*#__PURE__*/React.createElement("p", {
+    className: "text-xs text-stone-500 text-center font-mono",
+    style: {
+      overflowWrap: 'anywhere',
+      userSelect: 'all'
+    }
+  }, url), copyState === 'fail' && /*#__PURE__*/React.createElement("p", {
+    role: "alert",
+    className: "text-sm text-red-600 text-center"
+  }, t('share_copy_failed')))));
+};
 const App = () => {
   // Active UI language. CURRENT_LANG (module-level) is the source of truth for
   // t()/tv(); this state mirror triggers a re-render of the whole tree on change.
@@ -4170,6 +5054,18 @@ const App = () => {
     setCurrentLang(next);   // persist + update <html lang>/<title> + module var
     setLang(next);          // re-render
   };
+  // Language picker: 'onboarding' (first launch, full screen), 'modal' (from
+  // the header) or null (hidden).
+  const [langPicker, setLangPicker] = useState(() => needsOnboarding() ? 'onboarding' : null);
+  useEffect(() => {
+    setCurrentLang(CURRENT_LANG); // sync <html lang>/<title> on boot
+  }, []);
+  const confirmLang = (next) => {
+    switchLang(next);
+    markOnboarded();
+    setLangPicker(null);
+  };
+  const [shareOpen, setShareOpen] = useState(false);
   const [mode, setMode] = useState(() => {
     try {
       const saved = localStorage.getItem('agripro_mode_pref');
@@ -4246,29 +5142,56 @@ const App = () => {
   }, [mode, advisorState, lang]);
   return /*#__PURE__*/React.createElement(ErrorBoundary, null, /*#__PURE__*/React.createElement("div", {
     className: "min-h-screen bg-[#FDFCFB] font-sans pb-20 pb-safe-bottom"
-  }, /*#__PURE__*/React.createElement("nav", {
+  }, langPicker && /*#__PURE__*/React.createElement(LanguagePicker, {
+    key: langPicker,
+    initial: langPicker === 'onboarding' ? (getSavedLang() || detectDeviceLang()) : lang,
+    isOnboarding: langPicker === 'onboarding',
+    onConfirm: confirmLang,
+    onClose: langPicker === 'modal' ? () => setLangPicker(null) : null
+  }), shareOpen && /*#__PURE__*/React.createElement(ShareSheet, {
+    onClose: () => setShareOpen(false)
+  }), /*#__PURE__*/React.createElement("nav", {
     className: "bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-stone-200 shadow-sm nav-safe-pad"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex flex-col md:flex-row justify-between items-center gap-3"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-between items-center w-full md:w-auto"
+    className: "nav-brand flex justify-between items-center gap-3 w-full md:w-auto"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-3 shrink-0"
+    className: "flex items-center gap-3",
+    style: {
+      minWidth: 0
+    }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-stone-900 p-2 rounded-xl text-white shadow-lg"
+    className: "bg-stone-900 p-2 rounded-xl text-white shadow-lg shrink-0"
   }, /*#__PURE__*/React.createElement(Leaf, {
     size: 20
   })), /*#__PURE__*/React.createElement("h1", {
-    className: "text-lg font-bold text-stone-900"
-  }, t('app_title'))), /*#__PURE__*/React.createElement("button", {
-    onClick: () => switchLang(lang === 'zh' ? 'en' : 'zh'),
-    "aria-label": "Switch language",
-    title: lang === 'zh' ? 'Switch to English' : '\u5207\u6362\u5230\u4e2d\u6587',
+    className: "text-lg font-bold text-stone-900",
+    style: {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
+    }
+  }, t('app_title'))), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2 shrink-0"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setShareOpen(true),
+    "aria-label": t('share_title'),
+    title: t('share_title'),
     className: "shrink-0 px-3 py-1.5 rounded-lg border border-stone-300 bg-stone-50 hover:bg-stone-100 active:scale-95 transition-all text-sm font-bold text-stone-700 flex items-center gap-1.5"
-  }, /*#__PURE__*/React.createElement(Layers, {
+  }, /*#__PURE__*/React.createElement(Share2, {
     size: 14
-  }), /*#__PURE__*/React.createElement("span", null, lang === 'zh' ? 'EN' : '\u4e2d\u6587'))), /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar w-full md:w-auto justify-start md:justify-center px-4 -mx-4 py-1.5"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "share-label"
+  }, t('share'))), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setLangPicker('modal'),
+    "aria-label": ONBOARDING_COPY[lang].title,
+    title: ONBOARDING_COPY[lang].title,
+    className: "shrink-0 px-3 py-1.5 rounded-lg border border-stone-300 bg-stone-50 hover:bg-stone-100 active:scale-95 transition-all text-sm font-bold text-stone-700 flex items-center gap-1.5"
+  }, /*#__PURE__*/React.createElement(Languages, {
+    size: 14
+  }), /*#__PURE__*/React.createElement("span", null, LANG_OPTIONS.find(o => o.id === lang).label)))), /*#__PURE__*/React.createElement("div", {
+    className: "nav-tabs flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar w-full md:w-auto justify-start md:justify-center px-4 -mx-4 py-1.5"
   }, /*#__PURE__*/React.createElement("button", {
     onClick: () => setMode('wheel'),
     className: `text-lg font-bold transition-all whitespace-nowrap shrink-0 ${mode === 'wheel' ? 'text-stone-900' : 'text-stone-400 hover:text-stone-600'}`
@@ -4386,9 +5309,9 @@ const App = () => {
     className: "bg-white p-5 rounded-2xl border-2 border-violet-100 shadow-sm"
   }, /*#__PURE__*/React.createElement("div", {
     className: "text-xl font-black text-violet-900 mb-1"
-  }, CURRENT_LANG === 'zh' ? enzyme.zh_name : enzyme.name), /*#__PURE__*/React.createElement("div", {
+  }, tv({ zh: enzyme.zh_name, en: enzyme.name, ms: enzyme.ms_name })), /*#__PURE__*/React.createElement("div", {
     className: "text-lg font-medium text-violet-700 opacity-90"
-  }, CURRENT_LANG === 'zh' ? enzyme.zh_func : enzyme.func))))), /*#__PURE__*/React.createElement("div", {
+  }, tv({ zh: enzyme.zh_func, en: enzyme.func, ms: enzyme.ms_func })))))), /*#__PURE__*/React.createElement("div", {
     className: "bg-blue-50/50 p-6 rounded-3xl border-2 border-blue-100 space-y-4 shadow-sm hover:shadow-md transition-shadow"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex gap-2 items-center"

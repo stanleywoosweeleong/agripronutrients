@@ -5,7 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
   <title>AgriPro 农学笔记</title>
-  <meta name="description" content="Bilingual agronomy notebook — nutrient deficiency, soil-pH interactions, tank-mix rules, smart fertilizer advisor." />
+  <meta name="description" content="Trilingual (中文 / English / Bahasa Melayu) agronomy notebook — nutrient deficiency, soil-pH interactions, tank-mix rules, smart fertilizer advisor." />
+
+  <!-- Link preview (WhatsApp / Facebook / Telegram / X).
+       WhatsApp only shows the image when og:image is an ABSOLUTE URL, so once
+       the hosting address is known, replace "og-image.jpg" below with the full
+       URL, e.g. https://example.com/agripro/og-image.jpg -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AgriPro" />
+  <meta property="og:title" content="AgriPro 农学笔记 · Nota Agronomi" />
+  <meta property="og:description" content="Nutrient diagnosis, soil pH, tank-mix rules and a smart fertilizer advisor. 中文 / English / Bahasa Melayu — works offline." />
+  <meta property="og:image" content="og-image.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AgriPro agronomy notebook" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <!-- PWA core -->
   <link rel="manifest" href="manifest.webmanifest" />
@@ -43,6 +58,17 @@
     #pwa-splash.hidden { opacity: 0; pointer-events: none; }
     #pwa-splash > svg { width: 96px; height: 96px; animation: pwa-pulse 1.6s ease-in-out infinite; }
     #pwa-splash .label { font-weight: 700; letter-spacing: .15em; opacity: .9; }
+    /* Top bar: the share button is icon-only where space is tight, and the
+       tab row drops its phone edge-bleed once it sits beside the buttons. */
+    @media (max-width: 479px), (min-width: 768px) and (max-width: 1023px) { .share-label { display: none; } }
+    @media (min-width: 768px) {
+      .nav-brand { flex-shrink: 0; }
+      /* Centre the tabs with auto margins (not justify-content) so an
+         overflowing row still scrolls from its first tab instead of clipping it. */
+      .nav-tabs { margin-left: 0; margin-right: 0; min-width: 0; justify-content: flex-start; }
+      .nav-tabs > :first-child { margin-left: auto; }
+      .nav-tabs > :last-child { margin-right: auto; }
+    }
     @keyframes pwa-pulse {
       0%, 100% { transform: scale(1);    opacity: .85; }
       50%      { transform: scale(1.06); opacity: 1; }
@@ -65,7 +91,8 @@
     <noscript>
       <div style="margin-top:1.5rem;max-width:280px;text-align:center;font-size:.9rem;opacity:.9;">
         本应用需要启用 JavaScript 才能运行。<br>
-        This app requires JavaScript to run.
+        This app requires JavaScript to run.<br>
+        Aplikasi ini memerlukan JavaScript untuk berfungsi.
       </div>
     </noscript>
   </div>
@@ -76,13 +103,15 @@
       2. react-dom.production.min.js      -> defines window.ReactDOM  (depends on React)
       3. tiny shim aliases window.react = React  (lucide UMD looks for lowercase)
       4. lucide-react.min.js              -> defines window.LucideReact
-      5. app.js                           -> reads React, ReactDOM, LucideReact, mounts the app
+      5. qrcode-generator.js              -> defines window.qrcode (share sheet QR, MIT)
+      6. app.js                           -> reads React, ReactDOM, LucideReact, mounts the app
     All marked `defer` so they execute in source order *after* HTML parse but before DOMContentLoaded.
   -->
   <script defer src="vendor/react.production.min.js"></script>
   <script defer src="vendor/react-dom.production.min.js"></script>
   <script defer src="vendor/lucide-bridge.js"></script>
   <script defer src="vendor/lucide-react.min.js"></script>
+  <script defer src="vendor/qrcode-generator.js"></script>
   <script defer src="app.js"></script>
 
   <!-- Splash + service worker plumbing.
@@ -140,7 +169,8 @@
             '\n  • vendor/react.production.min.js' +
             '\n  • vendor/react-dom.production.min.js' +
             '\n  • vendor/lucide-bridge.js' +
-            '\n  • vendor/lucide-react.min.js'
+            '\n  • vendor/lucide-react.min.js' +
+            '\n  • vendor/qrcode-generator.js'
           );
           return;
         }
