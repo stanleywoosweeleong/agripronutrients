@@ -3080,6 +3080,10 @@ const analyzeSoilImpact = (nutrientId, soil) => {
   }
   return impacts;
 };
+// Stages whose own advice says to withhold nitrogen (suppress / avoid / zero N).
+const NO_N_STAGES = ['pre_flower', 'bloom', 'fruit_set', 'maturation'];
+// Vegetative stages, the only ones where rain-leached N is topped up.
+const N_TOPUP_STAGES = ['seedling', 'veg', 'post_harvest'];
 const getSmartRecommendation = inputs => {
   const {
     weather,
@@ -3176,7 +3180,7 @@ const getSmartRecommendation = inputs => {
     mix.add("Pep");
     rationale.push(tv({ zh: "🎈 快速膨大期 (50-90 DAA)：最大养分消耗。钾驱动大小。钙 + 多肽建立果皮弹性以防止开裂。镁 + 硫开始风味合成。", en: "🎈 Rapid Expansion (50–90 DAA): Maximum nutrient draw. K drives size. Ca + Peptides build skin elasticity to prevent cracking. Mg + S begin flavor synthesis.", ms: "🎈 Pembesaran Pesat (50–90 DAA): Pengambilan nutrien maksimum. K memacu saiz. Ca + Peptida membina keanjalan kulit untuk mencegah rekahan. Mg + S memulakan sintesis rasa." }));
     rate = tv({ zh: "高钾 (N:K ≈ 1:4) + 每10天重施 Ca+B 叶面肥", en: "High K (N:K ≈ 1:4) + Heavy Ca+B Foliar every 10 days", ms: "K Tinggi (N:K ≈ 1:4) + Semburan Daun Ca+B Berat setiap 10 hari" });
-    if (variety === 'mk') {
+    if (crop === 'durian' && variety === 'mk') {
       rationale.push(tv({ zh: "💡 猫山王特供：提高钙/镁比例，防止湿芯和烧壳。", en: "💡 Musang King Special: Boost Ca/Mg ratio to prevent Wet Core and husk burn.", ms: "💡 Khas Musang King: Tingkatkan nisbah Ca/Mg untuk mencegah Teras Basah dan kulit terbakar." }));
       rate += tv({ zh: " (额外添加钙/镁)", en: " (Extra Ca/Mg)", ms: " (Ca/Mg Tambahan)" });
     }
@@ -3247,22 +3251,8 @@ const getSmartRecommendation = inputs => {
     mix.add("Mg");
     mix.add("Fe");
     mix.add("AA");
-    if (stage !== 'fruit' && stage !== 'pre_flower') mix.add("N");
+    if (N_TOPUP_STAGES.includes(stage)) mix.add("N");
     rationale.push(tv({ zh: "🌧️ 阴雨：补充流失的镁/铁。氨基酸帮助根系在低氧状态下存活。", en: "🌧️ Rain/Overcast: Replace leached Mg/Fe. Amino Acids help roots survive hypoxia (low oxygen).", ms: "🌧️ Hujan/Mendung: Ganti Mg/Fe yang larut lesap. Asid Amino membantu akar bertahan dalam hipoksia (oksigen rendah)." }));
-  }
-  if (ec === 'high') {
-    if (mix.has("K")) {
-      mix.delete("K");
-      rationale.push(tv({ zh: "⚠️ 高 EC 警告：已移除盐基钾肥 (KCl/KNO3) 以防止烧根。", en: "⚠️ High EC Alert: Removed salt-based K fertilizers (KCl/KNO3) to prevent root burn.", ms: "⚠️ Amaran EC Tinggi: Baja K berasaskan garam (KCl/KNO3) telah dikeluarkan untuk mencegah akar terbakar." }));
-    }
-    if (mix.has("N")) {
-      mix.delete("N");
-      mix.add("AA");
-      rationale.push(tv({ zh: "⚠️ 盐碱策略：停止土壤施氮。使用叶面氨基酸作为安全的氮源。", en: "⚠️ Salinity Strategy: Stop soil N. Use Foliar Amino Acids as safe N source.", ms: "⚠️ Strategi Kemasinan: Hentikan N tanah. Gunakan Asid Amino semburan daun sebagai sumber N yang selamat." }));
-    }
-    mix.add("Humic");
-    mix.add("Ca");
-    rationale.push(tv({ zh: "🛡️ 缓冲：添加腐殖酸以缓冲盐分，添加钙以置换钠。", en: "🛡️ Buffer: Add Humic to buffer salts, Calcium to displace Sodium.", ms: "🛡️ Penampan: Tambah Humik untuk menampan garam, Kalsium untuk menyesarkan Natrium." }));
   }
   if (symptoms === 'yellow_new') {
     mix.add("Fe");
@@ -3297,6 +3287,36 @@ const getSmartRecommendation = inputs => {
     mix.add("AA");
     mix.add("Humic");
     rationale.push(tv({ zh: "🚑 生长停滞：根系停滞。磷+锌刺激根系，氨基酸提供能量，腐殖酸改善土壤。", en: "🚑 Stunted: Root stagnation. P + Zn to stimulate roots, Amino for energy, Humic to improve soil.", ms: "🚑 Terbantut: Akar tidak aktif. P + Zn untuk merangsang akar, Amino untuk tenaga, Humik untuk memperbaiki tanah." }));
+  }
+  // Hard limits are applied after every stage, weather and symptom rule, so
+  // none of them can add back a nutrient that these limits withhold.
+  if (ec === 'high') {
+    const withheld = [];
+    if (mix.has("K")) {
+      mix.delete("K");
+      withheld.push("K");
+      rationale.push(tv({ zh: "⚠️ 高 EC 警告：已移除盐基钾肥 (KCl/KNO3) 以防止烧根。", en: "⚠️ High EC Alert: Removed salt-based K fertilizers (KCl/KNO3) to prevent root burn.", ms: "⚠️ Amaran EC Tinggi: Baja K berasaskan garam (KCl/KNO3) telah dikeluarkan untuk mencegah akar terbakar." }));
+    }
+    if (mix.has("N")) {
+      mix.delete("N");
+      withheld.push("N");
+      mix.add("AA");
+      rationale.push(tv({ zh: "⚠️ 盐碱策略：停止土壤施氮。使用叶面氨基酸作为安全的氮源。", en: "⚠️ Salinity Strategy: Stop soil N. Use Foliar Amino Acids as safe N source.", ms: "⚠️ Strategi Kemasinan: Hentikan N tanah. Gunakan Asid Amino semburan daun sebagai sumber N yang selamat." }));
+    }
+    mix.add("Humic");
+    mix.add("Ca");
+    rationale.push(tv({ zh: "🛡️ 缓冲：添加腐殖酸以缓冲盐分，添加钙以置换钠。", en: "🛡️ Buffer: Add Humic to buffer salts, Calcium to displace Sodium.", ms: "🛡️ Penampan: Tambah Humik untuk menampan garam, Kalsium untuk menyesarkan Natrium." }));
+      if (withheld.length) {
+      const list = withheld.join('/');
+      rate += tv({ zh: `（高 EC：暂停土施 ${list}）`, en: ` — High EC: no soil-applied ${list}`, ms: ` — EC Tinggi: tiada ${list} melalui tanah` });
+    }
+    if (symptoms === 'wet_core') {
+      warnings.push(tv({ zh: "⚠️ 冲突：湿芯需要钾，但高 EC 下已移除盐基钾肥。先用清水 + 腐殖酸冲洗盐分，再少量叶面喷施硫酸钾 (SOP)。", en: "⚠️ Conflict: Wet core needs K, but salt-based K was removed for high EC. Flush salts with water + Humic first, then use a light foliar SOP spray.", ms: "⚠️ Konflik: Teras basah memerlukan K, tetapi K berasaskan garam telah dikeluarkan kerana EC tinggi. Bilas garam dengan air + Humik dahulu, kemudian semburan daun SOP yang ringan." }));
+    }
+  }
+  if (NO_N_STAGES.includes(stage) && mix.has("N")) {
+    mix.delete("N");
+    rationale.push(tv({ zh: "⏸️ 本阶段禁用氮肥：已移除症状建议的氮 (N)。老叶发黄先用镁 (Mg) 处理，此阶段结束后再评估氮。", en: "⏸️ N withheld: this stage needs zero nitrogen, so the N suggested for the symptom was removed. Use Mg for old-leaf yellowing now and reassess N after this stage.", ms: "⏸️ N ditahan: peringkat ini memerlukan sifar nitrogen, jadi N yang dicadangkan untuk simptom telah dikeluarkan. Gunakan Mg untuk daun tua menguning sekarang dan nilai semula N selepas peringkat ini." }));
   }
   if (mix.has("Ca") && mix.has("P")) {
     warnings.push(tv({ zh: "⚠️ 钙+磷沉淀风险：使用糖醇钙或分开喷洒。", en: "⚠️ Ca + P Precipitation Risk: Use Sugar Alcohol Ca or spray separately.", ms: "⚠️ Risiko Pemendakan Ca + P: Gunakan Ca Alkohol Gula atau sembur secara berasingan." }));
@@ -5073,13 +5093,27 @@ const App = () => {
       return {};
     }
   });
-  const [soilConditions, setSoilConditions] = useState({
-    ph: 6.5,
-    texture: 'loam',
-    om: 'med',
-    cation: 'bal',
-    weather: 'norm',
-    ec: 'opt'
+  // Weather and EC are shared with the advisor (synced below), so start from
+  // the saved advisor values; otherwise the sync would overwrite them on load.
+  const [soilConditions, setSoilConditions] = useState(() => {
+    const defaults = {
+      ph: 6.5,
+      texture: 'loam',
+      om: 'med',
+      cation: 'bal',
+      weather: 'norm',
+      ec: 'opt'
+    };
+    try {
+      const saved = JSON.parse(localStorage.getItem('agripro_advisor_state') || '{}');
+      return {
+        ...defaults,
+        ...(saved.weather ? { weather: saved.weather } : {}),
+        ...(saved.ec ? { ec: saved.ec } : {})
+      };
+    } catch (e) {
+      return defaults;
+    }
   });
   const [advisorState, setAdvisorState] = useState(() => {
     const defaults = {

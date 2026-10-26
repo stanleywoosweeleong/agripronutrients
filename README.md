@@ -109,7 +109,7 @@ python3 -m http.server 8765
    npx tailwindcss -c tailwind.config.js -i src.css -o vendor/app.css --minify
    ```
 3. `node build.js` to rebuild `app.js`.
-4. In `sw.js`, bump `CACHE_VERSION` (e.g. `agripro-v2` → `agripro-v3`).
+4. In `sw.js`, bump the version in `CACHE_VERSION` (e.g. `v19` → `v20`). Add any new file the app needs to start to `CORE` (an update only installs if every `CORE` file downloads).
 5. Redeploy. Users get the new version on their next visit, no manual cache clear.
 
 ## Size
