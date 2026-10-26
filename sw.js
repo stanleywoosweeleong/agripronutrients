@@ -2,18 +2,19 @@
 //
 // Strategy:
 //   - Everything is same-origin (no CDN), so just cache-first the app shell.
-//   - Install is non-atomic: each file is fetched individually and failures
-//     are logged but don't block activation. A partially-cached install still
-//     serves what it got; the rest fills in on first online navigation.
+//   - Install is all-or-nothing for the core files the app cannot start
+//     without: if any of them fails to download, the install fails and the
+//     previous version (and its cache) stays in charge. Icons are best-effort.
 //   - Navigation requests fall back to the cached index.html regardless of the
 //     exact URL the user visited (handles `/`, `/agripro/`, deep links, etc.).
 //   - Bump CACHE_VERSION whenever any shipped file changes.
 
-const CACHE_VERSION = 'agripro-v18';
+const CACHE_PREFIX  = 'agripro-';
+const CACHE_VERSION = `${CACHE_PREFIX}v19`;
 const CACHE_NAME    = `${CACHE_VERSION}-shell`;
 
 // Everything the app needs to start. All same-origin, relative paths.
-const APP_SHELL = [
+const CORE = [
   './',                                    // root URL (covers `https://host/agripro/`)
   './index.html',
   './app.js',
@@ -24,7 +25,10 @@ const APP_SHELL = [
   './vendor/lucide-bridge.js',
   './vendor/lucide-react.min.js',
   './vendor/qrcode-generator.js',
-  './og-image.jpg',
+];
+
+// Nice to have offline, but not worth failing an update over.
+const OPTIONAL = [
   './icon-192.png',
   './icon-512.png',
   './icon-512-maskable.png',
@@ -32,20 +36,24 @@ const APP_SHELL = [
   './favicon.png',
 ];
 
+async function precache(cache, url) {
+  const res = await fetch(url, { cache: 'reload' });
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+  await cache.put(url, res);
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
-    // Non-atomic: log individual failures but never reject install.
-    const results = await Promise.allSettled(
-      APP_SHELL.map(async (url) => {
-        const res = await fetch(url, { cache: 'reload' });
-        if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-        await cache.put(url, res);
-      })
-    );
+    // Core files must all succeed. A rejection here fails the install, so the
+    // old service worker keeps serving its complete cache instead of being
+    // replaced by a broken one. (A half-filled new cache is removed by the
+    // next successful activation.)
+    await Promise.all(CORE.map(url => precache(cache, url)));
+    const results = await Promise.allSettled(OPTIONAL.map(url => precache(cache, url)));
     const failed = results.filter(r => r.status === 'rejected');
     if (failed.length) {
-      console.warn('[SW] install: ' + failed.length + ' files failed to pre-cache',
+      console.warn('[SW] install: ' + failed.length + ' optional files failed to pre-cache',
                    failed.map(f => f.reason && f.reason.message));
     }
     await self.skipWaiting();
@@ -54,10 +62,11 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
-    // Drop old version caches
+    // Drop old AgriPro caches only. Other apps on the same origin (e.g. other
+    // GitHub Pages projects under the same username) share Cache Storage.
     const keys = await caches.keys();
     await Promise.all(
-      keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+      keys.filter(k => k.startsWith(CACHE_PREFIX) && k !== CACHE_NAME).map(k => caches.delete(k))
     );
     await self.clients.claim();
   })());
