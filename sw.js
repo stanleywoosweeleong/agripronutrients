@@ -10,7 +10,7 @@
 //   - Bump CACHE_VERSION whenever any shipped file changes.
 
 const CACHE_PREFIX  = 'agripro-';
-const CACHE_VERSION = `${CACHE_PREFIX}v19`;
+const CACHE_VERSION = `${CACHE_PREFIX}v20`;
 const CACHE_NAME    = `${CACHE_VERSION}-shell`;
 
 // Everything the app needs to start. All same-origin, relative paths.

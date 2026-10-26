@@ -76,26 +76,28 @@
     /* pH chart: on phones show whole-number ticks only so they don't collide. */
     @media (max-width: 479px) { .ph-half-tick { display: none; } }
     /* Tank-mix screen on phones: drop the outer frame and slim the nested
-       cards so the text gets most of the screen width. Desktop is unchanged. */
+       cards so the text gets most of the screen width. Desktop is unchanged.
+       Only elements tagged with a mix-* class in MixRulesPanel are affected
+       (vendor/app.css is precompiled, so there are no matching md: utilities). */
     @media (max-width: 767px) {
-      .mix-panel { padding: 0 !important; border: 0 !important; background: transparent !important; box-shadow: none !important; }
-      .mix-panel > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem !important; }
-      .mix-panel .mix-section { padding: 1rem !important; border-width: 1px !important; border-radius: 1.25rem !important; }
-      .mix-panel .mix-section-body { padding: 1rem !important; }
+      .mix-panel.mix-panel { padding: 0; border: 0; background: transparent; box-shadow: none; }
+      .mix-panel > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; }
+      .mix-panel .mix-section { padding: 1rem; border-width: 1px; border-radius: 1.25rem; }
+      .mix-panel .mix-section-body { padding: 0; }
       .mix-panel .mix-section > .absolute { display: none; }
-      .mix-panel .mix-head { flex-direction: row !important; align-items: center !important; margin-bottom: 1rem !important; }
-      .mix-panel .mix-card { padding: .875rem !important; border-width: 1px !important; border-radius: 1rem !important; }
-      .mix-panel .mix-card-frame { border-width: 1px !important; border-radius: 1rem !important; }
-      .mix-panel .mix-card-row { padding: .875rem !important; gap: .75rem !important; }
-      .mix-panel .mix-row { flex-direction: row !important; align-items: flex-start !important; gap: .75rem !important; }
-      .mix-panel .mix-icon { padding: .5rem !important; border-radius: .75rem !important; }
+      .mix-panel .mix-head { flex-direction: row; align-items: center; margin-bottom: 1rem; }
+      .mix-panel .mix-card { padding: .875rem; border-width: 1px; border-radius: 1rem; }
+      .mix-panel .mix-card-frame { border-width: 1px; border-radius: 1rem; }
+      .mix-panel .mix-card-row { padding: .875rem; gap: .75rem; }
+      .mix-panel .mix-row { flex-direction: row; align-items: flex-start; gap: .75rem; }
+      .mix-panel .mix-icon { padding: .5rem; border-radius: .75rem; }
       .mix-panel .mix-icon svg { width: 20px; height: 20px; }
-      .mix-panel .text-2xl { font-size: 1.25rem !important; line-height: 1.6rem !important; }
-      .mix-panel .text-xl { font-size: 1.0625rem !important; line-height: 1.55 !important; }
-      .mix-panel .tracking-widest, .mix-panel .tracking-\[0\.2em\] { letter-spacing: .05em !important; }
-      .mix-panel .mb-8 { margin-bottom: 1rem !important; }
-      .mix-panel .space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem !important; }
-      .mix-panel .gap-6 { gap: 1rem !important; }
+      .mix-panel .mix-title { font-size: 1.25rem; line-height: 1.6rem; }
+      .mix-panel .mix-text { font-size: 1.0625rem; line-height: 1.55; }
+      .mix-panel .mix-track { letter-spacing: .05em; }
+      .mix-panel .mix-stack { gap: 1rem; }
+      .mix-panel .mix-space > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+      .mix-panel .mix-mb { margin-bottom: 1rem; }
     }
     @media (min-width: 768px) {
       .nav-brand { flex-shrink: 0; }
