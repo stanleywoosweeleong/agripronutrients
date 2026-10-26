@@ -2925,7 +2925,7 @@ const analyzeSoilImpact = (nutrientId, soil) => {
     if (['N', 'K', 'Mg', 'S', 'B', 'Cl', 'Mo'].includes(nutrientId)) {
       impacts.push({
         level: 'high',
-        msg: tv({ zh: `流失警告：暴雨会冲走${nutName}，请在雨后重施。`, en: `Leaching Alert: Heavy rain will wash ${nutName} away. Re-apply after rain.`, ms: `Amaran Larut Resap: Hujan lebat akan menghanyutkan ${nutName}. Gunakan semula selepas hujan.` })
+        msg: tv({ zh: `流失警告：暴雨会冲走${nutName}，请在雨后重施。`, en: `Leaching Alert: Heavy rain will wash ${nutName} away. Re-apply after rain.`, ms: `Amaran Larut Lesap: Hujan lebat akan menghanyutkan ${nutName}. Gunakan semula selepas hujan.` })
       });
     }
   } else if (soil.weather === 'dry') {
@@ -4099,7 +4099,7 @@ const MixRulesPanel = ({ lang }) => {
   return /*#__PURE__*/React.createElement("div", {
     className: "mix-panel bg-white p-6 md:p-10 rounded-[2.5rem] border-2 border-stone-300 shadow-sm animate-slide-up space-y-12"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "space-y-6"
+    className: "mix-space space-y-6"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex items-center gap-3 mb-6"
   }, /*#__PURE__*/React.createElement("div", {
@@ -4107,7 +4107,7 @@ const MixRulesPanel = ({ lang }) => {
   }, /*#__PURE__*/React.createElement(AlertTriangle, {
     size: 24
   })), /*#__PURE__*/React.createElement("h3", {
-    className: "text-2xl font-black text-stone-900 uppercase tracking-widest"
+    className: "mix-title mix-track text-2xl font-black text-stone-900 uppercase tracking-widest"
   }, t('mix_rules'))), /*#__PURE__*/React.createElement("div", {
     className: "mix-section bg-red-50 rounded-[2rem] border-2 border-red-100 overflow-hidden relative"
   }, /*#__PURE__*/React.createElement("div", {
@@ -4123,9 +4123,9 @@ const MixRulesPanel = ({ lang }) => {
     className: "text-red-600",
     size: 28
   }), /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-xl text-red-900 uppercase tracking-widest"
+    className: "mix-text mix-track font-black text-xl text-red-900 uppercase tracking-widest"
   }, t('mix_protocol_gold'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-lg text-red-800/80 leading-relaxed mb-8"
+    className: "mix-mb font-bold text-lg text-red-800/80 leading-relaxed mb-8"
   }, t('mix_protocol_gold_desc')), /*#__PURE__*/React.createElement("div", {
     className: "flex flex-col gap-4"
   }, /*#__PURE__*/React.createElement("div", {
@@ -4166,9 +4166,9 @@ const MixRulesPanel = ({ lang }) => {
   }, /*#__PURE__*/React.createElement(AlertTriangle, {
     size: 32
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
-    className: "font-black text-2xl text-stone-900 mb-2"
+    className: "mix-title font-black text-2xl text-stone-900 mb-2"
   }, t(rule.a), " + ", t(rule.b)), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-stone-500 text-xl"
+    className: "mix-text font-bold text-stone-500 text-xl"
   }, t(rule.reason)))))), /*#__PURE__*/React.createElement("div", {
     className: "mix-section relative overflow-hidden rounded-[2.5rem] border-2 border-violet-100 bg-violet-50/50 p-6 md:p-10"
   }, /*#__PURE__*/React.createElement("div", {
@@ -4183,7 +4183,7 @@ const MixRulesPanel = ({ lang }) => {
   }, /*#__PURE__*/React.createElement(Scale, {
     size: 24
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-    className: "text-2xl font-black text-stone-900 uppercase tracking-widest"
+    className: "mix-title mix-track text-2xl font-black text-stone-900 uppercase tracking-widest"
   }, t('unit_title')), /*#__PURE__*/React.createElement("p", {
     className: "text-violet-600 font-bold opacity-80"
   }, t('unit_desc')))), /*#__PURE__*/React.createElement("div", {
@@ -4208,15 +4208,15 @@ const MixRulesPanel = ({ lang }) => {
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex items-center gap-3"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-violet-100 text-violet-700 px-4 py-2 rounded-xl text-2xl font-black min-w-[3.5rem] text-center"
+    className: "mix-title bg-violet-100 text-violet-700 px-4 py-2 rounded-xl text-2xl font-black min-w-[3.5rem] text-center"
   }, t(item.unit))), /*#__PURE__*/React.createElement("div", {
-    className: "grid md:grid-cols-2 gap-6"
+    className: "mix-stack grid md:grid-cols-2 gap-6"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
-    className: "text-xs font-black uppercase tracking-widest text-violet-400 block mb-2"
+    className: "mix-track text-xs font-black uppercase tracking-widest text-violet-400 block mb-2"
   }, t('unit_col_target')), /*#__PURE__*/React.createElement("p", {
-    className: "text-xl font-bold text-stone-700 leading-snug"
+    className: "mix-text text-xl font-bold text-stone-700 leading-snug"
   }, t(item.targets))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
-    className: "text-xs font-black uppercase tracking-widest text-violet-400 block mb-2"
+    className: "mix-track text-xs font-black uppercase tracking-widest text-violet-400 block mb-2"
   }, t('unit_col_reason')), /*#__PURE__*/React.createElement("p", {
     className: "text-lg font-bold text-stone-500 leading-relaxed"
   }, t(item.reason))))))))), /*#__PURE__*/React.createElement("div", {
@@ -4233,105 +4233,105 @@ const MixRulesPanel = ({ lang }) => {
   }, /*#__PURE__*/React.createElement(Atom, {
     size: 24
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-    className: "text-2xl font-black text-stone-900 uppercase tracking-widest"
+    className: "mix-title mix-track text-2xl font-black text-stone-900 uppercase tracking-widest"
   }, t('chel_title')), /*#__PURE__*/React.createElement("p", {
     className: "text-indigo-600 font-bold opacity-80"
   }, t('chel_subtitle')))), /*#__PURE__*/React.createElement("div", {
-    className: "grid grid-cols-1 gap-6 relative z-10"
+    className: "mix-stack grid grid-cols-1 gap-6 relative z-10"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "space-y-6"
+    className: "mix-space space-y-6"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "text-base font-black uppercase tracking-[0.2em] text-indigo-400 block ml-2 mb-2"
+    className: "mix-track text-base font-black uppercase tracking-[0.2em] text-indigo-400 block ml-2 mb-2"
   }, t('chel_lbl_synthetic')), /*#__PURE__*/React.createElement("div", {
     className: "mix-card bg-white p-6 md:p-8 rounded-[2rem] border-2 border-indigo-100 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-stone-900"
+    className: "mix-title font-black text-2xl text-stone-900"
   }, t('chel_edta')), /*#__PURE__*/React.createElement("span", {
     className: "text-sm font-black bg-stone-100 px-4 py-2 rounded-xl text-stone-500 border border-stone-200 whitespace-nowrap"
   }, t('chel_badge_ph_low'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-500 leading-relaxed"
+    className: "mix-text font-bold text-xl text-stone-500 leading-relaxed"
   }, t('chel_edta_desc'))), /*#__PURE__*/React.createElement("div", {
     className: "mix-card bg-white p-6 md:p-8 rounded-[2rem] border-2 border-indigo-100 shadow-md transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-indigo-800"
+    className: "mix-title font-black text-2xl text-indigo-800"
   }, t('chel_deta')), /*#__PURE__*/React.createElement("span", {
     className: "text-sm font-black bg-indigo-50 px-4 py-2 rounded-xl text-indigo-500 border border-indigo-100 whitespace-nowrap"
   }, t('chel_badge_ph_med'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-600 leading-relaxed"
+    className: "mix-text font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_deta_desc'))), /*#__PURE__*/React.createElement("div", {
     className: "mix-card bg-white p-6 md:p-8 rounded-[2rem] border-2 border-amber-100 shadow-md transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-amber-600"
+    className: "mix-title font-black text-2xl text-amber-600"
   }, t('chel_dtpa')), /*#__PURE__*/React.createElement("span", {
     className: "text-sm font-black bg-amber-50 px-4 py-2 rounded-xl text-amber-600 border border-amber-100 whitespace-nowrap"
   }, t('chel_badge_ph_med'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-600 leading-relaxed"
+    className: "mix-text font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_dtpa_desc'))), /*#__PURE__*/React.createElement("div", {
     className: "mix-card bg-white p-6 md:p-8 rounded-[2rem] border-2 border-indigo-200 shadow-md transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-indigo-900"
+    className: "mix-title font-black text-2xl text-indigo-900"
   }, t('chel_eddha')), /*#__PURE__*/React.createElement("span", {
     className: "text-sm font-black bg-indigo-100 px-4 py-2 rounded-xl text-indigo-600 border border-indigo-200 whitespace-nowrap"
   }, t('chel_badge_ph_wide'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-600 leading-relaxed"
+    className: "mix-text font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_eddha_desc')))), /*#__PURE__*/React.createElement("div", {
-    className: "space-y-6 mt-4"
+    className: "mix-space space-y-6 mt-4"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "text-base font-black uppercase tracking-[0.2em] text-emerald-600 block ml-2 mb-2"
+    className: "mix-track text-base font-black uppercase tracking-[0.2em] text-emerald-600 block ml-2 mb-2"
   }, t('chel_lbl_organic')), /*#__PURE__*/React.createElement("div", {
     className: "mix-card bg-emerald-50 p-6 md:p-8 rounded-[2rem] border-2 border-emerald-100 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-emerald-900"
+    className: "mix-title font-black text-2xl text-emerald-900"
   }, t('chel_amino')), /*#__PURE__*/React.createElement("span", {
     className: "text-sm font-black bg-emerald-200/50 px-4 py-2 rounded-xl text-emerald-800 border border-emerald-200/50 whitespace-nowrap"
   }, t('chel_badge_fast'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-600 leading-relaxed"
+    className: "mix-text font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_amino_desc'))), /*#__PURE__*/React.createElement("div", {
     className: "mix-card bg-sky-50 p-6 md:p-8 rounded-[2rem] border-2 border-sky-100 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-center mb-4"
   }, /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-sky-900"
+    className: "mix-title font-black text-2xl text-sky-900"
   }, t('chel_polyol')), /*#__PURE__*/React.createElement("span", {
     className: "text-sm font-black bg-sky-200/50 px-4 py-2 rounded-xl text-sky-800 border border-sky-200/50 whitespace-nowrap"
   }, t('chel_badge_fast'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-600 leading-relaxed"
+    className: "mix-text font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_polyol_desc'))), /*#__PURE__*/React.createElement("div", {
     className: "mix-card bg-amber-50 p-6 md:p-8 rounded-[2rem] border-2 border-amber-100 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-amber-900"
+    className: "mix-title font-black text-2xl text-amber-900"
   }, t('chel_fulvic')), /*#__PURE__*/React.createElement("span", {
     className: "text-sm font-black bg-amber-200/50 px-4 py-2 rounded-xl text-amber-800 border border-amber-200/50 whitespace-nowrap"
   }, t('chel_badge_univ'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-600 leading-relaxed"
+    className: "mix-text font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_fulvic_desc'))), /*#__PURE__*/React.createElement("div", {
     className: "mix-card bg-stone-50 p-6 md:p-8 rounded-[2rem] border-2 border-stone-200 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start md:items-center mb-4 flex-col md:flex-row gap-2"
   }, /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-stone-800"
+    className: "mix-title font-black text-2xl text-stone-800"
   }, t('chel_ligno')), /*#__PURE__*/React.createElement("span", {
     className: "text-sm font-black bg-stone-200/50 px-4 py-2 rounded-xl text-stone-600 border border-stone-300/50 whitespace-nowrap"
   }, t('chel_badge_univ'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-600 leading-relaxed"
+    className: "mix-text font-bold text-xl text-stone-600 leading-relaxed"
   }, t('chel_ligno_desc'))), /*#__PURE__*/React.createElement("div", {
     className: "mix-card bg-stone-100/50 p-6 md:p-8 rounded-[2rem] border-2 border-stone-200 shadow-sm transition-transform hover:scale-[1.01]"
   }, /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-stone-700 mb-3"
+    className: "mix-title font-black text-2xl text-stone-700 mb-3"
   }, t('chel_wood_vinegar')), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-500"
+    className: "mix-text font-bold text-xl text-stone-500"
   }, t('chel_wood_vinegar_desc')))))), /*#__PURE__*/React.createElement("div", {
     className: "mix-section relative overflow-hidden rounded-[2.5rem] border-2 border-sky-100 bg-sky-50/50 p-6 md:p-10"
   }, /*#__PURE__*/React.createElement("div", {
@@ -4346,11 +4346,11 @@ const MixRulesPanel = ({ lang }) => {
   }, /*#__PURE__*/React.createElement(Droplets, {
     size: 24
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-    className: "text-2xl font-black text-stone-900 uppercase tracking-widest"
+    className: "mix-title mix-track text-2xl font-black text-stone-900 uppercase tracking-widest"
   }, t('adj_title')), /*#__PURE__*/React.createElement("p", {
     className: "text-sky-600 font-bold opacity-80"
   }, t('adj_subtitle')))), /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col gap-6 relative z-10"
+    className: "mix-stack flex flex-col gap-6 relative z-10"
   }, /*#__PURE__*/React.createElement("div", {
     className: "mix-card bg-white p-6 md:p-8 rounded-[2rem] border-2 border-sky-100 shadow-sm transition-transform hover:scale-[1.01] flex flex-col justify-between"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
@@ -4359,9 +4359,9 @@ const MixRulesPanel = ({ lang }) => {
     className: "text-emerald-500",
     size: 28
   }), /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-stone-900"
+    className: "mix-title font-black text-2xl text-stone-900"
   }, t('adj_nis_title'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-500 leading-relaxed"
+    className: "mix-text font-bold text-xl text-stone-500 leading-relaxed"
   }, t('adj_nis_desc')))), /*#__PURE__*/React.createElement("div", {
     className: "mix-card bg-sky-50 p-6 md:p-8 rounded-[2rem] border-2 border-sky-200 shadow-sm transition-transform hover:scale-[1.01] flex flex-col justify-between"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
@@ -4370,9 +4370,9 @@ const MixRulesPanel = ({ lang }) => {
     className: "text-sky-600",
     size: 28
   }), /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-stone-900"
+    className: "mix-title font-black text-2xl text-stone-900"
   }, t('adj_si_title'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-600 leading-relaxed"
+    className: "mix-text font-bold text-xl text-stone-600 leading-relaxed"
   }, t('adj_si_desc'))))), /*#__PURE__*/React.createElement("div", {
     className: "mix-card mt-6 bg-orange-50 p-6 md:p-8 rounded-[2rem] border-2 border-orange-200 shadow-sm transition-transform hover:scale-[1.01] relative z-10"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
@@ -4381,11 +4381,11 @@ const MixRulesPanel = ({ lang }) => {
     className: "text-orange-600",
     size: 28
   }), /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-orange-900"
+    className: "mix-title font-black text-2xl text-orange-900"
   }, t('adj_orange_title'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-600 leading-relaxed mb-4"
+    className: "mix-text font-bold text-xl text-stone-600 leading-relaxed mb-4"
   }, t('adj_orange_desc')), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-orange-800 p-4 bg-orange-100/50 rounded-xl border border-orange-200/50 mb-6 leading-relaxed"
+    className: "mix-text font-bold text-xl text-orange-800 p-4 bg-orange-100/50 rounded-xl border border-orange-200/50 mb-6 leading-relaxed"
   }, t('adj_orange_warn')), /*#__PURE__*/React.createElement("div", {
     className: "bg-yellow-50 rounded-xl p-5 border-l-8 border-yellow-400 shadow-sm"
   }, /*#__PURE__*/React.createElement("div", {
@@ -4394,9 +4394,9 @@ const MixRulesPanel = ({ lang }) => {
     className: "text-yellow-600",
     size: 28
   }), /*#__PURE__*/React.createElement("h5", {
-    className: "font-black text-2xl text-yellow-900 uppercase tracking-wide"
+    className: "mix-title font-black text-2xl text-yellow-900 uppercase tracking-wide"
   }, t('adj_bee_title'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-yellow-800 leading-relaxed whitespace-pre-line"
+    className: "mix-text font-bold text-xl text-yellow-800 leading-relaxed whitespace-pre-line"
   }, t('adj_bee_desc'))))), /*#__PURE__*/React.createElement("div", {
     className: "mix-card mt-6 bg-stone-900/5 p-6 md:p-8 rounded-[2rem] border-2 border-stone-200 shadow-sm transition-transform hover:scale-[1.01] relative z-10"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
@@ -4406,9 +4406,9 @@ const MixRulesPanel = ({ lang }) => {
   }, /*#__PURE__*/React.createElement(Skull, {
     size: 24
   })), /*#__PURE__*/React.createElement("h4", {
-    className: "font-black text-2xl text-stone-900"
+    className: "mix-title font-black text-2xl text-stone-900"
   }, t('adj_diy_title'))), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-xl text-stone-600 leading-relaxed",
+    className: "mix-text font-bold text-xl text-stone-600 leading-relaxed",
     dangerouslySetInnerHTML: {
       __html: t('adj_diy_desc')
     }
@@ -4809,6 +4809,91 @@ const SoilControlPanel = ({
   }, t(opt.label))))));
 };
 // ==========================================
+// SHEET (shared modal shell)
+// ==========================================
+// Used by the language picker and the share sheet. Locks page scrolling while
+// open, keeps keyboard focus inside the card (and returns it on close), and
+// closes on Escape / backdrop tap when an onClose is given.
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+const Sheet = ({
+  onClose,
+  labelledBy,
+  background,
+  cardClassName,
+  children
+}) => {
+  const cardRef = useRef(null);
+  // Read through a ref so a new onClose each render doesn't re-run effects.
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+  useEffect(() => {
+    // Scroll lock: pin the body in place (overflow:hidden alone doesn't stop
+    // touch scrolling in iOS Safari), then restore the position on close.
+    const body = document.body;
+    const scrollY = window.scrollY;
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right
+    };
+    Object.assign(body.style, {
+      position: 'fixed',
+      top: `-${scrollY}px`,
+      left: '0',
+      right: '0'
+    });
+    const returnFocus = document.activeElement;
+    const card = cardRef.current;
+    const start = card && (card.querySelector('[data-autofocus]') || card.querySelector(FOCUSABLE));
+    if (start) start.focus();
+    const onKey = e => {
+      if (e.key === 'Escape' && onCloseRef.current) {
+        onCloseRef.current();
+        return;
+      }
+      if (e.key !== 'Tab' || !card) return;
+      const items = Array.from(card.querySelectorAll(FOCUSABLE));
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && (document.activeElement === first || !card.contains(document.activeElement))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (document.activeElement === last || !card.contains(document.activeElement))) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      Object.assign(body.style, prev);
+      window.scrollTo(0, scrollY);
+      if (returnFocus && returnFocus.focus && document.contains(returnFocus)) returnFocus.focus();
+    };
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    role: "dialog",
+    "aria-modal": "true",
+    "aria-labelledby": labelledBy,
+    className: "sheet-overlay",
+    style: {
+      background
+    },
+    onClick: e => {
+      if (onCloseRef.current && e.target === e.currentTarget) onCloseRef.current();
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: cardRef,
+    className: `sheet-card bg-white w-full rounded-2xl ${cardClassName || ''}`,
+    style: {
+      maxWidth: '22rem'
+    }
+  }, children));
+};
+
+// ==========================================
 // LANGUAGE ONBOARDING / PICKER
 // ==========================================
 // Full-screen on first launch (onboarding), modal sheet when opened from the
@@ -4826,30 +4911,11 @@ const LanguagePicker = ({
 }) => {
   const [choice, setChoice] = useState(initial);
   const copy = ONBOARDING_COPY[choice];
-  useEffect(() => {
-    if (!onClose) return;
-    const onKey = e => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
-  return /*#__PURE__*/React.createElement("div", {
-    role: "dialog",
-    "aria-modal": "true",
-    "aria-labelledby": "lang-picker-title",
-    className: "sheet-overlay",
-    style: {
-      background: isOnboarding ? '#FDFCFB' : 'rgba(28, 25, 23, 0.6)'
-    },
-    onClick: e => {
-      if (onClose && e.target === e.currentTarget) onClose();
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: `sheet-card bg-white w-full rounded-2xl p-6 ${isOnboarding ? '' : 'shadow-2xl'}`,
-    style: {
-      maxWidth: '22rem'
-    }
+  return /*#__PURE__*/React.createElement(Sheet, {
+    onClose: onClose,
+    labelledBy: "lang-picker-title",
+    background: isOnboarding ? '#FDFCFB' : 'rgba(28, 25, 23, 0.6)',
+    cardClassName: `p-6 ${isOnboarding ? '' : 'shadow-2xl'}`
   }, /*#__PURE__*/React.createElement("h2", {
     id: "lang-picker-title",
     className: "text-2xl font-black text-stone-900 text-center mb-6"
@@ -4863,6 +4929,7 @@ const LanguagePicker = ({
       key: opt.id,
       role: "radio",
       "aria-checked": active,
+      "data-autofocus": active ? '' : undefined,
       lang: HTML_LANG[opt.id],
       onClick: () => setChoice(opt.id),
       className: `w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 text-lg font-bold transition-all ${active ? 'border-stone-900 text-stone-900' : 'border-stone-200 text-stone-500 hover:bg-stone-50'}`
@@ -4873,7 +4940,7 @@ const LanguagePicker = ({
   })), /*#__PURE__*/React.createElement("button", {
     onClick: () => onConfirm(choice),
     className: "w-full mt-6 bg-stone-900 text-white font-bold text-lg py-4 rounded-xl transition-all active:scale-95"
-  }, copy.cta)));
+  }, copy.cta));
 };
 
 // ==========================================
@@ -4941,20 +5008,31 @@ async function copyText(text) {
       return true;
     }
   } catch (e) {}
-  // Fallback for older WebViews / non-secure contexts.
+  // Fallback for older WebViews / non-secure contexts. iOS Safari won't
+  // select text in a readonly field via select(), so use an editable one with
+  // setSelectionRange (16px font avoids the iOS zoom-on-focus).
+  const returnFocus = document.activeElement;
   try {
     const ta = document.createElement('textarea');
     ta.value = text;
-    ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
+    Object.assign(ta.style, {
+      position: 'fixed',
+      top: '0',
+      left: '0',
+      opacity: '0',
+      fontSize: '16px'
+    });
     document.body.appendChild(ta);
+    ta.focus({ preventScroll: true });
     ta.select();
+    ta.setSelectionRange(0, text.length);
     const ok = document.execCommand('copy');
     document.body.removeChild(ta);
     return ok;
   } catch (e) {
     return false;
+  } finally {
+    if (returnFocus && returnFocus.focus) returnFocus.focus({ preventScroll: true });
   }
 }
 
@@ -4977,36 +5055,20 @@ const ShareSheet = ({
   const message = `${t('share_message')}\n${url}`;
   const [copyState, setCopyState] = useState(null); // null | 'ok' | 'fail'
   useEffect(() => {
-    const onKey = e => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
-  useEffect(() => {
-    if (!copyState) return;
+    // "Copied!" reverts after a moment; a failure stays until the next try so
+    // there is time to read the long-press hint.
+    if (copyState !== 'ok') return;
     const id = setTimeout(() => setCopyState(null), 2200);
     return () => clearTimeout(id);
   }, [copyState]);
   const handleCopy = async () => {
     setCopyState((await copyText(url)) ? 'ok' : 'fail');
   };
-  return /*#__PURE__*/React.createElement("div", {
-    role: "dialog",
-    "aria-modal": "true",
-    "aria-labelledby": "share-title",
-    className: "sheet-overlay",
-    style: {
-      background: 'rgba(28, 25, 23, 0.6)'
-    },
-    onClick: e => {
-      if (e.target === e.currentTarget) onClose();
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "sheet-card bg-white w-full rounded-2xl shadow-2xl p-5",
-    style: {
-      maxWidth: '22rem'
-    }
+  return /*#__PURE__*/React.createElement(Sheet, {
+    onClose: onClose,
+    labelledBy: "share-title",
+    background: 'rgba(28, 25, 23, 0.6)',
+    cardClassName: "shadow-2xl p-5"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex items-center justify-between gap-3 mb-4"
   }, /*#__PURE__*/React.createElement("h2", {
@@ -5054,7 +5116,7 @@ const ShareSheet = ({
   }), copyState === 'ok' ? t('share_copied') : t('share_copy')), copyState === 'fail' && /*#__PURE__*/React.createElement("p", {
     role: "alert",
     className: "text-sm text-red-600 text-center"
-  }, t('share_copy_failed')))));
+  }, t('share_copy_failed'))));
 };
 const App = () => {
   // Active UI language. CURRENT_LANG (module-level) is the source of truth for
