@@ -418,7 +418,7 @@ const TRANSLATIONS = {
     unit_percent_targets: "氮, 钾, 镁 (大量元素)",
     unit_percent_reason: "需求量大（占植物组织的 1-5%）。毒性/抑制作用均以百分比来衡量。",
     unit_ppm_targets: "锌, 铜, 硼, 钼 (微量元素)",
-    unit_ppm_reason: "痕量需求。即便极微小的绝对量增加 (mg/kg) 也可能直接导致致命的中毒。",
+    unit_ppm_reason: "需求量极微。绝对含量 (mg/kg) 哪怕只是略微增加，也可能造成毒害。",
     unit_row_ratio: "比例",
     unit_row_percent: "百分比(%)",
     unit_row_ppm: "ppm",
